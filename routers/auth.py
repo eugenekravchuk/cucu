@@ -1,4 +1,4 @@
-from fastapi import APIRouter, status, Depends, HTTPException, UploadFile, File
+from fastapi import APIRouter, status, Depends, HTTPException, UploadFile, File, Form
 from pydantic import BaseModel, EmailStr, parse_obj_as
 from models import Users
 from passlib.context import CryptContext
@@ -9,7 +9,7 @@ from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt, JWTError
 from datetime import timedelta, datetime
 from images import s3_upload_image
-import json
+
 
 
 router = APIRouter(
@@ -77,10 +77,8 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
 
 
 @router.post('/registration', status_code=status.HTTP_201_CREATED)
-async def create_user(db: db_dependecy,  user: str, avatar: UploadFile = File()):
-    print(user)
+async def create_user(db: db_dependecy,  user: CreateUserRequest):
     try:
-        user = parse_obj_as(CreateUserRequest, json.loads(user))
         create_user_model = Users(
             email=user.email,
             username=user.username,
@@ -89,7 +87,6 @@ async def create_user(db: db_dependecy,  user: str, avatar: UploadFile = File())
             role='user',
             hashed_password=bcrypt_context.hash(user.password),
             is_active=True,
-            avatar=await s3_upload_image(avatar)
         )
         db.add(create_user_model)
         db.commit()
@@ -108,7 +105,7 @@ def login(form_data:Annotated[OAuth2PasswordRequestForm, Depends()], db: db_depe
 
 
 user_dependency = Annotated[dict, Depends(get_current_user)]
-@router.post('{user}/upload_avatar', status_code=200)
+@router.post('/{user}/upload_avatar', status_code=200)
 async def upload_avatar(user: user_dependency,
                   ava: UploadFile,
                   db: db_dependecy):

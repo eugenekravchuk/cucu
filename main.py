@@ -2,7 +2,7 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from images import s3, s3_upload_image
 from database import engine
-from routers import auth, posts
+from routers import auth, posts, profile
 import models
 
 models.Base.metadata.create_all(bind = engine)
@@ -10,6 +10,7 @@ models.Base.metadata.create_all(bind = engine)
 app = FastAPI()
 app.include_router(auth.router)
 app.include_router(posts.router)
+app.include_router(profile.router)
 
 app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_credentials=True, allow_methods=['*'], allow_headers=['*'])
 
