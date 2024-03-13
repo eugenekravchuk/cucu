@@ -1,11 +1,14 @@
 import datetime
 
-from sqlalchemy import Integer, String, Boolean, Column, URL, Text, ForeignKey, DateTime
+from sqlalchemy import Integer, String, Boolean, Column, URL, Text, ForeignKey, DateTime, Table
 from sqlalchemy.orm import relationship
 from database import Base
 
-
-
+#
+# Follower = Table('Following', Base.metadata,
+#     Column('user_id', ForeignKey('Users.id'), primary_key=True),
+#     Column('follower_id', ForeignKey('Users.id'), primary_key=True)
+# )
 class Users(Base):
     __tablename__ = 'Users'
 
@@ -20,6 +23,8 @@ class Users(Base):
     avatar = Column(String, nullable=True, default=None)
 
     posts = relationship('Post')
+    # followers = relationship('Followers', secondary='Following', back_populates='following')
+    # following = relationship('Followers', secondary='Following', back_populates='followers')
 
 
 class Post(Base):
@@ -60,4 +65,6 @@ class PostLikes(Base):
 
     post_id = Column(Integer, ForeignKey('posts.id'), primary_key=True)
     user_id = Column(Integer, ForeignKey('Users.id'), primary_key=True)
+
+
 

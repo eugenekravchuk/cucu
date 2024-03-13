@@ -79,6 +79,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
 @router.post('/registration', status_code=status.HTTP_201_CREATED)
 async def create_user(db: db_dependecy,  user: CreateUserRequest):
     try:
+        print(user)
         create_user_model = Users(
             email=user.email,
             username=user.username,
@@ -87,7 +88,9 @@ async def create_user(db: db_dependecy,  user: CreateUserRequest):
             role='user',
             hashed_password=bcrypt_context.hash(user.password),
             is_active=True,
+            avatar = ''
         )
+        print(create_user_model)
         db.add(create_user_model)
         db.commit()
         return login(user, db)

@@ -56,10 +56,8 @@ class CommentReturn(BaseModel):
 	author:UserReturn
 	post_id:int
 
-
 	class Config:
 		orm_mode = True
-
 
 class CommentCreate(BaseModel):
 	text:str
@@ -98,11 +96,10 @@ async def create_post(db:db_dependecy, user:user_dependency, data : str = Form(.
 async def get_user_posts(db: db_dependecy, user:user_dependency, post_id: int = Path(gt=0)):
 	if not user:
 		raise HTTPException(status_code=401, detail='Authentication failed')
-	post = db.query(Post).filter(Post.id == post_id).filter(Post.user_id == user.get('id')).first()
+	post = db.query(Post).filter(Post.id == post_id).first()
 	if not post:
 		raise HTTPException(status_code=404, detail='Post not found')
 	return post
-
 
 @router.post('/post/{post_id}/like', status_code=201)
 async def like_post(user:user_dependency, db: db_dependecy, post_id: int = Path()):

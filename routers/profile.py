@@ -1,7 +1,7 @@
 from typing import Annotated
 
 from pydantic import BaseModel, EmailStr, field_validator
-from fastapi import APIRouter, Depends, Path
+from fastapi import APIRouter, Depends, Path, HTTPException
 from sqlalchemy.orm import Session
 
 from database import Sessionlocal
@@ -40,9 +40,6 @@ class PostReturn(BaseModel):
 	def like_qunatity(cls, value):
 		return len(value)
 
-
-
-
 class ProfileWithPosts(BaseModel):
 	username:str
 	email:EmailStr
@@ -62,3 +59,13 @@ class ProfileWithPosts(BaseModel):
 def get_user_posts(db:db_dependecy, user_name:str = Path()):
 	user = db.query(Users).filter(Users.username == user_name).first()
 	return user
+
+# @router.post('/{username}/follow', status_code=200)
+# async def follow(db:db_dependecy, user:user_dependency, username = Path()):
+# 	if not user:
+# 		raise HTTPException(status_code=401, detail='Authentication failed')
+# 	us = db.query(Users).filter(Users.username == username).first()
+# 	follow = Following(user_id = us.id, follower_id = user.get('id'))
+# 	db.add(follow)
+# 	db.commit()
+
