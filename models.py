@@ -1,14 +1,15 @@
-import datetime
-
-from sqlalchemy import Integer, String, Boolean, Column, URL, Text, ForeignKey, DateTime, Table
+from sqlalchemy import Integer, String, Boolean, Column, Text, ForeignKey, DateTime, Table
 from sqlalchemy.orm import relationship
 from database import Base
 
-#
-# Follower = Table('Following', Base.metadata,
-#     Column('user_id', ForeignKey('Users.id'), primary_key=True),
-#     Column('follower_id', ForeignKey('Users.id'), primary_key=True)
-# )
+Followers = Table(
+    'Followers',
+    Base.metadata,
+    Column('user_id', ForeignKey('Users.id'), primary_key=True),
+    Column('follower_id', ForeignKey('Users.id'), primary_key=True)
+)
+
+
 class Users(Base):
     __tablename__ = 'Users'
 
@@ -23,8 +24,9 @@ class Users(Base):
     avatar = Column(String, nullable=True, default=None)
 
     posts = relationship('Post')
-    # followers = relationship('Followers', secondary='Following', back_populates='following')
-    # following = relationship('Followers', secondary='Following', back_populates='followers')
+
+    followers = relationship("Users", secondary=Followers, primaryjoin = id == Followers.c.user_id, secondaryjoin= id == Followers.c.follower_id)
+    following = relationship("Users", secondary=Followers, primaryjoin = id == Followers.c.follower_id, secondaryjoin= id == Followers.c.user_id)
 
 
 class Post(Base):
@@ -39,6 +41,8 @@ class Post(Base):
     author = relationship('Users', overlaps="posts")
     likes = relationship('PostLikes')
     comments = relationship('Comment', back_populates='post')
+    is_liked = None
+
 
 class Comment(Base):
     __tablename__ = 'comments'
@@ -65,6 +69,36 @@ class PostLikes(Base):
 
     post_id = Column(Integer, ForeignKey('posts.id'), primary_key=True)
     user_id = Column(Integer, ForeignKey('Users.id'), primary_key=True)
+
+#
+# class Category(Base):
+#     __tablename__ = 'Categories'
+#
+#     id = Column(Integer, index=True, primary_key=True)
+#     name = Column(String)
+#
+#     events = relationship('Event')
+
+# class Event(Base):
+#     __tablename__ = 'Events'
+#
+#     id = Column(Integer, index=True, primary_key=True)
+#     text = Column(String, nullable=False)
+#     photo = Column(String, nullable=False)
+#     time_creation = Column(DateTime)
+#     category_id = Column(Integer, ForeignKey('Categories.id'), nullable=False)
+#
+#
+#
+# class Category_subscribers(Base):
+#     user_id = Column(Integer, ForeignKey('Users.id'), primary_key=True)
+#     category_id = Column(Integer, ForeignKey('Categories.id'), primary_key=True)
+
+
+
+
+
+
 
 
 

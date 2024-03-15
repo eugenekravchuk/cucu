@@ -12,8 +12,17 @@ app.include_router(auth.router)
 app.include_router(posts.router)
 app.include_router(profile.router)
 
-app.add_middleware(CORSMiddleware, allow_origins=['*'], allow_credentials=True, allow_methods=['*'], allow_headers=['*'])
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=['*'],
+    allow_credentials=True,
+    allow_methods=['*'],
+    allow_headers=['*']
+)
 
+@app.get('/', status_code=200)
+def health_checker():
+    return
 
 @app.post('/upload_image')
 async def upload_image(file: UploadFile = File(...)):

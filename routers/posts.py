@@ -44,6 +44,7 @@ class PostReturn(BaseModel):
 	author: UserReturn
 	likes:list
 	comments: list[CommentForPostModel]
+	is_liked: bool = False
 	@field_validator('likes')
 	def like_qunatity(cls, value):
 		return len(value)
@@ -99,7 +100,10 @@ async def get_user_posts(db: db_dependecy, user:user_dependency, post_id: int = 
 	post = db.query(Post).filter(Post.id == post_id).first()
 	if not post:
 		raise HTTPException(status_code=404, detail='Post not found')
+	is_liked =  True if db.query(PostLikes).filter(PostLikes.post_id == post.id, PostLikes.user_id == user.get('id')).first() else False
+	post.is_liked = is_liked
 	return post
+
 
 @router.post('/post/{post_id}/like', status_code=201)
 async def like_post(user:user_dependency, db: db_dependecy, post_id: int = Path()):

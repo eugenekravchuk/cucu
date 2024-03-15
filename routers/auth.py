@@ -108,13 +108,14 @@ def login(form_data:Annotated[OAuth2PasswordRequestForm, Depends()], db: db_depe
 
 
 user_dependency = Annotated[dict, Depends(get_current_user)]
-@router.post('/{user}/upload_avatar', status_code=200)
+@router.post(''
+             '/upload_avatar', status_code=200)
 async def upload_avatar(user: user_dependency,
-                  ava: UploadFile,
-                  db: db_dependecy):
+                  db: db_dependecy,
+                  ava: UploadFile = File(...)):
     if user:
         user = db.query(Users).filter(Users.id == user.get('id')).first()
         if user:
             user.avatar = await s3_upload_image(ava)
+            db.add(user)
             db.commit()
-            db.close()
