@@ -87,7 +87,7 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
           onClick={(e) => handleLikePost(e)}
           className="cursor-pointer"
         />
-        <p className="small-medium lg:base-medium text-dark-1">{likes.length}</p>
+        <p className="small-medium lg:base-medium text-dark-1">{likes.length} people liked this post</p>
       </div>
 
       {/* <div className="flex gap-2">
