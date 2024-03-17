@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
-
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,7 +11,7 @@
   }
 
   body {
-    @apply bg-dark-1 text-white min-h-screen font-inter;
+    @apply bg-light-2 text-black min-h-screen font-inter;
   }
 }
 
@@ -243,6 +244,25 @@
   /* User card */
   .user-card {
     @apply flex-start flex-row gap-4 border border-light-3 rounded-[20px] px-5 py-5 bg-light-2;
+  }
+  .sidebarChannal {
+    height: 60px;
+    width: 95%;
+    background-color: #eff0f6 ;
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    cursor: pointer;
+    border-radius: 15px;
+  }
+  .sidebarChannalImg {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 10px;
+    margin-right: 10px;
+
   }
 }
 

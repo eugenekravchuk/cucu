@@ -101,6 +101,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
           )}
         />
 
+        { post && action === "Update" ? <></> :
         <FormField
           control={form.control}
           name="file"
@@ -117,6 +118,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
             </FormItem>
           )}
         />
+        }
 
         <FormField
           control={form.control}

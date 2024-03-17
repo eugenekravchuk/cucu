@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+import "./topbar.css";
 import { Button } from "../ui/button";
 import { useUserContext } from "@/context/AuthContext";
 import { useSignOutAccount } from "@/lib/react-query/queries";
@@ -18,8 +18,7 @@ const Topbar = () => {
   }, [isSuccess]);
 
   return (
-    <section className="topbar">
-      <div className="flex-between py-4 px-5">
+    <section className='topbarContainer'>
         <Link to="/" className="flex gap-3 items-center">
           <img
             src="/assets/images/logo.png"
@@ -67,26 +66,22 @@ const Topbar = () => {
         {/*  </div>*/}
         {/*</div>*/}
 
-        <div className="flex gap-4">
-          <Link to={'/create-post'} className="flex-center gap-3">
+        <div className="topbarRight">
+          <Link to={'/create-post'} className="">
             <img
               src="/assets/icons/add-post.svg"
               alt="add-post"
             />
           </Link>
-          <Link to={'/create-incognito-post'} className="flex-center gap-3">
+          <Link to={'/create-incognito-post'} className="topbarIconItem">
             <img
               src="/assets/icons/add-post.svg"
               alt="add-post"
             />
           </Link>
-          <Link to={'/calendar'} className="flex-center gap-3">
+          <Link to={'/calendar'} className="topbarIconItem">
             <img src="/assets/icons/calendar.svg" alt="calendar" />
           </Link>
-
-        </div>
-
-        <div className="flex gap-4">
           <Button
             variant="ghost"
             className="shad-button_ghost"
@@ -101,7 +96,22 @@ const Topbar = () => {
             />
           </Link>
         </div>
-      </div>
+
+        {/* <div className="flex gap-4">
+          <Button
+            variant="ghost"
+            className="shad-button_ghost"
+            onClick={() => signOut()}>
+            <img src="/assets/icons/logout.svg" alt="logout" />
+          </Button>
+          <Link to={`/profile/${user.id}`} className="flex-center gap-3">
+            <img
+              src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
+              alt="profile"
+              className="h-8 w-8 rounded-full"
+            />
+          </Link>
+        </div> */}
     </section>
   );
 };

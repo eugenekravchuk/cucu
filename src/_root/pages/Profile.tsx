@@ -6,7 +6,7 @@ import {
   useParams,
   useLocation,
 } from "react-router-dom";
-
+import "./personal.css";
 import { Button } from "@/components/ui";
 import { LikedPosts } from "@/_root/pages";
 import { useUserContext } from "@/context/AuthContext";
@@ -41,7 +41,50 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
-      <div className="profile-inner_container">
+      <div className="profileTop">
+            <div className="profileInfo">
+                <div className="profileinfoLeft">
+                  <img
+                    src={
+                      currentUser.imageUrl || "/assets/icons/profile-placeholder.svg"
+                    }
+                    alt="profile"
+                    className="profileUserImg"
+                  />                
+                </div>  
+                <div className="profileInfoRight">
+                    <h2 className="profileInfoName">{currentUser.name}</h2>
+                    <h4 className="profileInfoDesc">@{currentUser.username}</h4>
+                    <h6 className="profileInfoDesc">{currentUser.bio}</h6>
+                    <div className="flex justify-center gap-4">
+                    <div className={`${user.id !== currentUser.$id && "hidden"}`}>
+                      <Link
+                        to={`/update-profile/${currentUser.$id}`}
+                        className={`h-12 bg-light-1 px-5 text-dark-1 flex-center gap-2 rounded-lg ${
+                          user.id !== currentUser.$id && "hidden"
+                        }`}>
+                        <img
+                          src={"/assets/icons/edit.svg"}
+                          alt="edit"
+                          width={20}
+                          height={20}
+                        />
+                        <p className="flex whitespace-nowrap small-medium">
+                          Edit Profile
+                        </p>
+                      </Link>
+                    </div>
+                    <div className={`${user.id === id && "hidden"}`}>
+                      <Button type="button" className="shad-button_primary px-8">
+                        Follow
+                      </Button>
+                    </div>
+                  </div>
+                </div>  
+                
+            </div>
+        </div>
+      {/* <div className="profile-inner_container">
         <div className="flex xl:flex-row flex-col max-xl:items-center flex-1 gap-7">
           <img
             src={
@@ -96,7 +139,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {currentUser.$id === user.id && (
         <div className="flex max-w-5xl w-full">
