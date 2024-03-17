@@ -33,7 +33,7 @@ const PostDetails = () => {
   };
 
   return (
-    <div className="post_details-container">
+    <div className="post_details-container bg-light-2">
       <div className="hidden md:flex max-w-5xl w-full">
         <Button
           onClick={() => navigate(-1)}
@@ -45,7 +45,7 @@ const PostDetails = () => {
             width={24}
             height={24}
           />
-          <p className="small-medium lg:base-medium">Back</p>
+          <p className="small-medium lg:base-medium text-dark-1">Back</p>
         </Button>
       </div>
 
@@ -73,7 +73,7 @@ const PostDetails = () => {
                   className="w-8 h-8 lg:w-12 lg:h-12 rounded-full"
                 />
                 <div className="flex gap-1 flex-col">
-                  <p className="base-medium lg:body-bold text-light-1">
+                  <p className="base-medium lg:body-bold text-dark-1">
                     {post?.creator.name}
                   </p>
                   <div className="flex-center gap-2 text-light-3">
@@ -116,9 +116,9 @@ const PostDetails = () => {
               </div>
             </div>
 
-            <hr className="border w-full border-dark-4/80" />
+            <hr className="border w-full border-light-4/80" />
 
-            <div className="flex flex-col flex-1 w-full small-medium lg:base-regular">
+            <div className="flex flex-col flex-1 w-full small-medium lg:base-regular text-dark-1">
               <p>{post?.caption}</p>
               <ul className="flex gap-1 mt-2">
                 {post?.tags.map((tag: string, index: string) => (
@@ -139,9 +139,9 @@ const PostDetails = () => {
       )}
 
       <div className="w-full max-w-5xl">
-        <hr className="border w-full border-dark-4/80" />
+        <hr className="border w-full border-light-4/80" />
 
-        <h3 className="body-bold md:h3-bold w-full my-10">
+        <h3 className="body-bold md:h3-bold w-full my-10 text-dark-1">
           More Related Posts
         </h3>
         {isUserPostLoading || !relatedPosts ? (

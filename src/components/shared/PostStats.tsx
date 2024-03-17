@@ -23,7 +23,7 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
   const [isSaved, setIsSaved] = useState(false);
 
   const { mutate: likePost } = useLikePost();
-  const { mutate: savePost } = useSavePost();
+  // const { mutate: savePost } = useSavePost();
   const { mutate: deleteSavePost } = useDeleteSavedPost();
 
   const { data: currentUser } = useGetCurrentUser();
@@ -53,19 +53,19 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
     likePost({ postId: post.$id, likesArray });
   };
 
-  const handleSavePost = (
-    e: React.MouseEvent<HTMLImageElement, MouseEvent>
-  ) => {
-    e.stopPropagation();
+  // const handleSavePost = (
+  //   e: React.MouseEvent<HTMLImageElement, MouseEvent>
+  // ) => {
+  //   e.stopPropagation();
 
-    if (savedPostRecord) {
-      setIsSaved(false);
-      return deleteSavePost(savedPostRecord.$id);
-    }
+  //   if (savedPostRecord) {
+  //     setIsSaved(false);
+  //     return deleteSavePost(savedPostRecord.$id);
+  //   }
 
-    savePost({ userId: userId, postId: post.$id });
-    setIsSaved(true);
-  };
+  //   savePost({ userId: userId, postId: post.$id });
+  //   setIsSaved(true);
+  // };
 
   const containerStyles = location.pathname.startsWith("/profile")
     ? "w-full"
@@ -87,10 +87,10 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
           onClick={(e) => handleLikePost(e)}
           className="cursor-pointer"
         />
-        <p className="small-medium lg:base-medium">{likes.length}</p>
+        <p className="small-medium lg:base-medium text-dark-1">{likes.length}</p>
       </div>
 
-      <div className="flex gap-2">
+      {/* <div className="flex gap-2">
         <img
           src={isSaved ? "/assets/icons/saved.svg" : "/assets/icons/save.svg"}
           alt="share"
@@ -99,7 +99,7 @@ const PostStats = ({ post, userId }: PostStatsProps) => {
           className="cursor-pointer"
           onClick={(e) => handleSavePost(e)}
         />
-      </div>
+      </div> */}
     </div>
   );
 };
