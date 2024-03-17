@@ -34,7 +34,7 @@ const Topbar = () => {
         {/*         className="searchInput" color="#eff0f6"/>*/}
         {/*</div>*/}
         <div className="explore-inner_container">
-          <div className="flex gap-1 px-4 w-full rounded-lg bg-dark-4">
+          <div className="flex gap-1 px-4 w-full rounded-lg bg-light-2">
             <img
               src="/assets/icons/search.svg"
               width={24}
@@ -67,20 +67,20 @@ const Topbar = () => {
         {/*</div>*/}
 
         <div className="topbarRight">
-          <Link to={'/create-post'} className="">
+          <Link to={'/create-post'} className="topbarIconItem">
             <img
-              src="/assets/icons/add-post.svg"
+              src="/assets/icons/new_post.png"
               alt="add-post"
             />
           </Link>
           <Link to={'/create-incognito-post'} className="topbarIconItem">
             <img
-              src="/assets/icons/add-post.svg"
+              src="/assets/icons/anonym.png"
               alt="add-post"
             />
           </Link>
           <Link to={'/calendar'} className="topbarIconItem">
-            <img src="/assets/icons/calendar.svg" alt="calendar" />
+            <img src="/assets/icons/calendar.png" alt="calendar" />
           </Link>
           <Button
             variant="ghost"
