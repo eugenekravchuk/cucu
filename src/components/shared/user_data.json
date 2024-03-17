@@ -1,0 +1,77 @@
+[
+{
+  "username": "vitalii",
+  "email": "vitalii@gmail.com",
+  "first_name": "vitalii",
+  "last_name": "vitalii",
+  "avatar": "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/2024-03-09%20130cfa7d91cb5944f7a8a687a9203f77f4.webp",
+  "posts": [
+    {
+      "text": "hello world",
+      "photo": "/assets/so1.png",
+      "likes":"135",
+      "date":"date of posting",
+      "comments":[
+        {
+        "username":"vitalii",
+        "avatar":"image_url",
+        "text":"string",
+        "date":"date of commenting"
+        },
+        {
+        "username":"vitalii",
+        "avatar":"image_url",
+        "text":"string",
+        "date":"date of commenting"
+        },
+        {
+        "username":"vitalii",
+        "avatar":"image_url",
+        "text":"string",
+        "date":"date of commenting"
+        },
+        {
+        "username":"vitalii",
+        "avatar":"image_url",
+        "text":"string",
+        "date":"date of commenting"
+        },
+        {
+        "username":"vitalii",
+        "avatar":"image_url",
+        "text":"string",
+        "date":"date of commenting"
+        } 
+      ]
+    },
+    {
+      "text": "hello world",
+      "photo": "/assets/so1.png"
+    },
+    {
+      "text": "hello world",
+      "photo": "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/2024-03-09%2013227988476d244d1b9ea00f5006d9e4de.webp"
+    },
+    {
+      "text": "hello world",
+      "photo": "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/2024-03-09%2013ae82672ed7f44023aa1c46e910f75273.webp"
+    },
+    {
+      "text": "enfeesfs",
+      "photo": "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/2024-03-09%201392c82f7b20904bd8a1f4c8d3d2bad831.webp"
+    },
+    {
+      "text": "fnsd",
+      "photo": "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/photo_2024-03-11%2021328ce82ea55d4613af8be386f425ea94.webp"
+    },
+    {
+      "text": "sdfjsdfjs",
+      "photo": "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/2024-03-09%20134e7bbafd6b194ab79e54ce805d3f7094.webp"
+    },
+    {
+      "text": "",
+      "photo": "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/2024-03-09%2013f3058ecdcae74da6878e13b13b1fbbd9.webp"
+    }
+  ]
+}
+]

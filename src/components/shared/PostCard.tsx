@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { PostStats } from "@/components/shared";
 import { multiFormatDateString } from "@/lib/utils";
 import { useUserContext } from "@/context/AuthContext";
+import "./post.css";
 
 type PostCardProps = {
   post: Models.Document;
@@ -74,8 +75,19 @@ const PostCard = ({ post }: PostCardProps) => {
           className="post-card_img"
         />
       </Link>
-
-      <PostStats post={post} userId={user.id} />
+      
+      <div className="postBottom">
+              <div className="postBottomLeft">
+                <PostStats post={post} userId={user.id} />
+              </div>
+              <div className="postBottomRight">
+                <Link to="/comments"><span className="postCommentText"> comments</span></Link>
+              </div> 
+      </div>
+      
+      {/* <div className="postBottomRight"><Link to="/comments"><span className="postCommentText">comments</span></Link></div> */}
+      
+      
     </div>
   );
 };
