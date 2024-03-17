@@ -54,8 +54,8 @@ def authenticate_user(name: str, password: str, db: db_dependecy):
     return user
 
 
-def create_access_token(username: str, user_id: int, role: str, expires: timedelta = timedelta(days=2)):
-    encode = {'sub': username, 'id': user_id, 'role': role}
+def create_access_token(username: str, user_id: int, role: str, avatar:str,  expires: timedelta = timedelta(days=2)):
+    encode = {'sub': username, 'id': user_id, 'role': role, 'avatar':avatar}
     expire = datetime.utcnow() + expires
     encode.update({'exp': expire})
     return jwt.encode(encode, SECRET_KEY, algorithm=ALGHORITHM)
@@ -79,7 +79,6 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
 @router.post('/registration', status_code=status.HTTP_201_CREATED)
 async def create_user(db: db_dependecy,  user: CreateUserRequest):
     try:
-        print(user)
         create_user_model = Users(
             email=user.email,
             username=user.username,
@@ -103,13 +102,12 @@ def login(form_data:Annotated[OAuth2PasswordRequestForm, Depends()], db: db_depe
     user: Users | None = authenticate_user(form_data.username, form_data.password, db)
     if not user:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)
-    token = create_access_token(user.username, user.id, user.role, timedelta(days=2))
+    token = create_access_token(user.username, user.id, user.role, user.avatar,  timedelta(days=2))
     return {'access_token': token, 'token_type': 'Bearer'}
 
 
 user_dependency = Annotated[dict, Depends(get_current_user)]
-@router.post(''
-             '/upload_avatar', status_code=200)
+@router.post('/upload_avatar', status_code=200)
 async def upload_avatar(user: user_dependency,
                   db: db_dependecy,
                   ava: UploadFile = File(...)):

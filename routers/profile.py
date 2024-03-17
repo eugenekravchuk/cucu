@@ -6,13 +6,13 @@ from sqlalchemy.orm import Session
 
 from database import Sessionlocal
 from routers.auth import get_current_user
-from models import Users, Followers
+from models import Users, Followers, PostLikes
 
 import os
 
 router = APIRouter(
 	prefix='/profile',
-	tags = ['post']
+	tags = ['profile']
 
 )
 s3_url = os.environ.get('S3_BUCKET_URL')
@@ -42,6 +42,7 @@ class PostReturn(BaseModel):
 	text:str
 	photo:str
 	likes: list
+	is_liked: bool
 	comments: list[CommentReturn]
 
 	@field_validator('photo')
@@ -73,6 +74,14 @@ class ProfileWithPosts(BaseModel):
 	followers:list[Follower]
 	following:list[Follower]
 	posts:list[PostReturn]
+	is_following:bool
+
+	@field_validator('followers')
+	def followers_amount(cls, v):
+		return len(v)
+	@field_validator('following')
+	def following_amount(cls, v):
+		return len(v)
 
 	@field_validator('avatar')
 	def add_bucket(cls, value):
@@ -84,12 +93,16 @@ class ProfileWithPosts(BaseModel):
 
 
 @router.get('/{user_name}/', status_code=200, response_model=ProfileWithPosts)
-def get_user_posts(db:db_dependecy, user_name:str = Path()):
-	try:
-		user = db.query(Users).filter(Users.username == user_name).first()
-	except:
+def get_user_posts(db:db_dependecy, us:user_dependency, user_name:str = Path()):
+	user = db.query(Users).filter(Users.username == user_name).first()
+	us = db.query(Users).filter(Users.id == us.get('id')).first()
+	if not user:
 		raise HTTPException(status_code=404, detail='Not found')
-	print(user.followers)
+	user.is_self = True if us.username == user.username else False
+	user.is_following = True if us in user.followers else False
+
+	for post in user.posts:
+		post.is_liked =True if db.query(PostLikes).filter(PostLikes.post_id == post.id, PostLikes.user_id == us.id).first() else False
 	return user
 
 @router.post('/{username}/follow', status_code=200)
@@ -97,7 +110,12 @@ async def follow_user(db:db_dependecy, user:user_dependency, username = Path()):
 	if not user:
 		raise HTTPException(status_code=401, detail='Authentication failed')
 	us = db.query(Users).filter(Users.username == username).first()
-	follow = Followers.insert().values(user_id = us.id, follower_id = user.get('id'))
-	db.execute(follow)
+	user_1 = db.query((Users)).filter(Users.id == user.get('id')).first()
+	if us in user_1.following:
+		user_1.following.remove(us)
+	else:
+		follow = Followers.insert().values(user_id=us.id, follower_id=user.get('id'))
+		db.execute(follow)
 	db.commit()
+
 

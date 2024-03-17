@@ -5,8 +5,8 @@ from database import Base
 Followers = Table(
     'Followers',
     Base.metadata,
-    Column('user_id', ForeignKey('Users.id'), primary_key=True),
-    Column('follower_id', ForeignKey('Users.id'), primary_key=True)
+    Column('user_id', ForeignKey('Users.id', ondelete='CASCADE'), primary_key=True),
+    Column('follower_id', ForeignKey('Users.id', ondelete='CASCADE'), primary_key=True),
 )
 
 
@@ -25,8 +25,12 @@ class Users(Base):
 
     posts = relationship('Post')
 
-    followers = relationship("Users", secondary=Followers, primaryjoin = id == Followers.c.user_id, secondaryjoin= id == Followers.c.follower_id)
-    following = relationship("Users", secondary=Followers, primaryjoin = id == Followers.c.follower_id, secondaryjoin= id == Followers.c.user_id)
+    followers = relationship("Users", secondary="Followers", primaryjoin = "Users.id == Followers.c.user_id", secondaryjoin= "Users.id == Followers.c.follower_id", backref="following")
+    likes = relationship('PostLikes')
+
+    is_self = None
+    is_following = None
+
 
 
 class Post(Base):
@@ -36,12 +40,15 @@ class Post(Base):
     text = Column(Text, nullable=True, default=None)
     photo = Column(String, nullable=True, default=None)
     date = Column(DateTime, nullable=False, default=None)
-    user_id = Column(Integer, ForeignKey('Users.id'))
+    user_id = Column(Integer, ForeignKey('Users.id', ondelete='CASCADE'))
 
     author = relationship('Users', overlaps="posts")
     likes = relationship('PostLikes')
     comments = relationship('Comment', back_populates='post')
+
     is_liked = None
+    is_author = None
+
 
 
 class Comment(Base):
@@ -50,25 +57,25 @@ class Comment(Base):
     id = Column(Integer, primary_key=True, index=True)
     text = Column(Text, nullable=False)
     date = Column(DateTime, nullable=False, default=None)
-    user_id = Column(Integer, ForeignKey('Users.id'))
-    post_id = Column(Integer, ForeignKey('posts.id'))
+    user_id = Column(Integer, ForeignKey('Users.id', ondelete='CASCADE'))
+    post_id = Column(Integer, ForeignKey('posts.id', ondelete='CASCADE'))
 
     author = relationship('Users')
     post = relationship('Post', back_populates='comments')
-    likes = relationship('CommentLike')
+    likes = relationship('CommentLike', cascade='delete, delete-orphan')
 
 class CommentLike(Base):
     __tablename__ = 'CommentLikes'
 
-    comment_id = Column(Integer, ForeignKey('comments.id'), primary_key=True)
-    user_id = Column(Integer, ForeignKey('Users.id'), primary_key=True)
+    comment_id = Column(Integer, ForeignKey('comments.id', ondelete='CASCADE'), primary_key=True)
+    user_id = Column(Integer, ForeignKey('Users.id', ondelete='CASCADE'), primary_key=True)
 
 
 class PostLikes(Base):
     __tablename__ = 'post_likes'
 
-    post_id = Column(Integer, ForeignKey('posts.id'), primary_key=True)
-    user_id = Column(Integer, ForeignKey('Users.id'), primary_key=True)
+    user_id = Column(Integer, ForeignKey('Users.id', ondelete='CASCADE'), primary_key=True)
+    post_id = Column(Integer, ForeignKey('posts.id', ondelete='CASCADE'), primary_key=True)
 
 #
 # class Category(Base):
