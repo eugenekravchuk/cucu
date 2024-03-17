@@ -39,7 +39,8 @@
 .profileInfoRight{
     margin-left: 40px;
     flex: 6;
-    display: right;
+    /* display: right; */
+    display: block;
 }
 
 .profileUserImg{

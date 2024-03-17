@@ -56,7 +56,11 @@ const Profile = () => {
                     <h2 className="profileInfoName">{currentUser.name}</h2>
                     <h4 className="profileInfoDesc">@{currentUser.username}</h4>
                     <h6 className="profileInfoDesc">{currentUser.bio}</h6>
-                    <div className="flex justify-center gap-4">
+                    <div className="flex flex-row gap-5 mt-2 mb-2 items-center justify-center xl:justify-start flex-wrap z-20 text-dark-3">
+                      <StatBlock value={currentUser.posts.length} label="Posts" />
+                      <StatBlock value={20} label="Followers" />
+                      <StatBlock value={20} label="Following" />
+                    </div>
                     <div className={`${user.id !== currentUser.$id && "hidden"}`}>
                       <Link
                         to={`/update-profile/${currentUser.$id}`}
@@ -79,7 +83,7 @@ const Profile = () => {
                         Follow
                       </Button>
                     </div>
-                  </div>
+                
                 </div>  
                 
             </div>
