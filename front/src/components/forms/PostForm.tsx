@@ -104,7 +104,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
               <FormLabel className="shad-form_label">Caption</FormLabel>
               <FormControl>
                 <Textarea
-                  className="shad-textarea custom-scrollbar"
+                  className="shad-textarea custom-scrollbar bg-light-2"
                   {...field}
                 />
               </FormControl>
@@ -123,6 +123,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
                 <FileUploader
                   fieldChange={field.onChange}
                   mediaUrl={post?.imageUrl}
+                  
                 />
               </FormControl>
               <FormMessage className="shad-form_message" />

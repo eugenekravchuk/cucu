@@ -139,7 +139,7 @@ const PostDetails = () => {
             </div>
           </div>
 
-          <hr className="border w-full border-dark-4/80" />
+          <hr className="border w-full border-light-4/80" />
 
           <div className="flex flex-col flex-1 w-full small-medium lg:base-regular">
             <p>{post.text}</p>
@@ -165,18 +165,18 @@ const PostDetails = () => {
         </div>
       </div>
 
-      {/* <div className="w-full max-w-5xl">
-        <hr className="border w-full border-dark-4/80" />
+      <div className="w-full max-w-5xl">
+        <hr className="border w-full border-light-4/80" />
 
-        <h3 className="body-bold md:h3-bold w-full my-10">
-          More Related Posts
-        </h3>
-        {isUserPostLoading || !relatedPosts ? (
+        <h4 className="body-bold md:h3-bold w-full my-10">
+          Comments
+        </h4>
+        {/* {isUserPostLoading || !relatedPosts ? (
           <Loader />
         ) : (
           <GridPostList posts={relatedPosts} />
-        )}
-      </div> */}
+        )} */}
+      </div>
     </div>
   );
 };

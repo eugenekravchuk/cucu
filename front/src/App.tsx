@@ -11,6 +11,7 @@ import {
   UpdateProfile,
   AllUsers,
 } from "@/_root/pages";
+import CreateAnonymPost from "@/_root/pages/CreateAnonymPost";
 import AuthLayout from "./_auth/AuthLayout";
 import RootLayout from "./_root/RootLayout";
 import SignupForm from "@/_auth/forms/SignupForm";
@@ -38,6 +39,7 @@ const App = () => {
           <Route path="/saved" element={<Saved />} /> */}
           <Route path="/all-users" element={<AllUsers />} />
           <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/create-incognito-post" element={<CreateAnonymPost />} />
           <Route path="/update-post/:id" element={<EditPost />} />
           <Route path="/posts/:id" element={<PostDetails />} />
           <Route path="/profile/:username/*" element={<Profile />} />
