@@ -96,7 +96,7 @@ export const createPost = async (postdata) => {
   }
 };
 
-export const likePost = async (postId) => {
+export const likePost = async (postId: number) => {
   const formData = new FormData();
   formData.append("post_id", postId);
 
@@ -158,10 +158,44 @@ export const getAllPosts = async () => {
   }
 };
 
+export const updatePost = async (postId, text) => {
+  const response = await axios.put(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/post/${postId}/update`,
+    {
+      text: text,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Post creation failed. Please try again." });
+    return "error";
+  }
+};
+
+export const deletePost = async (post_id: number) => {
+  const response = await axios.delete(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/post/${post_id}/delete`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Post creation failed. Please try again." });
+    return "error";
+  }
+};
 // *************************************
 // PROFILE
 // *************************************
-export const getProfile = async (username) => {
+export const getProfile = async (username: string) => {
   const data = await axios.get(
     `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/profile/${username}/`,
     {

@@ -19,6 +19,7 @@ import { Toaster } from "@/components/ui/toaster";
 
 import "./globals.css";
 import Addresser from "./_root/pages/Addresser";
+import AnonymousPosts from "./_root/pages/AnonymousPosts";
 
 const App = () => {
   return (
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/posts/:id" element={<PostDetails />} />
           <Route path="/profile/:username/*" element={<Profile />} />
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
+          <Route path="/anonymous-posts" element={<AnonymousPosts />} />
         </Route>
       </Routes>
 

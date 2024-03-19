@@ -50,7 +50,7 @@ const Topbar = () => {
   };
 
   if (!userData) {
-    return <Loader />;
+    return;
   }
 
   return (
@@ -106,7 +106,7 @@ const Topbar = () => {
         <Link to={"/create-post"} className="topbarIconItem">
           <img src="/assets/icons/new_post.png" alt="add-post" />
         </Link>
-        <Link to={"/create-incognito-post"} className="topbarIconItem">
+        <Link to={"/anonymous-posts"} className="topbarIconItem">
           <img src="/assets/icons/anonym.png" alt="add-post" />
         </Link>
         <Link to={"/calendar"} className="topbarIconItem">
