@@ -152,7 +152,7 @@
   }
 
   .home-creators {
-    @apply hidden xl:flex flex-col w-72 2xl:w-465 px-6 py-10 gap-10  overflow-scroll custom-scrollbar h-1/2;
+    @apply hidden xl:flex flex-col w-72 2xl:w-465 px-6 py-5 gap-10  overflow-scroll custom-scrollbar h-1/2;
   }
 
   /* Post Details */
@@ -196,7 +196,7 @@
 
   /* Bottom bar */
   .bottom-bar {
-    @apply z-50 flex justify-evenly w-full sticky bottom-0  bg-[#E7E7E7] px-5 py-4 md:hidden;
+    @apply z-50 flex xl:hidden justify-evenly w-full sticky bottom-0  bg-light-1 px-5 py-4 ;
   }
 
   /* File uploader */

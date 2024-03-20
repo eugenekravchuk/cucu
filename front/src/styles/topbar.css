@@ -77,7 +77,10 @@
 }
 
 .topbarIconItem {
-  margin-right: 50px;
+  /* @media(max-width: 1270px){
+    display: none; 
+  } */
+  margin-right: 5%;
   cursor: pointer;
   position: relative;
   color: black;

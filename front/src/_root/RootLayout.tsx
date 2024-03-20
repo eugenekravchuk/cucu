@@ -29,7 +29,7 @@ const RootLayout = () => {
           <Outlet />
         </section>
 
-        {/* <Bottombar /> */}
+        <Bottombar />
       </div>
     </ImageProvider>
   );

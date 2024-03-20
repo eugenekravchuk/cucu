@@ -16,6 +16,7 @@ import RootLayout from "./_root/RootLayout";
 import SignupForm from "@/_auth/forms/SignupForm";
 import SigninForm from "@/_auth/forms/SigninForm";
 import { Toaster } from "@/components/ui/toaster";
+import AnonymousPosts from "@/_root/pages/AnonymousPosts";
 
 import "./globals.css";
 import Addresser from "./_root/pages/Addresser";
@@ -42,6 +43,7 @@ const App = () => {
           <Route path="/posts/:id" element={<PostDetails />} />
           <Route path="/profile/:username/*" element={<Profile />} />
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
+          <Route path="/anonymous-posts" element={<AnonymousPosts />} />
         </Route>
       </Routes>
 
