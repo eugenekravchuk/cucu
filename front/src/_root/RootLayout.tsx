@@ -20,7 +20,7 @@ const RootLayout = () => {
 
   return (
     <ImageProvider>
-      <div className="w-full ">
+      <div className="w-full">
         <Topbar />
 
         {/* <LeftSidebar /> */}

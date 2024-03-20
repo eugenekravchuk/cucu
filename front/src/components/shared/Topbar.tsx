@@ -106,7 +106,7 @@ const Topbar = () => {
         <Link to={"/create-post"} className="topbarIconItem hidden xl:flex">
           <img src="/assets/icons/new_post.png" alt="add-post" />
         </Link>
-        <Link to={"/create-incognito-post"} className="topbarIconItem hidden xl:flex">
+        <Link to={"/anonymous-posts"} className="topbarIconItem hidden xl:flex">
           <img src="/assets/icons/anonym.png" alt="add-post" />
         </Link>
         <Link to={"/create-organization"} className="topbarIconItem hidden xl:flex">

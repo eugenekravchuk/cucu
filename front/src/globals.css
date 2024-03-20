@@ -196,7 +196,7 @@
 
   /* Bottom bar */
   .bottom-bar {
-    @apply z-50 flex xl:hidden justify-evenly w-full sticky bottom-0  bg-light-1 px-5 py-4 ;
+    @apply z-50 flex xl:hidden justify-evenly w-full sticky bottom-0  bg-light-1 px-2 py-2 ;
   }
 
   /* File uploader */
