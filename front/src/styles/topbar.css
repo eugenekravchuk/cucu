@@ -82,6 +82,7 @@
   position: relative;
   color: black;
   max-width: 30px;
+  opacity: 0.8;
 }
 
 .topbarImg {

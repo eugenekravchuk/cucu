@@ -53,16 +53,27 @@ const Home = () => {
           </ul>
         </div>
       </div>
-
-      <div className="home-creators">
-        <h3 className="h3-bold text-dark-1">Channels</h3>
-        <ul className="grid 2xl:grid-cols-2 gap-3">
-          {/* {creators?.documents.map((creator) => (
-              <li key={creator?.$id}>
-                <UserCard user={creator} />
-              </li>
-            ))} */}
-        </ul>
+      <div className="flex-col">
+        <div className="home-creators">
+          <h3 className="h3-bold text-dark-1">Channels</h3>
+          <ul className="grid 2xl:grid-cols-2 gap-3">
+            {/* {creators?.documents.map((creator) => (
+                <li key={creator?.$id}>
+                  <UserCard user={creator} />
+                </li>
+              ))} */}
+          </ul>
+        </div>
+        <div className="home-creators">
+          <h3 className="h3-bold text-dark-1">Categories</h3>
+          <ul className="grid 2xl:grid-cols-2 gap-3">
+            {/* {creators?.documents.map((creator) => (
+                <li key={creator?.$id}>
+                  <UserCard user={creator} />
+                </li>
+              ))} */}
+          </ul>
+        </div>
       </div>
 
       {/* <div className="home-creators">
