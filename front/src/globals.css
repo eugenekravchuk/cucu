@@ -4,13 +4,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.fill-red {
-  fill: red;
-}
-.stroke-blue {
-  stroke: blue;
-}
-
 @layer base {
   * {
     @apply box-border list-none p-0 m-0 scroll-smooth;

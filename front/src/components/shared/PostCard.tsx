@@ -30,7 +30,7 @@ const PostCard = ({ post }: PostCardProps) => {
             />
           </Link>
           <span className="postUsername">@{post.author.username}</span>
-          <span className="postDate">{multiFormatDateString(post.$createdAt)}</span>
+          <span className="postDate">{multiFormatDateString(post.date)}</span>
         </div>
         <div className="postTopRight">
           <Link

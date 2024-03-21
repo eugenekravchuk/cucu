@@ -50,7 +50,7 @@ const Topbar = () => {
   };
 
   if (!userData) {
-    return <Loader />;
+    return;
   }
 
   return (

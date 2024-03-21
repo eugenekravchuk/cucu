@@ -33,16 +33,16 @@ const Home = () => {
 
   if (isLoading) {
     return (
-      <div>
+      <div className="h-screen w-screen flex items-center justify-center">
         <Loader />
       </div>
     );
   }
 
   return (
-    <div className="flex flex-1 ">
-      <div className="home-container">
-        <div className="home-posts">
+    <div className="flex flex-1">
+      <div className="home-container ">
+        <div className="home-posts mb-[100px]">
           <h2 className="h3-bold md:h2-bold text-left w-full">Home Feed</h2>
           <ul className="flex flex-col flex-1 gap-9 w-full ">
             {posts.map((post: Models.Document) => (
