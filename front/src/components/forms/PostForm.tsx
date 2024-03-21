@@ -115,7 +115,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
               <FormLabel className="shad-form_label">Caption</FormLabel>
               <FormControl>
                 <Textarea
-                  className="shad-textarea custom-scrollbar"
+                  className="shad-textarea custom-scrollbar bg-light-2"
                   {...field}
                   onChange={(event) => {
                     field.onChange(event);

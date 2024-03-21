@@ -109,7 +109,7 @@ const Profile = () => {
               }`}>
               <Link
                 to={`/update-profile/${userdataDecoded.sub}`}
-                className={`h-12 bg-light-4 px-5 text-dark-4 flex-center gap-2 rounded-lg ${
+                className={`h-12 bg-light-2 px-5 text-dark-4 flex-center gap-2 rounded-lg ${
                   userdataDecoded.sub !== userData.username && "hidden"
                 }`}>
                 <img
@@ -118,7 +118,7 @@ const Profile = () => {
                   width={20}
                   height={20}
                 />
-                <p className="flex whitespace-nowrap small-medium text-[#DBDBDB]">
+                <p className="flex whitespace-nowrap small-medium text-dark-1">
                   Edit Profile
                 </p>
               </Link>

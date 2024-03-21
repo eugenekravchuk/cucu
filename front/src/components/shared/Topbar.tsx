@@ -103,13 +103,16 @@ const Topbar = () => {
       {/*</div>*/}
 
       <div className="topbarRight">
-        <Link to={"/create-post"} className="topbarIconItem">
+        <Link to={"/create-post"} className="topbarIconItem hidden xl:flex">
           <img src="/assets/icons/new_post.png" alt="add-post" />
         </Link>
-        <Link to={"/anonymous-posts"} className="topbarIconItem">
+        <Link to={"/anonymous-posts"} className="topbarIconItem hidden xl:flex">
           <img src="/assets/icons/anonym.png" alt="add-post" />
         </Link>
-        <Link to={"/calendar"} className="topbarIconItem">
+        <Link to={"/create-organization"} className="topbarIconItem hidden xl:flex">
+          <img src="/assets/icons/people.svg" alt="add-post" />
+        </Link>
+        <Link to={"/calendar"} className="topbarIconItem hidden xl:flex">
           <img src="/assets/icons/calendar.png" alt="calendar" />
         </Link>
         <Button
