@@ -13,7 +13,6 @@ const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
   const [file, setFile] = useState<File[]>([]);
   const [fileUrl, setFileUrl] = useState<string>(mediaUrl);
 
-
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {
       setFile(acceptedFiles);
@@ -34,14 +33,14 @@ const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
     <div {...getRootProps()}>
       <input {...getInputProps()} className="cursor-pointer" />
 
-      <div className="cursor-pointer flex-center gap-4 bg-[#DBDBDB] py-3 px-3 rounded-xl">
+      <div className="cursor-pointer flex-center gap-4 bg-[#EDEDED] py-3 px-3 rounded-xl">
         <img
           src={fileUrl || "/assets/icons/profile-placeholder.svg"}
           alt="image"
           className="h-24 w-24 rounded-full object-cover object-top"
         />
         <p className="text-primary-500 font-bold large md:bbase-semibold">
-          Change profile photo
+          Завантажте фото
         </p>
       </div>
     </div>

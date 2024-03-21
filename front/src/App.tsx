@@ -20,6 +20,7 @@ import "./globals.css";
 
 import Addresser from "./_root/pages/Addresser";
 import AnonymousPosts from "./_root/pages/AnonymousPosts";
+import СreateOrganisation from "./_root/pages/СreateOrganisation";
 
 const App = () => {
   return (
@@ -44,7 +45,8 @@ const App = () => {
           <Route path="/profile/:username/*" element={<Profile />} />
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
           <Route path="/anonymous-posts" element={<AnonymousPosts />} />
-          <Route path="/comments" element={<AnonymousPosts />} />
+          <Route path="/create-organization" element={<СreateOrganisation />} />
+
         </Route>
       </Routes>
 

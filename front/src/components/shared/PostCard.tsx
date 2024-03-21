@@ -15,62 +15,65 @@ const PostCard = ({ post }: PostCardProps) => {
   return (
     <div className="post">
       <div className="postWrapper">
-      <div className="postTop">
-        <div className="postTopLeft">
-          <Link to={`/profile/${post.author.username}`}>
-            <img
-              src={`${
-                post.author.avatar ===
-                "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
-                  ? "/assets/icons/profile-placeholder.svg"
-                  : post.author.avatar
-              }`}
-              alt="creator"
-              className="postProfileImg"
-            />
-          </Link>
-          <span className="postUsername">@{post.author.username}</span>
-          <span className="postDate">{multiFormatDateString(post.date)}</span>
-        </div>
-        <div className="postTopRight">
-          <Link
-            to={`/update-post/${post.id}`}
-            className={`${decodeJWT().sub !== post.author.id && "hidden"}`}>
-            {" "}
-            <img
-              src={"/assets/icons/edit.svg"}
-              alt="edit"
-              width={20}
-              height={20}
-            />
-          </Link>
-        </div>
-        
-      </div>
-      <Link to={`/posts/${post.id}`}>
-        <div className="postCenter" >
-                <span className="postText">{post.text}</span>
-                {/* <img className="postImg" src="" alt="" /> */}
-                <img src={post.photo || "/assets/icons/profile-placeholder.svg"} alt="post image" className="post-card_img"/>
+        <div className="postTop">
+          <div className="postTopLeft">
+            <Link to={`/profile/${post.author.username}`}>
+              <img
+                src={`${
+                  post.author.avatar ===
+                  "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
+                    ? "/assets/icons/profile-placeholder.svg"
+                    : post.author.avatar
+                }`}
+                alt="creator"
+                className="postProfileImg"
+              />
+            </Link>
+            <span className="postUsername">@{post.author.username}</span>
 
+            <span className="postDate">{multiFormatDateString(post.date)}</span>
           </div>
-      </Link>
-      <div className="postBottom">
-              <div className="postBottomLeft">
-                <PostStats
-                post={post} 
-                userId={jwtDecode.id}
-                postId={null}
-                white={false}
-                />
-              </div>
-              <div className="postBottomRight">
-                <Link to={`/posts/${post.id}`}><span className="postCommentText"> comments</span></Link>
-              </div> 
+          <div className="postTopRight">
+            <Link
+              to={`/update-post/${post.id}`}
+              className={`${decodeJWT().sub !== post.author.id && "hidden"}`}>
+              {" "}
+              <img
+                src={"/assets/icons/edit.svg"}
+                alt="edit"
+                width={20}
+                height={20}
+              />
+            </Link>
+          </div>
+        </div>
+        <Link to={`/posts/${post.id}`}>
+          <div className="postCenter">
+            <span className="postText">{post.text}</span>
+            {/* <img className="postImg" src="" alt="" /> */}
+            <img
+              src={post.photo || "/assets/icons/profile-placeholder.svg"}
+              alt="post image"
+              className="post-card_img"
+            />
+          </div>
+        </Link>
+        <div className="postBottom">
+          <div className="postBottomLeft">
+            <PostStats
+              post={post}
+              userId={jwtDecode.id}
+              postId={null}
+              white={false}
+            />
+          </div>
+          <div className="postBottomRight">
+            <Link to={`/posts/${post.id}`}>
+              <span className="postCommentText"> коменти</span>
+            </Link>
+          </div>
+        </div>
       </div>
-      
-    </div>
-            
     </div>
   );
 };
