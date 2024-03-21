@@ -25,8 +25,12 @@ const UpdateProfile = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState(null);
-  const userdataDecoded = decodeJWT();
   const { image, setImage } = useContext(ImageContext);
+  const [firstName, setFirstName] = useState(null);
+  const [lastName, setLastName] = useState(null);
+  const [username, setUsername] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [bio, setBio] = useState("some text");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,10 +39,15 @@ const UpdateProfile = () => {
       try {
         const username = decodeJWT().sub;
         const data = await getProfile(username);
+        setFirstName(data.data.first_name);
+        setLastName(data.data.last_name);
+        setUsername(data.data.username);
+        setEmail(data.data.email);
         setUserData(data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
+        // setBio(userData.bio);
         setIsLoading(false);
       }
     };
@@ -49,7 +58,7 @@ const UpdateProfile = () => {
   const form = useForm<z.infer<typeof ProfileValidation>>({
     resolver: zodResolver(ProfileValidation),
     defaultValues: {
-      file: [],
+      file: userData?.ava,
       first_name: userData?.first_name,
       last_name: userData?.last_name,
       username: userData?.username,
@@ -142,7 +151,11 @@ const UpdateProfile = () => {
                       type="text"
                       className="shad-input"
                       {...field}
-                      value={userData.first_name}
+                      value={firstName}
+                      onChange={(event) => {
+                        field.onChange(event);
+                        setFirstName(event.target.value);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
@@ -161,7 +174,11 @@ const UpdateProfile = () => {
                       type="text"
                       className="shad-input"
                       {...field}
-                      value={userData.last_name}
+                      value={lastName}
+                      onChange={(event) => {
+                        field.onChange(event);
+                        setLastName(event.target.value);
+                      }}
                     />
                   </FormControl>
                   <FormMessage />
@@ -180,7 +197,7 @@ const UpdateProfile = () => {
                       type="text"
                       className="shad-input"
                       {...field}
-                      value={userData.username}
+                      value={username}
                       disabled
                     />
                   </FormControl>
@@ -200,7 +217,7 @@ const UpdateProfile = () => {
                       type="text"
                       className="shad-input"
                       {...field}
-                      value={userData.email}
+                      value={email}
                       disabled
                     />
                   </FormControl>
@@ -218,7 +235,11 @@ const UpdateProfile = () => {
                   <FormControl>
                     <Textarea
                       className="shad-textarea custom-scrollbar"
-                      value={`Something about me`}
+                      value={bio}
+                      onChange={(event) => {
+                        field.onChange(event);
+                        setBio(event.target.value);
+                      }}
                       {...field}
                     />
                   </FormControl>
