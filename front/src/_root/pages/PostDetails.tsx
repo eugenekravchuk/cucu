@@ -1,5 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-
+// import { CommentSection } from 'replyke';
 import { Button } from "@/components/ui";
 import { Loader } from "@/components/shared";
 import { GridPostList, PostStats } from "@/components/shared";
@@ -171,6 +171,8 @@ const PostDetails = () => {
         <h4 className="body-bold md:h3-bold w-full my-10">
           Comments
         </h4>
+        {/* trying to connect comment section to post */}
+        {/* <CommentSection articleId="{id}" /> */}
         {/* {isUserPostLoading || !relatedPosts ? (
           <Loader />
         ) : (
