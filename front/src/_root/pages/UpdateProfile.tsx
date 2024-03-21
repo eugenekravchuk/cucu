@@ -50,23 +50,13 @@ const UpdateProfile = () => {
     resolver: zodResolver(ProfileValidation),
     defaultValues: {
       file: [],
-      // first_name: "", // Initialize with empty values first
-      // last_name: "",
-      // username: "",
-      // email: "",
+      first_name: userData?.first_name,
+      last_name: userData?.last_name,
+      username: userData?.username,
+      email: userData?.email,
+      bio: "something about me",
     },
   });
-
-  // const form = useForm<z.infer<typeof ProfileValidation>>({
-  //   resolver: zodResolver(ProfileValidation),
-  //   defaultValues: {
-  //     file: [],
-  //     first_name: userData.first_name,
-  //     last_name: userData.last_name,
-  //     username: userData.username,
-  //     email: userData.email,
-  //   },
-  // });
 
   if (isLoading)
     return (
@@ -104,8 +94,8 @@ const UpdateProfile = () => {
 
   return (
     <div className="flex flex-1">
-      <div className="common-container">
-        <div className="flex-start gap-3 justify-start w-full max-w-5xl">
+      <div className="common-container ">
+        <div className="flex-start gap-3 justify-start w-full max-w-5xl ">
           <img
             src="/assets/icons/edit.svg"
             width={36}
@@ -119,7 +109,7 @@ const UpdateProfile = () => {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleUpdate)}
-            className="flex flex-col gap-7 w-full mt-4 max-w-5xl">
+            className="flex flex-col gap-7 w-full mt-4 max-w-5xl  mb-[60px]">
             <FormField
               control={form.control}
               name="file"
@@ -134,6 +124,102 @@ const UpdateProfile = () => {
                           ? "/assets/icons/profile-placeholder.svg"
                           : userData.avatar
                       }
+                    />
+                  </FormControl>
+                  <FormMessage className="shad-form_message" />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="first_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">First name</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      className="shad-input"
+                      {...field}
+                      value={userData.first_name}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="last_name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">Last name</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      className="shad-input"
+                      {...field}
+                      value={userData.last_name}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">Username</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      className="shad-input"
+                      {...field}
+                      value={userData.username}
+                      disabled
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">Email</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="text"
+                      className="shad-input"
+                      {...field}
+                      value={userData.email}
+                      disabled
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="bio"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">Bio</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      className="shad-textarea custom-scrollbar"
+                      value={`Something about me`}
+                      {...field}
                     />
                   </FormControl>
                   <FormMessage className="shad-form_message" />
@@ -159,78 +245,6 @@ const UpdateProfile = () => {
             </div>
           </form>
         </Form>
-
-        {/*
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="shad-form_label">Name</FormLabel>
-                  <FormControl>
-                    <Input type="text" className="shad-input" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="shad-form_label">Username</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      className="shad-input"
-                      {...field}
-                      disabled
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="shad-form_label">Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      type="text"
-                      className="shad-input"
-                      {...field}
-                      disabled
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="bio"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="shad-form_label">Bio</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      className="shad-textarea custom-scrollbar"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage className="shad-form_message" />
-                </FormItem>
-              )}
-            />
-
-             */}
       </div>
     </div>
   );
