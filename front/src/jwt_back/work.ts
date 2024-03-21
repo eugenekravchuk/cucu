@@ -255,6 +255,47 @@ export const followUser = async (username) => {
 // *************************************
 // ORGANISATION
 // *************************************
-export const createOrganisation = async (form) => {
+export const createOrganisation = async (organisationData) => {
   toast({ title: "Waiting for backend" });
+};
+
+// *************************************
+// ORGANISATION
+// *************************************
+export const createComment = async (commentData, postId) => {
+  const response = await axios.post(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/post/${postId}/comment`,
+    commentData,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Post get mehod failed. Please try again." });
+    return "error";
+  }
+
+  return response.data;
+};
+
+export const likeComment = async (commentId) => {
+  const response = await axios.post(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/${commentId}/like`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Post get mehod failed. Please try again." });
+    return "error";
+  }
+
+  return response.data;
 };

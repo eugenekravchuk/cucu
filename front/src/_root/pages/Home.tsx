@@ -5,7 +5,12 @@ import { Loader, PostCard, UserCard } from "@/components/shared";
 import { useToast } from "@/components/ui";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { decodeJWT, getAllPosts, isAuthenticated } from "@/jwt_back/work";
+import {
+  decodeJWT,
+  getAllPosts,
+  isAuthenticated,
+  logout,
+} from "@/jwt_back/work";
 
 const Home = () => {
   const { toast } = useToast();
