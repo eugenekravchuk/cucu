@@ -34,7 +34,7 @@ export const decodeJWT = () => {
 };
 
 // *************************************
-//
+// USER
 // *************************************
 export const logout = () => {
   localStorage.removeItem("jwtToken");
@@ -192,6 +192,7 @@ export const deletePost = async (post_id: number) => {
     return "error";
   }
 };
+
 // *************************************
 // PROFILE
 // *************************************
@@ -234,6 +235,26 @@ export const uploadAvatar = async (avatarForm) => {
   }
 };
 
-// export const getPosts = async (token) {
-//   ...
-// };
+export const followUser = async (username) => {
+  const response = await axios.post(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/profile/${username}/follow`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Post get mehod failed. Please try again." });
+    return "error";
+  }
+};
+
+// *************************************
+// ORGANISATION
+// *************************************
+export const createOrganisation = async (form) => {
+  toast({ title: "Waiting for backend" });
+};

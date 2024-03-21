@@ -84,6 +84,10 @@ const PostStats = ({
     ? "w-full"
     : "";
 
+  const likeImage = white
+    ? "/assets/icons/like_white.svg"
+    : "/assets/icons/like.svg";
+
   if (isLoading) {
     return (
       <div>
@@ -97,9 +101,7 @@ const PostStats = ({
       className={`flex justify-between items-center z-20 ${containerStyles}`}>
       <div className="flex gap-1 mr-5">
         <img
-          src={`${
-            isLiked ? "/assets/icons/liked.svg" : "/assets/icons/like.svg"
-          }`}
+          src={`${isLiked ? "/assets/icons/liked.svg" : likeImage}`}
           alt="like"
           width={20}
           height={20}
@@ -112,7 +114,7 @@ const PostStats = ({
           }`}>
           {likes}{" "}
           <span className="text-[#A3A3A3]">
-            {likes === 1 ? `person liked this post` : `people liked this post `}
+            {likes === 1 ? `людині сподобалося` : `людям сподобалось `}
           </span>
         </p>
       </div>

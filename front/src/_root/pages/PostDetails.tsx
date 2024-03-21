@@ -11,6 +11,7 @@ import {
   getProfile,
 } from "@/jwt_back/work";
 import { useEffect, useState } from "react";
+import Comment from "@/components/shared/Comment";
 
 const PostDetails = () => {
   const navigate = useNavigate();
@@ -167,9 +168,9 @@ const PostDetails = () => {
       <div className="w-full max-w-5xl">
         <hr className="border w-full border-light-4/80" />
 
-        <h4 className="body-bold md:h3-bold w-full my-10">
-          Comments
-        </h4>
+        <h4 className="body-bold md:h3-bold w-full my-10">Коментарі</h4>
+
+        <Comment />
         {/* {isUserPostLoading || !relatedPosts ? (
           <Loader />
         ) : (

@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui";
 import { LikedPosts } from "@/_root/pages";
 import { GridPostList, Loader } from "@/components/shared";
-import { decodeJWT, getProfile } from "@/jwt_back/work";
+import { decodeJWT, getProfile, followUser } from "@/jwt_back/work";
 import { useEffect, useState } from "react";
 
 interface StabBlockProps {
@@ -28,7 +28,9 @@ const StatBlock = ({ value, label }: StabBlockProps) => (
 const Profile = () => {
   const { username } = useParams();
   const [isLoading, setIsLoading] = useState(true);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [isFollowing, setIsFollowing] = useState(false);
   const userdataDecoded = decodeJWT();
 
   useEffect(() => {
@@ -38,6 +40,7 @@ const Profile = () => {
       try {
         const data = await getProfile(username);
         setUserData(data.data);
+        setIsFollowing(data.data.is_following);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -46,19 +49,19 @@ const Profile = () => {
     };
 
     fetchData();
-  }, []);
+  }, [isFollowing]);
 
-  // let userdata = decodeJWT();
-
-  // const getUserData = async () => {
-  //   const userdata2 = await getProfile(userdata.sub);
-  //   if (userdata2 === "error") {
-  //     return;
-  //   }
-  //   return userdata2.data;
-  // };
-
-  // const userdata_ready = getUserData();
+  const followUserFunc = async () => {
+    setIsButtonLoading(true);
+    try {
+      const outcome = await followUser(username);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsFollowing(!isFollowing);
+      setIsButtonLoading(false);
+    }
+  };
 
   if (isLoading)
     return (
@@ -124,9 +127,18 @@ const Profile = () => {
               </Link>
             </div>
             <div className={`${username === userdataDecoded.sub && "hidden"}`}>
-              <Button type="button" className="shad-button_primary px-8">
-                Follow
-              </Button>
+              {isButtonLoading ? (
+                <div className="flex items-center justify-center">
+                  <Loader />
+                </div>
+              ) : (
+                <Button
+                  onClick={followUserFunc}
+                  type="button"
+                  className={`shad-button_primary px-8 hover:bg-[#8E8E8E]`}>
+                  {isFollowing ? "Unfollow" : "Follow"}
+                </Button>
+              )}
             </div>
           </div>
         </div>

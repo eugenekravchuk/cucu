@@ -43,7 +43,7 @@ const Home = () => {
     <div className="flex flex-1">
       <div className="home-container ">
         <div className="home-posts mb-[100px]">
-          <h2 className="h3-bold md:h2-bold text-left w-full">Home Feed</h2>
+          <h2 className="h3-bold md:h2-bold text-left w-full">Стрічка</h2>
           <ul className="flex flex-col flex-1 gap-9 w-full ">
             {posts.map((post: Models.Document) => (
               <li key={post.id} className="flex justify-center w-full">
@@ -55,7 +55,7 @@ const Home = () => {
       </div>
       <div className="flex-col">
         <div className="home-creators">
-          <h3 className="h3-bold text-dark-1">Channels</h3>
+          <h3 className="h3-bold text-dark-1">Організації</h3>
           <ul className="grid 2xl:grid-cols-2 gap-3">
             {/* {creators?.documents.map((creator) => (
                 <li key={creator?.$id}>
@@ -65,7 +65,7 @@ const Home = () => {
           </ul>
         </div>
         <div className="home-creators">
-          <h3 className="h3-bold text-dark-1">Categories</h3>
+          <h3 className="h3-bold text-dark-1">Категорії</h3>
           <ul className="grid 2xl:grid-cols-2 gap-3">
             {/* {creators?.documents.map((creator) => (
                 <li key={creator?.$id}>
