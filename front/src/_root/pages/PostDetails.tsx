@@ -4,6 +4,7 @@ import { Button } from "@/components/ui";
 import { Loader } from "@/components/shared";
 import { GridPostList, PostStats } from "@/components/shared";
 import { multiFormatDateString } from "@/lib/utils";
+import { CommentSection } from "replyke";
 import {
   decodeJWT,
   deletePost,
