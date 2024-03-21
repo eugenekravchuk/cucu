@@ -54,7 +54,7 @@ const Home = () => {
         </div>
       </div>
       <div className="flex-col">
-        <div className="home-creators">
+        <div className="home-creators h-1/2">
           <h3 className="h3-bold text-dark-1">Channels</h3>
           <ul className="grid 2xl:grid-cols-2 gap-3">
             {/* {creators?.documents.map((creator) => (
@@ -64,14 +64,45 @@ const Home = () => {
               ))} */}
           </ul>
         </div>
-        <div className="home-creators">
+        <div className="home-creators h-2/5">
           <h3 className="h3-bold text-dark-1">Categories</h3>
           <ul className="grid 2xl:grid-cols-2 gap-3">
-            {/* {creators?.documents.map((creator) => (
-                <li key={creator?.$id}>
-                  <UserCard user={creator} />
-                </li>
-              ))} */}
+            <li>
+              <div className="flex-center flex-col gap-4 border border-light-4 rounded-[20px] px-5 py-2">
+                <div className="flex-center flex-col gap-1">
+                  <p className="base-medium text-dark-1 text-center line-clamp-1">
+                    Спорт
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div className="flex-center flex-col gap-4 border border-light-4 rounded-[20px] px-5 py-2">
+                <div className="flex-center flex-col gap-1">
+                  <p className="base-medium text-dark-1 text-center line-clamp-1">
+                    Театр
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div className="flex-center flex-col gap-4 border border-light-4 rounded-[20px] px-5 py-2">
+                <div className="flex-center flex-col gap-1">
+                  <p className="base-medium text-dark-1 text-center line-clamp-1">
+                    Поезія
+                  </p>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div className="flex-center flex-col gap-4 border border-light-4 rounded-[20px] px-5 py-2">
+                <div className="flex-center flex-col gap-1">
+                  <p className="base-medium text-dark-1 text-center line-clamp-1">
+                    Музика
+                  </p>
+                </div>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
