@@ -44,6 +44,7 @@ const App = () => {
           <Route path="/profile/:username/*" element={<Profile />} />
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
           <Route path="/anonymous-posts" element={<AnonymousPosts />} />
+          <Route path="/comments" element={<AnonymousPosts />} />
         </Route>
       </Routes>
 

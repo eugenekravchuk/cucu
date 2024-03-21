@@ -1,6 +1,6 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-// import { CommentSection } from 'replyke';
 import { Button } from "@/components/ui";
+import CommentForm from "@/components/forms/CommentCard";
 import { Loader } from "@/components/shared";
 import { GridPostList, PostStats } from "@/components/shared";
 import { multiFormatDateString } from "@/lib/utils";
@@ -162,22 +162,12 @@ const PostDetails = () => {
             />
           </div>
         </div>
+        
       </div>
-
-      <div className="w-full max-w-5xl">
-        <hr className="border w-full border-light-4/80" />
-
-        <h4 className="body-bold md:h3-bold w-full my-10">
-          Comments
-        </h4>
-        {/* trying to connect comment section to post */}
-        {/* <CommentSection articleId="{id}" /> */}
-        {/* {isUserPostLoading || !relatedPosts ? (
-          <Loader />
-        ) : (
-          <GridPostList posts={relatedPosts} />
-        )} */}
-      </div>
+      <div className="hidden md:flex max-w-5xl w-full">
+      <CommentForm action="Create"  />
+    </div>
+      
     </div>
   );
 };
