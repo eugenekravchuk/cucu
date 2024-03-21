@@ -27,11 +27,6 @@ export const sidebarLinks = [
 ];
 
 export const bottombarLinks = [
-  {
-    imgURL: "/assets/icons/home.svg",
-    route: "/home",
-    label: "Home",
-  },
   // {
   //   imgURL: "/assets/icons/wallpaper.svg",
   //   route: "/explore",
@@ -43,8 +38,23 @@ export const bottombarLinks = [
   //   label: "Saved",
   // },
   {
-    imgURL: "/assets/icons/gallery-add.svg",
+    imgURL: "/assets/icons/new_post.png",
     route: "/create-post",
-    label: "Create",
+    label: "New Post",
+  },
+  {
+    imgURL: "/assets/icons/anonym.png",
+    route: "/anonymous-posts",
+    label: "Anonym",
+  },
+  {
+    imgURL: "/assets/icons/people.svg",
+    route: "/create-organization",
+    label: "Organization",
+  },
+  {
+    imgURL: "/assets/icons/calendar.png",
+    route: "/calendar",
+    label: "Calendar",
   },
 ];

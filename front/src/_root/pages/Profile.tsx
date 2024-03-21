@@ -68,7 +68,7 @@ const Profile = () => {
     );
 
   return (
-    <div className="profile-container">
+    <div className="profile-container mb-[50px]">
       <div className="profile-inner_container">
         <div className="flex xl:flex-row flex-col max-xl:items-center flex-1 gap-7">
           <img
@@ -102,14 +102,14 @@ const Profile = () => {
             </p>
           </div>
 
-          <div className="flex justify-center gap-4">
+          <div className="flex-col justify-center gap-4">
             <div
               className={`${
                 userdataDecoded.sub !== userData.username && "hidden"
               }`}>
               <Link
                 to={`/update-profile/${userdataDecoded.sub}`}
-                className={`h-12 bg-light-4 px-5 text-dark-4 flex-center gap-2 rounded-lg ${
+                className={`h-12 bg-light-2 px-5 text-dark-4 flex-center gap-2 rounded-lg ${
                   userdataDecoded.sub !== userData.username && "hidden"
                 }`}>
                 <img
@@ -118,16 +118,16 @@ const Profile = () => {
                   width={20}
                   height={20}
                 />
-                <p className="flex whitespace-nowrap small-medium text-[#DBDBDB]">
+                <p className="flex whitespace-nowrap small-medium text-dark-1">
                   Edit Profile
                 </p>
               </Link>
             </div>
-            {/* <div className={`${user.id === id && "hidden"}`}>
+            <div className={`${username === userdataDecoded.sub && "hidden"}`}>
               <Button type="button" className="shad-button_primary px-8">
                 Follow
               </Button>
-            </div> */}
+            </div>
           </div>
         </div>
       </div>
