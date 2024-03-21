@@ -20,6 +20,7 @@ import AnonymousPosts from "@/_root/pages/AnonymousPosts";
 
 import "./globals.css";
 import Addresser from "./_root/pages/Addresser";
+import AnonymousPosts from "./_root/pages/AnonymousPosts";
 
 const App = () => {
   return (

@@ -4,7 +4,12 @@ import { Button } from "@/components/ui";
 import { Loader } from "@/components/shared";
 import { GridPostList, PostStats } from "@/components/shared";
 import { multiFormatDateString } from "@/lib/utils";
-import { decodeJWT, getPostById, getProfile } from "@/jwt_back/work";
+import {
+  decodeJWT,
+  deletePost,
+  getPostById,
+  getProfile,
+} from "@/jwt_back/work";
 import { useEffect, useState } from "react";
 
 const PostDetails = () => {
@@ -13,41 +18,27 @@ const PostDetails = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [post, setPost] = useState(null);
-  const [userData, setUserData] = useState(null);
   const userdataDecoded = decodeJWT();
 
   useEffect(() => {
     const fetchData = async () => {
-      setIsLoading(true);
-
       try {
-        const data = await getPostById(id);
+        setIsLoading(true);
+        const data = await getPostById(Number(id));
         setPost(data);
       } catch (error) {
         console.error("Error fetching post data:", error);
-        // Handle error, e.g., setPost(null) and display error UI
       } finally {
-        try {
-          const username = decodeJWT().sub;
-          const data = await getProfile(username);
-          setUserData(data.data);
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-          // Handle error, e.g., redirect or display error UI
-        } finally {
-          // Update isLoading after both fetches finish
-          setIsLoading(false);
-        }
+        setIsLoading(false);
       }
     };
 
     fetchData();
-  }, [id]);
+  }, []);
 
   if (isLoading) {
-    console.log("print");
     return (
-      <div className="flex items-center justify-center">
+      <div className="h-screen w-screen flex items-center justify-center">
         <Loader />
       </div>
     );
@@ -62,10 +53,17 @@ const PostDetails = () => {
   //   (userPost) => userPost.$id !== id
   // );
 
-  // const handleDeletePost = () => {
-  //   deletePost({ postId: id, imageId: post?.imageId });
-  //   navigate(-1);
-  // };
+  const handleDeletePost = () => {
+    try {
+      setIsLoading(true);
+      deletePost(post.id);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsLoading(false);
+      navigate(-1);
+    }
+  };
 
   return (
     <div className="post_details-container">
@@ -86,14 +84,14 @@ const PostDetails = () => {
           <div className="flex-between w-full">
             <Link
               //change
-              to={`/profile/${userData.username}`}
+              to={`/profile/${post.author.username}`}
               className="flex items-center gap-3">
               <img
                 src={
-                  userData.avatar ==
+                  post.author.avatar ==
                   "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
                     ? "/assets/icons/profile-placeholder.svg"
-                    : userData.avatar
+                    : post.author.avatar
                 }
                 alt="creator"
                 className="w-8 h-8 lg:w-12 lg:h-12 rounded-full"
@@ -111,23 +109,24 @@ const PostDetails = () => {
             </Link>
 
             <div className="flex-center gap-4">
-              {/* <Link
+              <Link
                 to={`/update-post/${post.id}`}
-                // className={`${user.id !== post?.creator.$id && "hidden"}`}>
-              >
+                className={`${
+                  userdataDecoded.sub !== post.author.username && "hidden"
+                }`}>
                 <img
                   src={"/assets/icons/edit.svg"}
                   alt="edit"
                   width={24}
                   height={24}
                 />
-              </Link> */}
+              </Link>
 
-              {/* <Button
+              <Button
                 onClick={handleDeletePost}
                 variant="ghost"
                 className={`ost_details-delete_btn ${
-                  user.id !== post?.creator.$id && "hidden"
+                  userdataDecoded.sub !== post.author.username && "hidden"
                 }`}>
                 <img
                   src={"/assets/icons/delete.svg"}
@@ -135,7 +134,7 @@ const PostDetails = () => {
                   width={24}
                   height={24}
                 />
-              </Button> */}
+              </Button>
             </div>
           </div>
 
