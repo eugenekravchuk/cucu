@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { isAuthenticated } from "@/jwt_back/work";
 import { ImageProvider } from "@/context/ImageContext";
 
-const RootLayout = () => {
+const RootLayout = ({ showChannels, setShowChannels }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const RootLayout = () => {
           <Outlet />
         </section>
 
-        <Bottombar />
+        <Bottombar showChannels={showChannels} setShowChannels={setShowChannels} />
       </div>
     </ImageProvider>
   );

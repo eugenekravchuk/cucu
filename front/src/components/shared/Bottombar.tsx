@@ -4,9 +4,9 @@ import { Button } from "../ui";
 import { useState } from "react";
 import Channels from "./Channels";
 
-const Bottombar = () => {
+const Bottombar = ({ showChannels, setShowChannels }) => {
   const { pathname } = useLocation();
-  const [showChannels, setShowChannels] = useState(false);
+
   return (
     <section className="bottom-bar">
       {bottombarLinks.map((link) => {
@@ -30,7 +30,7 @@ const Bottombar = () => {
         );
       })}
       {pathname === "/home" ?
-          <Button className="flex-center flex-col bg-light-1 hover:bg-[#74747497] gap-1 p-2 transition text-[#060606]"
+          <Button className="flex-center flex-col bg-light-1 hover:bg-[#74747497] p-2 transition text-[#060606]"
             onClick={() => {
               setShowChannels(showChannels => !showChannels);
             }}>

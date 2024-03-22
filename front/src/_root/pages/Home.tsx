@@ -11,9 +11,10 @@ import {
   isAuthenticated,
   logout,
 } from "@/jwt_back/work";
+import Channels from "@/components/shared/Channels";
 import OrganizationDescription from "@/components/shared/OrganizationDescription";
 
-const Home = () => {
+const Home = ({showChannels}) => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -51,7 +52,6 @@ const Home = () => {
       <div className="home-container">
         <div className="home-posts mb-[100px]">
           {showOrganization ? <OrganizationDescription /> : null}
-          
           <h2 className="h3-bold md:h2-bold text-left w-full">Стрічка</h2>
           <ul className="flex flex-col flex-1 gap-9 w-full ">
             {posts.map((post: Models.Document) => (
@@ -148,6 +148,9 @@ const Home = () => {
             ))}
           </ul>
       </div> */}
+      {showChannels ? 
+       <Channels showOrganization={showOrganization} setShowOrganization={setShowOrganization}/>
+      : null}
     </div>
   );
 };

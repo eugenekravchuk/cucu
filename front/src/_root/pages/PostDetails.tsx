@@ -222,6 +222,7 @@ const PostDetails = () => {
         ) : (
           <GridPostList posts={relatedPosts} />
         )} */}
+        <div className="mb-[80px]"></div>
       </div>
     </div>
   );
