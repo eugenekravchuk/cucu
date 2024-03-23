@@ -76,8 +76,7 @@ export const PostValidation = z.object({
     .custom<FileList>()
     .optional()
     .refine((fileList) => {
-      // Check if fileList exists
-      if (!fileList) return true; // Pass validation if no file is provided
+      if (!fileList) return true;
 
       return fileList.length === 1;
     }, "Expected file")
@@ -86,16 +85,52 @@ export const PostValidation = z.object({
       return fileList[0] as File;
     })
     .refine((file) => {
-      // Check if file exists
-      if (!file) return true; // Pass validation if no file is provided
+      if (!file) return true;
 
       return file.size <= MAX_FILE_SIZE;
     }, `File size should be less than 10MB.`)
     .refine((file) => {
-      // Check if file exists
-      if (!file) return true; // Pass validation if no file is provided
+      if (!file) return true;
 
       return ACCEPTED_IMAGE_TYPES.includes(file.type);
     }, "Only these types are allowed .jpg, .jpeg, .png, .webp and mp4"),
   isAnonymous: z.boolean().optional(),
+});
+
+// ============================================================
+// ORGANISATION
+// ============================================================
+
+export const OrganisationValidation = z.object({
+  description: z
+    .string()
+    .min(5, { message: "Minimum 5 characters." })
+    .max(2200, { message: "Maximum 2,200 caracters" }),
+  photo: z
+    .custom<FileList>()
+    .optional()
+    .refine((fileList) => {
+      if (!fileList) return true;
+
+      return fileList.length === 1;
+    }, "Expected file")
+    .transform((fileList) => {
+      if (!fileList) return undefined;
+      return fileList[0] as File;
+    })
+    .refine((file) => {
+      if (!file) return true;
+
+      return file.size <= MAX_FILE_SIZE;
+    }, `File size should be less than 10MB.`)
+    .refine((file) => {
+      if (!file) return true;
+
+      return ACCEPTED_IMAGE_TYPES.includes(file.type);
+    }, "Only these types are allowed .jpg, .jpeg, .png, .webp and mp4"),
+
+  name: z
+    .string()
+    .min(3, { message: "Minimum 5 characters." })
+    .max(50, { message: "Maximum 50 caracters" }),
 });

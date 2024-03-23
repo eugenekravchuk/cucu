@@ -79,7 +79,7 @@ const Topbar = () => {
           />
           <Input
             type="text"
-            placeholder="Search"
+            placeholder="Пошук"
             className="explore-search max-w-[400px]"
             // value={searchValue}
             // onChange={(e) => {
@@ -103,13 +103,18 @@ const Topbar = () => {
       {/*</div>*/}
 
       <div className="topbarRight">
-        <Link to={"/create-post"} className="topbarIconItem">
+        <Link to={"/create-post"} className="topbarIconItem hidden xl:flex">
           <img src="/assets/icons/new_post.png" alt="add-post" />
         </Link>
-        <Link to={"/anonymous-posts"} className="topbarIconItem">
-          <img src="/assets/icons/anonym.png" alt="add-post" />
+        <Link to={"/anonymous-posts"} className="topbarIconItem hidden xl:flex">
+          <img src="/assets/icons/anonym.png" alt="anonym-posts" />
         </Link>
-        <Link to={"/calendar"} className="topbarIconItem">
+        <Link
+          to={"/create-organization"}
+          className="topbarIconItem hidden xl:flex">
+          <img src="/assets/icons/people.svg" alt="create-organisation" />
+        </Link>
+        <Link to={"/calendar"} className="topbarIconItem hidden xl:flex">
           <img src="/assets/icons/calendar.png" alt="calendar" />
         </Link>
         <Button

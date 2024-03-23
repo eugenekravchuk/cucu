@@ -25,11 +25,11 @@ const RootLayout = () => {
 
         {/* <LeftSidebar /> */}
 
-        <section className="flex flex-1 h-full">
+        <section className="flex flex-1 h-full bg-light-1">
           <Outlet />
         </section>
 
-        {/* <Bottombar /> */}
+        <Bottombar />
       </div>
     </ImageProvider>
   );

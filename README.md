@@ -16,13 +16,13 @@ Before running the app, make sure you have the following installed on your machi
 1. Clone the repository to your local machine:
 
 ```
-git clone https://github.com/eugenekravchuk/cucu-alpha.git
+https://github.com/eugenekravchuk/cucu.git
 ```
 
 2. Navigate into the project directory:
 
 ```
-cd cucu-alpha
+cd front
 ```
 
 3. Install dependencies using npm:

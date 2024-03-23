@@ -4,13 +4,17 @@
 @tailwind components;
 @tailwind utilities;
 
+.field-bg {
+  background: #ededed;
+}
+
 @layer base {
   * {
     @apply box-border list-none p-0 m-0 scroll-smooth;
   }
 
   body {
-    @apply bg-[#EDEDED] text-black min-h-screen font-inter;
+    @apply bg-light-1 text-black min-h-screen font-inter;
     overflow: hidden;
   }
 }
@@ -97,15 +101,11 @@
   }
 
   .custom-scrollbar::-webkit-scrollbar-track {
-    background: #09090a;
+    background: #eeeef3;
   }
 
-  /* .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #5c5c7b;
-    border-radius: 50px;
-  } */
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: #5c5c7b;
+    background: #d8d8da;
     border-radius: 50px;
   }
 
@@ -149,7 +149,7 @@
   }
 
   .home-creators {
-    @apply hidden xl:flex flex-col w-72 2xl:w-465 px-6 py-10 gap-10  overflow-scroll custom-scrollbar;
+    @apply hidden xl:flex flex-col w-72 2xl:w-465 px-6 py-5 gap-10  overflow-scroll custom-scrollbar h-1/2;
   }
 
   /* Post Details */
@@ -193,7 +193,7 @@
 
   /* Bottom bar */
   .bottom-bar {
-    @apply z-50 flex justify-evenly w-full sticky bottom-0  bg-[#E7E7E7] px-5 py-4 md:hidden;
+    @apply z-50 flex xl:hidden justify-evenly w-full sticky bottom-0  bg-light-1 px-2 py-2;
   }
 
   /* File uploader */
@@ -263,7 +263,7 @@
   }
 
   .shad-input {
-    @apply h-12 bg-violet-200 border-none placeholder:text-dark-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-dark-3 !important;
+    @apply h-12 bg-[#EDEDED] border-none placeholder:text-dark-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-dark-3 !important;
   }
 
   .shad-textarea {
@@ -272,7 +272,7 @@
 
   /* Button */
   .shad-button_primary {
-    @apply bg-primary-500 hover:bg-primary-500 text-light-1 flex gap-2 !important;
+    @apply bg-primary-500 hover:bg-primary-500 text-light-1 flex gap-2;
   }
 
   .shad-button_dark_4 {

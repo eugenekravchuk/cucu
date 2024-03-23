@@ -6,27 +6,32 @@ import { GridPostList, PostStats } from "@/components/shared";
 import { multiFormatDateString } from "@/lib/utils";
 import { CommentSection } from "replyke";
 import {
+  createComment,
   decodeJWT,
   deletePost,
   getPostById,
   getProfile,
 } from "@/jwt_back/work";
 import { useEffect, useState } from "react";
+import Comment from "@/components/shared/Comment";
 
 const PostDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingComments, setIsLoadingComments] = useState(false);
   const [post, setPost] = useState(null);
   const userdataDecoded = decodeJWT();
-
+  const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true);
         const data = await getPostById(Number(id));
         setPost(data);
+        setComments(data.comments);
       } catch (error) {
         console.error("Error fetching post data:", error);
       } finally {
@@ -45,15 +50,6 @@ const PostDetails = () => {
     );
   }
 
-  // const { data: userPosts, isLoading: isUserPostLoading } = useGetUserPosts(
-  //   post?.creator.$id
-  // );
-  // const { mutate: deletePost } = useDeletePost();
-
-  // const relatedPosts = userPosts?.documents.filter(
-  //   (userPost) => userPost.$id !== id
-  // );
-
   const handleDeletePost = () => {
     try {
       setIsLoading(true);
@@ -63,6 +59,29 @@ const PostDetails = () => {
     } finally {
       setIsLoading(false);
       navigate(-1);
+    }
+  };
+
+  const handleDeleteComment = () => {};
+
+  const handleCreateComment = async () => {
+    console.log(comment);
+    const commentData = { text: comment };
+    const formData = new FormData();
+    formData.append("comment_text", JSON.stringify({ text: comment }));
+
+    try {
+      setIsLoading(true);
+      const outcome = await createComment(formData, post.id);
+      if (outcome == "error") {
+        return;
+      }
+      setComments([...comments, outcome]);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setComment("");
+      setIsLoading(false);
     }
   };
 
@@ -139,7 +158,7 @@ const PostDetails = () => {
             </div>
           </div>
 
-          <hr className="border w-full border-dark-4/80" />
+          <hr className="border w-full border-light-4/80" />
 
           <div className="flex flex-col flex-1 w-full small-medium lg:base-regular">
             <p>{post.text}</p>
@@ -165,18 +184,45 @@ const PostDetails = () => {
         </div>
       </div>
 
-      {/* <div className="w-full max-w-5xl">
-        <hr className="border w-full border-dark-4/80" />
+      <div className="w-full max-w-5xl">
+        <hr className="border w-full border-light-4/80" />
 
-        <h3 className="body-bold md:h3-bold w-full my-10">
-          More Related Posts
-        </h3>
-        {isUserPostLoading || !relatedPosts ? (
+        <h4 className="body-bold md:h3-bold w-full my-10">Коментарі</h4>
+
+        <div className="comment-input flex items-center border border-gray-300 rounded-lg p-3 mb-4">
+          <textarea
+            name="comment"
+            placeholder="Write a comment..."
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            className="flex-1 border-none outline-none resize-none"></textarea>
+          <button
+            onClick={handleCreateComment}
+            className="bg-[#DBDBDB] hover:bg-[#C7C7C7] text-[#505050] hover:text-[#2C2C2C] font-bold py-2 px-4 rounded-md ml-3"
+            disabled={isLoadingComments}>
+            Post
+          </button>
+        </div>
+
+        {!isLoadingComments ? (
+          comments.map((com) => (
+            <Comment
+              username={com.author.username}
+              userImage={com.author.ava}
+              text={com.text}
+              id={com.id}
+            />
+          ))
+        ) : (
+          <Loader />
+        )}
+
+        {/* {isUserPostLoading || !relatedPosts ? (
           <Loader />
         ) : (
           <GridPostList posts={relatedPosts} />
-        )}
-      </div> */}
+        )} */}
+      </div>
     </div>
   );
 };

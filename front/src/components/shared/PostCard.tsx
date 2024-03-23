@@ -5,6 +5,7 @@ import { PostStats } from "@/components/shared";
 import { multiFormatDateString } from "@/lib/utils";
 import { decodeJWT } from "@/jwt_back/work";
 import { jwtDecode } from "jwt-decode";
+import "./post.css";
 
 type PostCardProps = {
   post: Models.Document;
@@ -12,76 +13,67 @@ type PostCardProps = {
 
 const PostCard = ({ post }: PostCardProps) => {
   return (
-    <div className="post-card">
-      <div className="flex-between">
-        <div className="flex items-center gap-3">
-          <Link to={`/profile/${post.author.username}`}>
-            <img
-              src={`${
-                post.author.avatar ===
-                "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
-                  ? "/assets/icons/profile-placeholder.svg"
-                  : post.author.avatar
-              }`}
-              alt="creator"
-              className="w-12 lg:h-12 rounded-full"
-            />
-          </Link>
+    <div className="post">
+      <div className="postWrapper">
+        <div className="postTop">
+          <div className="postTopLeft">
+            <Link to={`/profile/${post.author.username}`}>
+              <img
+                src={`${
+                  post.author.avatar ===
+                  "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
+                    ? "/assets/icons/profile-placeholder.svg"
+                    : post.author.avatar
+                }`}
+                alt="creator"
+                className="postProfileImg"
+              />
+            </Link>
+            <span className="postUsername">@{post.author.username}</span>
 
-          <div className="flex flex-col">
-            <p className="base-medium lg:body-bold text-dark-1">
-              @{post.author.username}
-            </p>
-            <div className="flex-center gap-2 text-light-3">
-              <p className="subtle-semibold lg:small-regular ">
-                {multiFormatDateString(post.date)}
-              </p>
-              {/* •
-              <p className="subtle-semibold lg:small-regular">
-                {post.location}
-              </p> */}
-            </div>
+            <span className="postDate">{multiFormatDateString(post.date)}</span>
+          </div>
+          <div className="postTopRight">
+            <Link
+              to={`/update-post/${post.id}`}
+              className={`${decodeJWT().sub !== post.author.id && "hidden"}`}>
+              {" "}
+              <img
+                src={"/assets/icons/edit.svg"}
+                alt="edit"
+                width={20}
+                height={20}
+              />
+            </Link>
           </div>
         </div>
-
-        <Link
-          to={`/update-post/${post.id}`}
-          className={`${decodeJWT().sub !== post.author.id && "hidden"}`}>
-          {" "}
-          <img
-            src={"/assets/icons/edit.svg"}
-            alt="edit"
-            width={20}
-            height={20}
-          />
+        <Link to={`/posts/${post.id}`}>
+          <div className="postCenter">
+            <span className="postText">{post.text}</span>
+            {/* <img className="postImg" src="" alt="" /> */}
+            <img
+              src={post.photo || "/assets/icons/profile-placeholder.svg"}
+              alt="post image"
+              className="post-card_img"
+            />
+          </div>
         </Link>
-      </div>
-
-      <Link to={`/posts/${post.id}`}>
-        <div className="small-medium lg:base-medium py-5">
-          <p>{post.text}</p>
-          {/* <ul className="flex gap-1 mt-2">
-            {post.tags.map((tag: string, index: string) => (
-              <li key={`${tag}${index}`} className="text-light-3 small-regular">
-                #{tag}
-              </li>
-            ))}
-          </ul> */}
+        <div className="postBottom">
+          <div className="postBottomLeft">
+            <PostStats
+              post={post}
+              userId={jwtDecode.id}
+              postId={null}
+              white={false}
+            />
+          </div>
+          <div className="postBottomRight">
+            <Link to={`/posts/${post.id}`}>
+              <span className="postCommentText"> коменти</span>
+            </Link>
+          </div>
         </div>
-
-        <img
-          src={post.photo || "/assets/icons/profile-placeholder.svg"}
-          alt="post image"
-          className="post-card_img"
-        />
-      </Link>
-
-      <PostStats
-        post={post}
-        userId={jwtDecode.id}
-        postId={null}
-        white={false}
-      />
+      </div>
     </div>
   );
 };
