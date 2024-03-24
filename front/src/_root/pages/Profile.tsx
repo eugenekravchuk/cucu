@@ -13,6 +13,15 @@ import { GridPostList, Loader } from "@/components/shared";
 import { decodeJWT, getProfile, followUser } from "@/jwt_back/work";
 import { useEffect, useState } from "react";
 
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 interface StabBlockProps {
   value: string | number;
   label: string;
@@ -96,8 +105,20 @@ const Profile = () => {
 
             <div className="flex gap-8 mt-10 items-center justify-center xl:justify-start flex-wrap z-20">
               <StatBlock value={userData.posts.length} label="Posts" />
-              <StatBlock value={userData.followers} label="Followers" />
-              <StatBlock value={userData.following} label="Following" />
+              <Dialog>
+                <DialogTrigger>Open</DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Are you absolutely sure?</DialogTitle>
+                    <DialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your account and remove your data from our servers.
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
+              {/* <StatBlock value={userData.followers} label="Followers" />
+              <StatBlock value={userData.following} label="Following" /> */}
             </div>
 
             <p className="small-medium md:base-medium text-center xl:text-left mt-7 max-w-screen-sm">

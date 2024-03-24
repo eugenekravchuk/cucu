@@ -299,3 +299,19 @@ export const likeComment = async (commentId) => {
 
   return response.data;
 };
+
+export const deleteComment = async (commentId) => {
+  const response = await axios.delete(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/comment/${commentId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Post deletion failed. Please try again." });
+    return "error";
+  }
+};

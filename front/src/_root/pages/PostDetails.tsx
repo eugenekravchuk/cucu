@@ -184,7 +184,7 @@ const PostDetails = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-5xl">
+      <div className="w-full max-w-5xl mb-[70px]">
         <hr className="border w-full border-light-4/80" />
 
         <h4 className="body-bold md:h3-bold w-full my-10">Коментарі</h4>
@@ -207,6 +207,7 @@ const PostDetails = () => {
         {!isLoadingComments ? (
           comments.map((com) => (
             <Comment
+              key={com.id}
               username={com.author.username}
               userImage={com.author.ava}
               text={com.text}
@@ -216,12 +217,6 @@ const PostDetails = () => {
         ) : (
           <Loader />
         )}
-
-        {/* {isUserPostLoading || !relatedPosts ? (
-          <Loader />
-        ) : (
-          <GridPostList posts={relatedPosts} />
-        )} */}
       </div>
     </div>
   );

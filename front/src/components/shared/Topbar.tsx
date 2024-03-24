@@ -129,7 +129,12 @@ const Topbar = () => {
           to={`/profile/${userData.username}`}
           className="flex-center gap-3 mr-10">
           <img
-            src={userData.avatar || "/assets/icons/profile-placeholder.svg"}
+            src={
+              userData.avatar ==
+              "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
+                ? "/assets/icons/profile-placeholder.svg"
+                : userData.avatar
+            }
             alt="profile"
             className="h-8 w-8 rounded-full"
           />

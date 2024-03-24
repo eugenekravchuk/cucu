@@ -1,6 +1,7 @@
-import { decodeJWT, likeComment } from "@/jwt_back/work";
+import { decodeJWT, deleteComment, likeComment } from "@/jwt_back/work";
 
 import { useState } from "react";
+import { toast } from "@/components/ui";
 
 const Comment = ({
   username = "loh",
@@ -14,6 +15,7 @@ const Comment = ({
   const [isLiked, setIsLiked] = useState(false);
   const showDelete = decodeJWT().sub === username;
   const [isLoading, setIsLoading] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
 
   const handleLike = () => {
     try {
@@ -34,8 +36,19 @@ const Comment = ({
 
   // Placeholder for delete functionality
   const handleDelete = () => {
-    console.log("Delete comment functionality would go here");
+    try {
+      console.log(id);
+      const outcome = deleteComment(id);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsDeleted(true);
+    }
   };
+
+  if (isDeleted) {
+    return <div></div>;
+  }
 
   return (
     <div className="border border-gray-300 rounded-lg p-4 mb-5">
