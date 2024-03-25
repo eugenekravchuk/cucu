@@ -112,7 +112,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
           name="caption"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Caption</FormLabel>
+              <FormLabel className="shad-form_label">Заголовок</FormLabel>
               <FormControl>
                 <Textarea
                   className="shad-textarea custom-scrollbar bg-light-2"
@@ -136,7 +136,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
             name="file"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="shad-form_label">Add Photos</FormLabel>
+                <FormLabel className="shad-form_label">Додати світлину</FormLabel>
                 <FormControl>
                   <FileUploader
                     fieldChange={field.onChange}
@@ -204,7 +204,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
                     }}
                   /> */}
                   <p className="text-xl ml-[10px] text-[#4C4C4C]">
-                    Make post anonymous
+                    Створити анонімний пост
                   </p>
                 </div>
               </FormControl>
@@ -218,12 +218,13 @@ const PostForm = ({ post, action }: PostFormProps) => {
             type="button"
             className="shad-button_dark_4 text-white"
             onClick={() => navigate(-1)}>
-            Cancel
+            Скасувати
           </Button>
           <Button
             type="submit"
             className="shad-button_primary whitespace-nowrap py-6">
-            {action} Post
+            {/* {action} Опублікувати */}
+            Опублікувати
           </Button>
         </div>
       </form>

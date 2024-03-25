@@ -69,7 +69,7 @@ const PostCard = ({ post }: PostCardProps) => {
           </div>
           <div className="postBottomRight">
             <Link to={`/posts/${post.id}`}>
-              <span className="postCommentText"> коменти</span>
+              <span className="postCommentText"> Коментарі </span>
             </Link>
           </div>
         </div>

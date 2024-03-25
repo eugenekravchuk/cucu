@@ -92,7 +92,7 @@ const PostDetails = () => {
           variant="ghost"
           className="shad-button_ghost">
           <img src="/assets/icons/back.svg" alt="back" width={24} height={24} />
-          <p className="small-medium lg:base-medium">Back</p>
+          <p className="small-medium lg:base-medium">Назад</p>
         </Button>
       </div>
 

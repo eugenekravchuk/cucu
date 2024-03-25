@@ -44,7 +44,7 @@ const AnonymousPosts = () => {
       <div className="home-container ">
         <div className="home-posts mb-[100px]">
           <h2 className="h3-bold md:h2-bold text-left w-full">
-            Anonymous Posts
+            Анонімні пости
           </h2>
           <ul className="flex flex-col flex-1 gap-9 w-full ">
             {posts.map((post: Models.Document) => (

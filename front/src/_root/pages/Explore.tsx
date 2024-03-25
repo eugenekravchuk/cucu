@@ -20,7 +20,7 @@ const SearchResults = ({
     return <GridPostList posts={searchedPosts.documents} />;
   } else {
     return (
-      <p className="text-light-4 mt-10 text-center w-full">No results found</p>
+      <p className="text-light-4 mt-10 text-center w-full">Нічого не знайдено</p>
     );
   }
 };
