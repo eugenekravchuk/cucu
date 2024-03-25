@@ -1,5 +1,5 @@
 import { useState } from "react";
-const Channels = ({ showOrganization, setShowOrganization }) => {
+const Channels = ({ showOrganization, setShowOrganization, showChannels, setShowChannels }) => {
     return (
         <div className="flex-col absolute xl:hidden bg-light-1 top-[50px] right-0 border border-light-2 z-20 h-full bottom-[50px]">
         <div className="flex-col w-60 px-6 pb-5 gap-10  overflow-scroll custom-scrollbar h-2/5">
@@ -10,6 +10,7 @@ const Channels = ({ showOrganization, setShowOrganization }) => {
             <li>
               <div className="user-card" onClick={() => {
                     setShowOrganization(showOrganization => !showOrganization);
+                    setShowChannels(showChannels => !showChannels);
                 }}>
                 <img
                   src="/assets/icons/profile-placeholder.svg"
