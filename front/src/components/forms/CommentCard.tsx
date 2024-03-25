@@ -122,7 +122,7 @@ const CommentForm = ({ post, action }: PostFormProps) => {
           <Button
             type="submit"
             className="shad-button_primary whitespace-nowrap py-6">
-            {action} Comment
+            {action} Коментувати
           </Button>
         </div>
       </form>

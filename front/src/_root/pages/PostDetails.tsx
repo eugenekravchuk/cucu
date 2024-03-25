@@ -192,7 +192,7 @@ const PostDetails = () => {
         <div className="comment-input flex items-center border border-gray-300 rounded-lg p-3 mb-4">
           <textarea
             name="comment"
-            placeholder="Write a comment..."
+            placeholder="Напиши коментар..."
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             className="flex-1 border-none outline-none resize-none"></textarea>
@@ -200,7 +200,7 @@ const PostDetails = () => {
             onClick={handleCreateComment}
             className="bg-[#DBDBDB] hover:bg-[#C7C7C7] text-[#505050] hover:text-[#2C2C2C] font-bold py-2 px-4 rounded-md ml-3"
             disabled={isLoadingComments}>
-            Post
+            Коментувати
           </button>
         </div>
 

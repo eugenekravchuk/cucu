@@ -49,7 +49,8 @@ const PostCard = ({ post }: PostCardProps) => {
         </div>
         <Link to={`/posts/${post.id}`}>
           <div className="postCenter">
-            <span className="postText">{post.text}</span>
+            {/* <span className="postText">{post.text}</span> */}
+            <div className="postText">{post.text}</div>
             {/* <img className="postImg" src="" alt="" /> */}
             <img
               src={post.photo || "/assets/icons/profile-placeholder.svg"}
