@@ -21,6 +21,7 @@ import "./globals.css";
 import Addresser from "./_root/pages/Addresser";
 import AnonymousPosts from "./_root/pages/AnonymousPosts";
 import СreateOrganisation from "./_root/pages/СreateOrganisation";
+import СreateEvent from "./_root/pages/СreateEvent";
 import { useState } from "react";
 const App = () => {
   const [showChannels, setShowChannels] = useState(false);
@@ -47,6 +48,7 @@ const App = () => {
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
           <Route path="/anonymous-posts" element={<AnonymousPosts />} />
           <Route path="/create-organization" element={<СreateOrganisation />} />
+          <Route path="/create-event" element={<СreateEvent />} />
 
         </Route>
       </Routes>

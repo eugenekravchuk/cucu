@@ -1,4 +1,5 @@
 import PostForm from "@/components/forms/PostForm";
+import { Link } from "react-router-dom";
 
 const CreatePost = () => {
   return (
@@ -11,7 +12,17 @@ const CreatePost = () => {
             height={36}
             alt="add"
           />
-          <h2 className="h3-bold md:h2-bold text-left w-full">Створити пост</h2>
+          <button className="h3-bold md:h2-bold text-left w-full">Створити пост</button >
+          <img
+            src="/assets/icons/event2.png"
+            width={36}
+            height={36}
+            alt="add"
+          />
+
+          <Link to={"/create-event"} className="h3-bold md:h2-bold text-left w-full">
+          <button>Створити подію</button >
+        </Link>
         </div>
 
         <PostForm action="Create"  />
