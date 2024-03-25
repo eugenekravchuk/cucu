@@ -14,7 +14,7 @@ import {
 import Channels from "@/components/shared/Channels";
 import OrganizationDescription from "@/components/shared/OrganizationDescription";
 
-const Home = ({showChannels}) => {
+const Home = ({showChannels, setShowChannels}) => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -149,7 +149,7 @@ const Home = ({showChannels}) => {
           </ul>
       </div> */}
       {showChannels ? 
-       <Channels showOrganization={showOrganization} setShowOrganization={setShowOrganization}/>
+       <Channels showOrganization={showOrganization} setShowOrganization={setShowOrganization} showChannels={showChannels} setShowChannels={setShowChannels}/>
       : null}
     </div>
   );

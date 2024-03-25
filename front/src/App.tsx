@@ -37,7 +37,7 @@ const App = () => {
         {/* private routes */}
         <Route element={<RootLayout showChannels={showChannels} setShowChannels={setShowChannels}/>}>
           <Route path="/" element={<Addresser />} />
-          <Route path="/home" element={<Home showChannels={showChannels}/>} />
+          <Route path="/home" element={<Home showChannels={showChannels} setShowChannels={setShowChannels}/>} />
           {/*           <Route path="/explore" element={<Explore />} />
           <Route path="/saved" element={<Saved />} /> */}
           <Route path="/all-users" element={<AllUsers />} />
