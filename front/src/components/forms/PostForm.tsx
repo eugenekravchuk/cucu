@@ -20,7 +20,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { FileUploader, Loader } from "@/components/shared";
 import axios from "axios";
 import { useState } from "react";
-import { createPost, updatePost } from "@/jwt_back/work";
+import { createAnonymousPost, createPost, updatePost } from "@/jwt_back/work";
 import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "../ui/checkbox";
 
@@ -79,9 +79,24 @@ const PostForm = ({ post, action }: PostFormProps) => {
       formData.append("photo", value.file);
     }
 
+    const formDataAnonymous = new FormData();
+    formDataAnonymous.append("text", value.caption);
+    if (Array.isArray(value.file)) {
+      value.file.forEach((file) => {
+        formDataAnonymous.append("photo", file);
+      });
+    } else {
+      formDataAnonymous.append("photo", value.file);
+    }
+
     try {
       setIsLoading(true);
-      const outcome = await createPost(formData);
+      let outcome;
+      if (value.isAnonymous) {
+        outcome = await createAnonymousPost(formDataAnonymous);
+      } else {
+        outcome = await createPost(formData);
+      }
       if (outcome === "error") {
         return;
       }
@@ -156,26 +171,6 @@ const PostForm = ({ post, action }: PostFormProps) => {
           </div>
         )}
 
-        {/* 
-        {action === "Create" ? (
-          <FormField
-            control={form.control}
-            name="isAnonymous"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <div>hui</div>
-                  <Checkbox
-                    checked={field.value}
-                    onChange={(e) => field.onChange(e.target.checked)}
-                  />
-                </FormControl>
-              </FormItem>
-            )}
-          />
-        ) : (
-          <div className="bg-[#fff] py-10 px-10 rounded-xl"></div>
-        )} */}
         <FormField
           control={form.control}
           name="isAnonymous"
@@ -188,20 +183,6 @@ const PostForm = ({ post, action }: PostFormProps) => {
                     onCheckedChange={field.onChange}
                     className="h-[30px] w-[55px] pl-[5px]"
                   />
-                  {/* <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      backgroundColor: "white",
-                      border: "1px solid black",
-                      borderRadius: "4px",
-                      color: "black",
-                      
-                      boxSizing: "border-box",
-                    }}
-                  /> */}
                   <p className="text-xl ml-[10px] text-[#4C4C4C]">
                     Make post anonymous
                   </p>

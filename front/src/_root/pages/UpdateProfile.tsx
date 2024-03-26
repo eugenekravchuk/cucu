@@ -15,9 +15,14 @@ import { useToast } from "@/components/ui/use-toast";
 import { Textarea, Input, Button } from "@/components/ui";
 import { ProfileUploader, Loader } from "@/components/shared";
 
-import { ProfileValidation } from "@/lib/validation";
+import { UpdateProfileValidation } from "@/lib/validation";
 import { useContext, useEffect, useState } from "react";
-import { decodeJWT, getProfile, uploadAvatar } from "@/jwt_back/work";
+import {
+  decodeJWT,
+  getProfile,
+  updateProfile,
+  uploadAvatar,
+} from "@/jwt_back/work";
 import { ImageContext } from "@/context/ImageContext";
 
 const UpdateProfile = () => {
@@ -26,11 +31,11 @@ const UpdateProfile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState(null);
   const { image, setImage } = useContext(ImageContext);
-  const [firstName, setFirstName] = useState(null);
-  const [lastName, setLastName] = useState(null);
-  const [username, setUsername] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [bio, setBio] = useState("some text");
+
+  const form = useForm<z.infer<typeof UpdateProfileValidation>>({
+    resolver: zodResolver(UpdateProfileValidation),
+    defaultValues: {}, // Updated - will fill this dynamically
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,10 +44,14 @@ const UpdateProfile = () => {
       try {
         const username = decodeJWT().sub;
         const data = await getProfile(username);
-        setFirstName(data.data.first_name);
-        setLastName(data.data.last_name);
-        setUsername(data.data.username);
-        setEmail(data.data.email);
+        form.reset({
+          file: data.data.avatar,
+          first_name: data.data.first_name,
+          last_name: data.data.last_name,
+          username: data.data.username,
+          email: data.data.email,
+          bio: data.data.bio,
+        });
         setUserData(data.data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -55,18 +64,6 @@ const UpdateProfile = () => {
     fetchData();
   }, []);
 
-  const form = useForm<z.infer<typeof ProfileValidation>>({
-    resolver: zodResolver(ProfileValidation),
-    defaultValues: {
-      file: userData?.ava,
-      first_name: userData?.first_name,
-      last_name: userData?.last_name,
-      username: userData?.username,
-      email: userData?.email,
-      bio: "something about me",
-    },
-  });
-
   if (isLoading)
     return (
       <div className="flex-center w-full h-full">
@@ -75,29 +72,27 @@ const UpdateProfile = () => {
     );
 
   // Handler
-  const handleUpdate = async (value: z.infer<typeof ProfileValidation>) => {
-    const formData = new FormData();
-    if (Array.isArray(value.file)) {
-      // Check if it's an array
-      value.file.forEach((file) => {
-        formData.append("ava", file);
-      });
-    } else {
-      formData.append("ava", value.file);
-    }
+  const handleUpdate = async (
+    value: z.infer<typeof UpdateProfileValidation>
+  ) => {
+    setIsLoading(true);
+    const avatarForm = new FormData();
+    avatarForm.append("ava", value.file);
+    const profileData = {
+      first_name: value.first_name,
+      last_name: value.last_name,
+      bio: value.bio,
+    };
 
     try {
-      setIsLoading(true);
-      const updateUser = await uploadAvatar(formData);
-      const username = decodeJWT().sub;
-      const data = await getProfile(username);
-      setUserData(data.data);
-      setImage(userData.avatar);
+      const avaRequest = await uploadAvatar(avatarForm);
+      const profileRequest = await updateProfile(profileData);
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.log(error);
     } finally {
       setIsLoading(false);
-      return navigate(`/`);
+      navigate(`/profile/${userData.username}`);
+      setImage(value.file);
     }
   };
 
@@ -151,10 +146,8 @@ const UpdateProfile = () => {
                       type="text"
                       className="shad-input"
                       {...field}
-                      value={firstName}
                       onChange={(event) => {
                         field.onChange(event);
-                        setFirstName(event.target.value);
                       }}
                     />
                   </FormControl>
@@ -174,10 +167,8 @@ const UpdateProfile = () => {
                       type="text"
                       className="shad-input"
                       {...field}
-                      value={lastName}
                       onChange={(event) => {
                         field.onChange(event);
-                        setLastName(event.target.value);
                       }}
                     />
                   </FormControl>
@@ -197,7 +188,6 @@ const UpdateProfile = () => {
                       type="text"
                       className="shad-input"
                       {...field}
-                      value={username}
                       disabled
                     />
                   </FormControl>
@@ -217,7 +207,6 @@ const UpdateProfile = () => {
                       type="text"
                       className="shad-input"
                       {...field}
-                      value={email}
                       disabled
                     />
                   </FormControl>
@@ -234,11 +223,9 @@ const UpdateProfile = () => {
                   <FormLabel className="shad-form_label">Bio</FormLabel>
                   <FormControl>
                     <Textarea
-                      className="shad-textarea custom-scrollbar"
-                      value={bio}
+                      className="shad-textarea custom-scrollbar field-bg"
                       onChange={(event) => {
                         field.onChange(event);
-                        setBio(event.target.value);
                       }}
                       {...field}
                     />

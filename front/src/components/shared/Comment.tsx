@@ -53,11 +53,13 @@ const Comment = ({
   return (
     <div className="border border-gray-300 rounded-lg p-4 mb-5">
       <div className="flex items-center mb-3">
-        <img
-          src={userImage}
-          alt="User Avatar"
-          className="w-10 h-10 rounded-full mr-4"
-        />
+        <div className="mr-[7px]">
+          <img
+            src={userImage}
+            alt="User Avatar"
+            className="w-[50px] h-[40px] rounded-full"
+          />
+        </div>
         <div>
           <span className="font-semibold">{username}</span>
           <span className="text-gray-500 text-sm ml-2">{time}</span>

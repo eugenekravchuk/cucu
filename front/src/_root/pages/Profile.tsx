@@ -10,7 +10,13 @@ import {
 import { Button } from "@/components/ui";
 import { LikedPosts } from "@/_root/pages";
 import { GridPostList, Loader } from "@/components/shared";
-import { decodeJWT, getProfile, followUser } from "@/jwt_back/work";
+import {
+  decodeJWT,
+  getProfile,
+  followUser,
+  getFollowers,
+  getFollowings,
+} from "@/jwt_back/work";
 import { useEffect, useState } from "react";
 
 import {
@@ -40,6 +46,9 @@ const Profile = () => {
   const [isButtonLoading, setIsButtonLoading] = useState(false);
   const [userData, setUserData] = useState(null);
   const [isFollowing, setIsFollowing] = useState(false);
+  const [followers, setFollowers] = useState([]);
+  const [followings, setFollowing] = useState([]);
+  // const [followers, setFollowers] = useState([])
   const userdataDecoded = decodeJWT();
 
   useEffect(() => {
@@ -48,6 +57,10 @@ const Profile = () => {
 
       try {
         const data = await getProfile(username);
+        const data2 = await getFollowers(username);
+        const data3 = await getFollowings(username);
+        setFollowers(data2);
+        setFollowing(data3);
         setUserData(data.data);
         setIsFollowing(data.data.is_following);
       } catch (error) {
@@ -58,7 +71,7 @@ const Profile = () => {
     };
 
     fetchData();
-  }, [isFollowing]);
+  }, [isFollowing, username]);
 
   const followUserFunc = async () => {
     setIsButtonLoading(true);
@@ -106,15 +119,82 @@ const Profile = () => {
             <div className="flex gap-8 mt-10 items-center justify-center xl:justify-start flex-wrap z-20">
               <StatBlock value={userData.posts.length} label="Posts" />
               <Dialog>
-                <DialogTrigger>Open</DialogTrigger>
+                <DialogTrigger>
+                  <span className="font-bold">{followers.length}</span>{" "}
+                  Followers
+                </DialogTrigger>
                 <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>Are you absolutely sure?</DialogTitle>
-                    <DialogDescription>
-                      This action cannot be undone. This will permanently delete
-                      your account and remove your data from our servers.
-                    </DialogDescription>
-                  </DialogHeader>
+                  {followers.length > 0 ? (
+                    followers.map((follower) => (
+                      <div
+                        className={`flex items-center gap-3 border-b ${
+                          follower.id === followers[followers.length - 1].id
+                            ? "border-white"
+                            : "border-[#A3A3A3] pb-5"
+                        } `}>
+                        <Link
+                          key={follower.id}
+                          to={`/profile/${follower.username}`}
+                          className="flex items-center gap-3">
+                          <img
+                            src={
+                              follower.avatar ==
+                              "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
+                                ? "/assets/icons/profile-placeholder.svg"
+                                : follower.avatar
+                            }
+                            alt="profile"
+                            className="h-8 w-8 rounded-full"
+                          />
+                          <p>{follower.username}</p>
+                        </Link>
+                        {followers.length > 1 &&
+                        follower.id !== followers[followers.length - 1].id ? (
+                          <hr className="my-5 w-full" />
+                        ) : null}
+                      </div>
+                    ))
+                  ) : (
+                    <p>No followers</p>
+                  )}
+                </DialogContent>
+              </Dialog>
+              <Dialog>
+                <DialogTrigger>
+                  <span className="font-bold">{followings.length}</span>{" "}
+                  Followings
+                </DialogTrigger>
+                <DialogContent>
+                  {followings.length > 0 ? (
+                    followings.map((following) => (
+                      <div
+                        key={following.id}
+                        className={`flex items-center gap-3 border-b ${
+                          following.id === followings[followings.length - 1].id
+                            ? "border-white"
+                            : "border-[#A3A3A3] pb-5"
+                        } `}>
+                        <Link
+                          key={following.id}
+                          to={`/profile/${following.username}`}
+                          className="flex items-center gap-3">
+                          <img
+                            src={
+                              following.avatar ==
+                              "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
+                                ? "/assets/icons/profile-placeholder.svg"
+                                : following.avatar
+                            }
+                            alt="profile"
+                            className="h-8 w-8 rounded-full"
+                          />
+                          <p>{following.username}</p>
+                        </Link>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No followings</p>
+                  )}
                 </DialogContent>
               </Dialog>
               {/* <StatBlock value={userData.followers} label="Followers" />

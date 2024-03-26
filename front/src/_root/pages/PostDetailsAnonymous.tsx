@@ -16,7 +16,7 @@ import {
 import { useEffect, useState } from "react";
 import Comment from "@/components/shared/Comment";
 
-const PostDetails = () => {
+const PostDetailsAnonymous = () => {
   const navigate = useNavigate();
   const { id } = useParams();
 
@@ -96,63 +96,24 @@ const PostDetails = () => {
       </div>
 
       <div className="post_details-card">
-        <img src={post.photo} alt="creator" className="post_details-img" />
+        {post.photo && (
+          <img src={post.photo} alt="creator" className="post_details-img" />
+        )}
 
         <div className="post_details-info">
-          <div className="flex-between w-full">
-            <Link
-              //change
-              to={`/profile/${post.author.username}`}
-              className="flex items-center gap-3">
-              <img
-                src={
-                  post.author.avatar ==
-                  "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
-                    ? "/assets/icons/profile-placeholder.svg"
-                    : post.author.avatar
-                }
-                alt="creator"
-                className="w-8 h-8 lg:w-12 lg:h-12 rounded-full"
-              />
-              <div className="flex gap-1 flex-col">
-                <p className="base-medium lg:body-bold text-dark-1">
-                  {post.author.username}
+          <div className="flex-start w-full">
+            <img
+              src="/assets/images/anonymous.png"
+              alt="creator"
+              className="w-8 h-8 lg:w-12 lg:h-12 rounded-full mr-[10px]"
+            />
+            <div className="flex gap-1 flex-col">
+              <p className="base-medium lg:body-bold text-dark-1">anonym</p>
+              <div className="flex-center gap-2 text-dark-3">
+                <p className="subtle-semibold lg:small-regular ">
+                  {multiFormatDateString(post.date)}
                 </p>
-                <div className="flex-center gap-2 text-dark-3">
-                  <p className="subtle-semibold lg:small-regular ">
-                    {multiFormatDateString(post.date)}
-                  </p>
-                </div>
               </div>
-            </Link>
-
-            <div className="flex-center gap-4">
-              <Link
-                to={`/update-post/${post.id}`}
-                className={`${
-                  userdataDecoded.sub !== post.author.username && "hidden"
-                }`}>
-                <img
-                  src={"/assets/icons/edit.svg"}
-                  alt="edit"
-                  width={24}
-                  height={24}
-                />
-              </Link>
-
-              <Button
-                onClick={handleDeletePost}
-                variant="ghost"
-                className={`ost_details-delete_btn ${
-                  userdataDecoded.sub !== post.author.username && "hidden"
-                }`}>
-                <img
-                  src={"/assets/icons/delete.svg"}
-                  alt="delete"
-                  width={24}
-                  height={24}
-                />
-              </Button>
             </div>
           </div>
 
@@ -160,15 +121,6 @@ const PostDetails = () => {
 
           <div className="flex flex-col flex-1 w-full small-medium lg:base-regular">
             <p>{post.text}</p>
-            {/* <ul className="flex gap-1 mt-2">
-              {post?.tags.map((tag: string, index: string) => (
-                <li
-                  key={`${tag}${index}`}
-                  className="text-dark-3 small-regular">
-                  #{tag}
-                </li>
-              ))}
-            </ul> */}
           </div>
 
           <div className="w-full">
@@ -207,7 +159,7 @@ const PostDetails = () => {
             <Comment
               key={com.id}
               username={com.author.username}
-              userImage={com.author.ava}
+              userImage={com.author.avatar}
               text={com.text}
               id={com.id}
             />
@@ -220,4 +172,4 @@ const PostDetails = () => {
   );
 };
 
-export default PostDetails;
+export default PostDetailsAnonymous;
