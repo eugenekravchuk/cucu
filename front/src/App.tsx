@@ -37,9 +37,23 @@ const App = () => {
         </Route>
 
         {/* private routes */}
-        <Route element={<RootLayout showChannels={showChannels} setShowChannels={setShowChannels}/>}>
+        <Route
+          element={
+            <RootLayout
+              showChannels={showChannels}
+              setShowChannels={setShowChannels}
+            />
+          }>
           <Route path="/" element={<Addresser />} />
-          <Route path="/home" element={<Home showChannels={showChannels} setShowChannels={setShowChannels}/>} />
+          <Route
+            path="/home"
+            element={
+              <Home
+                showChannels={showChannels}
+                setShowChannels={setShowChannels}
+              />
+            }
+          />
           {/*           <Route path="/explore" element={<Explore />} />
           <Route path="/saved" element={<Saved />} /> */}
           <Route path="/all-users" element={<AllUsers />} />
@@ -51,9 +65,16 @@ const App = () => {
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
           <Route path="/anonymous-posts" element={<AnonymousPosts />} />
           <Route path="/create-organization" element={<СreateOrganisation />} />
-          <Route path="/organisation/:id" element={<Organisation showChannels={showChannels} setShowChannels={setShowChannels}/>} />
+          <Route
+            path="/organisation/:id"
+            element={
+              <Organisation
+                showChannels={showChannels}
+                setShowChannels={setShowChannels}
+              />
+            }
+          />
           <Route path="/create-event" element={<СreateEvent />} />
-
         </Route>
       </Routes>
 

@@ -42,15 +42,20 @@ export const SigninValidation = z.object({
 export const UpdateProfileValidation = z.object({
   file: z
     .custom<FileList>()
-    .refine((fileList) => fileList.length === 1, "Expected file")
+    .optional()
     .transform((file) => file[0] as File)
-    .refine((file) => {
-      return file.size <= MAX_FILE_SIZE_PROFILE;
-    }, `File size should be less than 2MB.`)
-    .refine(
-      (file) => ACCEPTED_IMAGE_TYPES.includes(file.type),
-      "Only these types are allowed .jpg, .jpeg, .png, .webp and mp4"
-    ),
+    .refine((fileList) => {
+      if (fileList?.length !== 1) {
+        // Only refine if a file is present
+        return (
+          fileList.length === 1 &&
+          fileList[0].size <= MAX_FILE_SIZE_PROFILE &&
+          ACCEPTED_IMAGE_TYPES.includes(fileList[0].type)
+        );
+      } else {
+        return true; // Bypass checks if no file
+      }
+    }, "Expected file with size less than 2MB and valid type (.jpg, .jpeg, .png, .webp and mp4)"),
   first_name: z
     .string()
     .min(2, { message: "Name must be at least 2 characters." }),

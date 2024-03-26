@@ -76,8 +76,7 @@ const UpdateProfile = () => {
     value: z.infer<typeof UpdateProfileValidation>
   ) => {
     setIsLoading(true);
-    const avatarForm = new FormData();
-    avatarForm.append("ava", value.file);
+
     const profileData = {
       first_name: value.first_name,
       last_name: value.last_name,
@@ -85,14 +84,18 @@ const UpdateProfile = () => {
     };
 
     try {
-      const avaRequest = await uploadAvatar(avatarForm);
+      if (value.file !== "h") {
+        const avatarForm = new FormData();
+        avatarForm.append("ava", value.file);
+        const avaRequest = await uploadAvatar(avatarForm);
+      }
       const profileRequest = await updateProfile(profileData);
     } catch (error) {
       console.log(error);
     } finally {
       setIsLoading(false);
       navigate(`/profile/${userData.username}`);
-      setImage(value.file);
+      setImage("image");
     }
   };
 

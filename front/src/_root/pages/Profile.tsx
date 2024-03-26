@@ -114,6 +114,7 @@ const Profile = () => {
               <p className="small-regular md:body-medium text-dark-3 text-center xl:text-left">
                 @{userData.username}
               </p>
+              <p>{userData.bio}</p>
             </div>
 
             <div className="flex gap-8 mt-10 items-center justify-center xl:justify-start flex-wrap z-20">

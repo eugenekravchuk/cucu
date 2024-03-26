@@ -346,7 +346,28 @@ export const getSidebarData = async () => {
     return "error";
   }
   return response.data;
-}
+};
+
+// *************************************
+// EVENT
+// *************************************
+
+export const createEvent = async (eventData) => {
+  const response = await axios.post(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/event/create_event`,
+    eventData,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Profile update failed. Please try again." });
+    return "error";
+  }
+};
 
 // *************************************
 // COMMENTS
