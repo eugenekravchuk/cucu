@@ -281,7 +281,7 @@ export const getOrganisationbyId = async (organisationId) => {
 
 export const getSidebarData = async () => {
   const response = await axios.get(
-    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/event/create`,
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/event/get_categories_and_orgs`,
     {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
