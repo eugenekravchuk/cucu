@@ -50,7 +50,7 @@ const UpdateProfile = () => {
           last_name: data.data.last_name,
           username: data.data.username,
           email: data.data.email,
-          bio: data.data.bio,
+          bio: data.data.bio === null ? "" : data.data.bio,
         });
         setUserData(data.data);
       } catch (error) {
@@ -84,7 +84,7 @@ const UpdateProfile = () => {
     };
 
     try {
-      if (value.file !== "h") {
+      if (value.file !== "h" && value.file) {
         const avatarForm = new FormData();
         avatarForm.append("ava", value.file);
         const avaRequest = await uploadAvatar(avatarForm);

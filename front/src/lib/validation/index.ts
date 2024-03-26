@@ -43,14 +43,14 @@ export const UpdateProfileValidation = z.object({
   file: z
     .custom<FileList>()
     .optional()
-    .transform((file) => file[0] as File)
+    .transform((file) => file !== null && (file[0] as File))
     .refine((fileList) => {
-      if (fileList?.length !== 1) {
-        // Only refine if a file is present
+      if (fileList?.length !== 1 && fileList) {
         return (
-          fileList.length === 1 &&
-          fileList[0].size <= MAX_FILE_SIZE_PROFILE &&
-          ACCEPTED_IMAGE_TYPES.includes(fileList[0].type)
+          fileList.length === 1 ||
+          (fileList === null &&
+            fileList[0].size <= MAX_FILE_SIZE_PROFILE &&
+            ACCEPTED_IMAGE_TYPES.includes(fileList[0].type))
         );
       } else {
         return true; // Bypass checks if no file
@@ -66,7 +66,7 @@ export const UpdateProfileValidation = z.object({
     .string()
     .min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email(),
-  bio: z.string(),
+  bio: z.string().optional(),
 });
 
 // ============================================================

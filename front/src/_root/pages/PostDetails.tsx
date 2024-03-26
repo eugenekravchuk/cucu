@@ -208,7 +208,11 @@ const PostDetails = () => {
             <Comment
               key={com.id}
               username={com.author.username}
-              userImage={com.author.avatar}
+              userImage={
+                com.author.avatar === null
+                  ? "/assets/icons/profile-placeholder.svg"
+                  : com.author.avatar
+              }
               text={com.text}
               id={com.id}
             />
