@@ -10,8 +10,23 @@ import {
 import { Button } from "@/components/ui";
 import { LikedPosts } from "@/_root/pages";
 import { GridPostList, Loader } from "@/components/shared";
-import { decodeJWT, getProfile } from "@/jwt_back/work";
+import {
+  decodeJWT,
+  getProfile,
+  followUser,
+  getFollowers,
+  getFollowings,
+} from "@/jwt_back/work";
 import { useEffect, useState } from "react";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 interface StabBlockProps {
   value: string | number;
@@ -28,7 +43,12 @@ const StatBlock = ({ value, label }: StabBlockProps) => (
 const Profile = () => {
   const { username } = useParams();
   const [isLoading, setIsLoading] = useState(true);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
   const [userData, setUserData] = useState(null);
+  const [isFollowing, setIsFollowing] = useState(false);
+  const [followers, setFollowers] = useState([]);
+  const [followings, setFollowing] = useState([]);
+  // const [followers, setFollowers] = useState([])
   const userdataDecoded = decodeJWT();
 
   useEffect(() => {
@@ -37,7 +57,12 @@ const Profile = () => {
 
       try {
         const data = await getProfile(username);
+        const data2 = await getFollowers(username);
+        const data3 = await getFollowings(username);
+        setFollowers(data2);
+        setFollowing(data3);
         setUserData(data.data);
+        setIsFollowing(data.data.is_following);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -46,19 +71,19 @@ const Profile = () => {
     };
 
     fetchData();
-  }, []);
+  }, [isFollowing, username]);
 
-  // let userdata = decodeJWT();
-
-  // const getUserData = async () => {
-  //   const userdata2 = await getProfile(userdata.sub);
-  //   if (userdata2 === "error") {
-  //     return;
-  //   }
-  //   return userdata2.data;
-  // };
-
-  // const userdata_ready = getUserData();
+  const followUserFunc = async () => {
+    setIsButtonLoading(true);
+    try {
+      const outcome = await followUser(username);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setIsFollowing(!isFollowing);
+      setIsButtonLoading(false);
+    }
+  };
 
   if (isLoading)
     return (
@@ -89,12 +114,92 @@ const Profile = () => {
               <p className="small-regular md:body-medium text-dark-3 text-center xl:text-left">
                 @{userData.username}
               </p>
+              <p>{userData.bio}</p>
             </div>
 
             <div className="flex gap-8 mt-10 items-center justify-center xl:justify-start flex-wrap z-20">
               <StatBlock value={userData.posts.length} label="Posts" />
-              <StatBlock value={userData.followers} label="Followers" />
-              <StatBlock value={userData.following} label="Following" />
+              <Dialog>
+                <DialogTrigger>
+                  <span className="font-bold">{followers.length}</span>{" "}
+                  Followers
+                </DialogTrigger>
+                <DialogContent>
+                  {followers.length > 0 ? (
+                    followers.map((follower) => (
+                      <div
+                        className={`flex items-center gap-3 border-b ${
+                          follower.id === followers[followers.length - 1].id
+                            ? "border-white"
+                            : "border-[#A3A3A3] pb-5"
+                        } `}>
+                        <Link
+                          key={follower.id}
+                          to={`/profile/${follower.username}`}
+                          className="flex items-center gap-3">
+                          <img
+                            src={
+                              follower.avatar ==
+                              "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
+                                ? "/assets/icons/profile-placeholder.svg"
+                                : follower.avatar
+                            }
+                            alt="profile"
+                            className="h-8 w-8 rounded-full"
+                          />
+                          <p>{follower.username}</p>
+                        </Link>
+                        {followers.length > 1 &&
+                        follower.id !== followers[followers.length - 1].id ? (
+                          <hr className="my-5 w-full" />
+                        ) : null}
+                      </div>
+                    ))
+                  ) : (
+                    <p>No followers</p>
+                  )}
+                </DialogContent>
+              </Dialog>
+              <Dialog>
+                <DialogTrigger>
+                  <span className="font-bold">{followings.length}</span>{" "}
+                  Followings
+                </DialogTrigger>
+                <DialogContent>
+                  {followings.length > 0 ? (
+                    followings.map((following) => (
+                      <div
+                        key={following.id}
+                        className={`flex items-center gap-3 border-b ${
+                          following.id === followings[followings.length - 1].id
+                            ? "border-white"
+                            : "border-[#A3A3A3] pb-5"
+                        } `}>
+                        <Link
+                          key={following.id}
+                          to={`/profile/${following.username}`}
+                          className="flex items-center gap-3">
+                          <img
+                            src={
+                              following.avatar ==
+                              "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
+                                ? "/assets/icons/profile-placeholder.svg"
+                                : following.avatar
+                            }
+                            alt="profile"
+                            className="h-8 w-8 rounded-full"
+                          />
+                          <p>{following.username}</p>
+                        </Link>
+                      </div>
+                    ))
+                  ) : (
+                    <p>No followings</p>
+                  )}
+                </DialogContent>
+              </Dialog>
+              {/* <StatBlock value={userData.followers} label="Followers" />
+              <StatBlock value={userData.following} label="Following" /> */}
             </div>
 
             <p className="small-medium md:base-medium text-center xl:text-left mt-7 max-w-screen-sm">
@@ -124,9 +229,18 @@ const Profile = () => {
               </Link>
             </div>
             <div className={`${username === userdataDecoded.sub && "hidden"}`}>
-              <Button type="button" className="shad-button_primary px-8">
-                Follow
-              </Button>
+              {isButtonLoading ? (
+                <div className="flex items-center justify-center">
+                  <Loader />
+                </div>
+              ) : (
+                <Button
+                  onClick={followUserFunc}
+                  type="button"
+                  className={`shad-button_primary px-8 hover:bg-[#8E8E8E]`}>
+                  {isFollowing ? "Unfollow" : "Follow"}
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -143,7 +257,7 @@ const Profile = () => {
               width={20}
               height={20}
             />
-            Posts
+            Публікації
           </Link>
           <Link
             to={`/profile/${userdataDecoded.sub}/liked-posts`}
@@ -154,7 +268,7 @@ const Profile = () => {
               width={20}
               height={20}
             />
-            Liked Posts
+            Вподобані пости
           </Link>
         </div>
       )}

@@ -1,9 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
 import { bottombarLinks } from "@/constants";
 import { Button } from "../ui";
+import { useState } from "react";
+import Channels from "./Channels";
 
-const Bottombar = () => {
+const Bottombar = ({ showChannels, setShowChannels }) => {
   const { pathname } = useLocation();
+
   return (
     <section className="bottom-bar">
       {bottombarLinks.map((link) => {
@@ -22,15 +25,20 @@ const Bottombar = () => {
               height={18}
               className={`${isActive && "invert-white"}`}
             />
-
-            <p className="text-xs font-bold text-dark-2">{link.label}</p>
+            <p className="md:text-xs text-[10px] font-bold text-dark-2">{link.label}</p>
           </Link>
         );
       })}
-        <Button className="flex-center flex-col bg-light-1 hover:bg-[#74747497] gap-1 p-2 transition text-[#060606]">
-          <img src="/assets/icons/menu.svg" alt="catalog" />
-          <p className="text-xs font-bold text-dark-2">Catalog</p>
-        </Button>
+      {/* home or organization/:id */}
+      {pathname === "/home"  || pathname.startsWith("/organisation")?
+          <Button className="flex-center flex-col bg-light-1 hover:bg-[#74747497] p-2 transition text-[#060606]"
+            onClick={() => {
+              setShowChannels(showChannels => !showChannels);
+            }}>
+            <img src="/assets/icons/menu.svg" alt="catalog" />
+            <p className="md:text-xs text-[10px] font-bold text-dark-2">Catalog</p>
+          </Button>
+      :null }
     </section>
   );
 };

@@ -1,4 +1,5 @@
 import { Models } from "appwrite";
+import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 // import { useToast } from "@/components/ui/use-toast";
 import { Loader, PostCard } from "@/components/shared";
@@ -15,30 +16,30 @@ import {
 } from "@/jwt_back/work";
 import Channels from "@/components/shared/Channels";
 import OrganizationDescription from "@/components/shared/OrganizationDescription";
-import { set } from "react-hook-form";
 
-const Home = ({showChannels, setShowChannels}) => {
+const Organisation = ({showChannels, setShowChannels}) => {
+    const { id } = useParams();
   const { toast } = useToast();
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState(null);
-  const [showOrganization, setShowOrganization] = useState(false);
   const [organisations, setOrganisations] = useState(null);
-  const [sidebar_organization, setSidebarOrganization] = useState(null);
-  const [sidebar_categories, setSidebarcategories] = useState(null);
+  const [sidebar_org, setSidebarOrg] = useState(null);
+  const [sidebar_categories, setSidebarCategories] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
-      try {
-        const data = await getAllPosts();
-        setPosts(data);
-        const datacategories = await getSidebarData();
-        setSidebarcategories(datacategories.categories);
-        setSidebarOrganization(datacategories.organizations);
+      try {        
+        const data = await getOrganisationbyId(id);
+        setOrganisations(data.data);
+        setPosts(data.data.events);
+        const data2 = await getSidebarData();
+        setSidebarCategories(data2.categories);
+        setSidebarOrg(data2.organizations);
       } catch (error) {
-        console.error("Error fetching post data:", error);
+        console.error("Error fetching sidebar data:", error);
         // Handle error, e.g., setPost(null) and display error UI
       } finally {
         setIsLoading(false);
@@ -57,32 +58,40 @@ const Home = ({showChannels, setShowChannels}) => {
   }
 
   return (
+    
     <div className="flex flex-1">
-      <div className="home-container">
-        <div className="home-posts mb-[100px]">
-          {/* {showOrganization ? <OrganizationDescription /> : null} */}
-          <h2 className="h3-bold md:h2-bold text-left w-full">Стрічка</h2>
-          <ul className="flex flex-col flex-1 gap-9 w-full ">
-            {posts.map((post: Models.Document) => (
-              <li key={post.id} className="flex justify-center w-full">
-                <PostCard post={post} />
-              </li>
-            ))}
-          </ul>
-        </div>
+    <div className="home-container">
+      <div className="home-posts mb-[100px]">
+
+        <OrganizationDescription organisation={organisations}/>
+        <h2 className="h3-bold md:h2-bold text-left w-full">Події</h2>
+        <ul className="flex flex-col flex-1 gap-9 w-full ">
+          {posts.length !== 0 ? 
+          // {posts.map((post: Models.Document) => (
+          //   <li key={post.id} className="flex justify-center w-full">
+          //     <EventCard post={post} />
+          //   </li>
+          // ))}
+          null
+          : 
+          <p className="base-medium text-dark-1 text-center line-clamp-1">
+            На жаль, подій не знайдено
+          </p>}
+        </ul>
       </div>
+    </div>
       <div className="flex-col">
         <div className="home-creators h-1/2 relative">
           <div className="fixed flex w-full bg-light-1 pb-2 pt-2">
             <h3 className="h3-bold text-dark-1">Організації</h3>
-          </div>
-          {sidebar_organization.length === 0 ? 
+          </div>          
+          {sidebar_org.length === 0 ? 
             <p className="base-medium text-dark-1 text-center line-clamp-1 pt-[60px]">
               На жаль, у вас ще немає організацій
             </p> 
           :          
           <ul className="grid 2xl:grid-cols-2 gap-3 pt-[60px]">
-            {sidebar_organization?.map((organization) => (
+            {sidebar_org?.map((organization) => (
               <li key={organization.id}>
                 <Link to={`/organisation/${organization.id}`} className="user-card" onClick={() => {
                     // setShowOrganization(showOrganization => !showOrganization);
@@ -123,14 +132,11 @@ const Home = ({showChannels, setShowChannels}) => {
           </ul>
         </div>
       </div>
-
       {showChannels ? 
-      //  <Channels showOrganization={showOrganization} setShowOrganization={setShowOrganization} showChannels={showChannels} setShowChannels={setShowChannels} organisations={sidebar_organization} categories={sidebar_categories}/>
-       <Channels showChannels={showChannels} setShowChannels={setShowChannels} organisations={sidebar_organization} categories={sidebar_categories}/>
-
+       <Channels showChannels={showChannels} setShowChannels={setShowChannels} organisations={sidebar_org} categories={sidebar_categories}/>
       : null}
     </div>
   );
 };
 
-export default Home;
+export default Organisation;

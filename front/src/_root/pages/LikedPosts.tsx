@@ -12,7 +12,7 @@ const LikedPosts = () => {
 
   return (
     <>
-      <p className="text-dark-4">No liked posts</p>
+      <p className="text-dark-4">Немає вподобаних постів</p>
       {/* {currentUser.liked.length === 0 && (
         
       )} */}

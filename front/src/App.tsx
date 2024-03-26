@@ -20,8 +20,13 @@ import "./globals.css";
 
 import Addresser from "./_root/pages/Addresser";
 import AnonymousPosts from "./_root/pages/AnonymousPosts";
-
+import СreateOrganisation from "./_root/pages/СreateOrganisation";
+import PostDetailsAnonymous from "./_root/pages/PostDetailsAnonymous";
+import СreateEvent from "./_root/pages/СreateEvent";
+import Organisation from "./_root/pages/Organisation";
+import { useState } from "react";
 const App = () => {
+  const [showChannels, setShowChannels] = useState(false);
   return (
     <main className="flex h-screen">
       <Routes>
@@ -32,18 +37,44 @@ const App = () => {
         </Route>
 
         {/* private routes */}
-        <Route element={<RootLayout />}>
+        <Route
+          element={
+            <RootLayout
+              showChannels={showChannels}
+              setShowChannels={setShowChannels}
+            />
+          }>
           <Route path="/" element={<Addresser />} />
-          <Route path="/home" element={<Home />} />
+          <Route
+            path="/home"
+            element={
+              <Home
+                showChannels={showChannels}
+                setShowChannels={setShowChannels}
+              />
+            }
+          />
           {/*           <Route path="/explore" element={<Explore />} />
           <Route path="/saved" element={<Saved />} /> */}
           <Route path="/all-users" element={<AllUsers />} />
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/update-post/:id" element={<EditPost />} />
           <Route path="/posts/:id" element={<PostDetails />} />
+          <Route path="/posts/a/:id" element={<PostDetailsAnonymous />} />
           <Route path="/profile/:username/*" element={<Profile />} />
           <Route path="/update-profile/:id" element={<UpdateProfile />} />
           <Route path="/anonymous-posts" element={<AnonymousPosts />} />
+          <Route path="/create-organization" element={<СreateOrganisation />} />
+          <Route
+            path="/organisation/:id"
+            element={
+              <Organisation
+                showChannels={showChannels}
+                setShowChannels={setShowChannels}
+              />
+            }
+          />
+          <Route path="/create-event" element={<СreateEvent />} />
         </Route>
       </Routes>
 

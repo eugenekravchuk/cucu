@@ -67,10 +67,13 @@ const SigninForm = () => {
         <img src="/assets/images/logo.png" alt="logo" width={200} />
 
         <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
-          Log in your account
+          Вхід до облікового запису
         </h2>
         <p className="text-light-3 small-medium md:base-regular mt-2">
-          Welcome back, Please enter your details
+          Ласкаво просимо
+        </p>
+        <p className="text-light-3 small-medium md:base-regular mt-2">
+          Будь ласка, введіть необхідну інформацію
         </p>
 
         <form
@@ -81,7 +84,7 @@ const SigninForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="shad-form_label">Username</FormLabel>
+                <FormLabel className="shad-form_label">Ім'я користувача</FormLabel>
                 <FormControl>
                   <Input type="text" className="shad-input" {...field} />
                 </FormControl>
@@ -95,7 +98,7 @@ const SigninForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="shad-form_label">Password</FormLabel>
+                <FormLabel className="shad-form_label">Пароль</FormLabel>
                 <FormControl>
                   <Input type="password" className="shad-input" {...field} />
                 </FormControl>
@@ -105,15 +108,15 @@ const SigninForm = () => {
           />
 
           <Button type="submit" className="shad-button_primary">
-            Sign In
+            Вхід
           </Button>
 
           <p className="text-small-regular text-dark-2 text-center mt-2">
-            Don't have an account?
+            Не маєш облікового запису? 
             <Link
               to="/sign-up"
               className="text-primary-500 text-small-semibold ml-1">
-              Sign up
+              Зареєструйся
             </Link>
           </p>
         </form>

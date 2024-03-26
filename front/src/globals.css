@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+.field-bg {
+  background: #ededed;
+}
+
 @layer base {
   * {
     @apply box-border list-none p-0 m-0 scroll-smooth;
@@ -110,7 +114,7 @@
   }
 
   .common-container {
-    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar ;
+    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar;
   }
 
   /* All Users */
@@ -145,7 +149,7 @@
   }
 
   .home-creators {
-    @apply hidden xl:flex flex-col w-72 2xl:w-465 px-6 py-5 gap-10  overflow-scroll custom-scrollbar h-1/2;
+    @apply hidden xl:flex flex-col w-72 2xl:w-465 px-6 pb-5 gap-10  overflow-scroll custom-scrollbar;
   }
 
   /* Post Details */
@@ -189,7 +193,7 @@
 
   /* Bottom bar */
   .bottom-bar {
-    @apply z-50 flex xl:hidden justify-evenly w-full sticky bottom-0  bg-light-1 px-2 py-2 ;
+    @apply z-50 flex xl:hidden justify-evenly w-full sticky bottom-0  bg-light-1 px-2 py-2;
   }
 
   /* File uploader */
@@ -243,7 +247,7 @@
 
   /* User card */
   .user-card {
-    @apply flex-center flex-col gap-4 border border-light-4 rounded-[20px] px-5 py-8;
+    @apply flex flex-row gap-4 border border-light-4 rounded-[20px] px-3 md:px-5 py-2 cursor-pointer;
   }
 }
 
@@ -259,7 +263,7 @@
   }
 
   .shad-input {
-    @apply h-12 bg-violet-200 border-none placeholder:text-dark-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-dark-3 !important;
+    @apply h-12 bg-[#EDEDED] border-none placeholder:text-dark-4 focus-visible:ring-1 focus-visible:ring-offset-1 ring-offset-dark-3 !important;
   }
 
   .shad-textarea {
@@ -268,7 +272,7 @@
 
   /* Button */
   .shad-button_primary {
-    @apply bg-primary-500 hover:bg-primary-500 text-light-1 flex gap-2 !important;
+    @apply bg-primary-500 hover:bg-primary-500 text-light-1 flex gap-2;
   }
 
   .shad-button_dark_4 {

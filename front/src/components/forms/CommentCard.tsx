@@ -20,16 +20,16 @@ import { useToast } from "@/components/ui/use-toast";
 import { FileUploader, Loader } from "@/components/shared";
 import axios from "axios";
 import { useState } from "react";
-import { createAnonymousPost, createPost, updatePost } from "@/jwt_back/work";
+import { createPost, updatePost } from "@/jwt_back/work";
 import { Switch } from "@/components/ui/switch";
 import { Checkbox } from "../ui/checkbox";
 
 type PostFormProps = {
   post?: Models.Document;
-  action: "Create" | "Update";
+  action: "Create";
 };
 
-const PostForm = ({ post, action }: PostFormProps) => {
+const CommentForm = ({ post, action }: PostFormProps) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [captionValue, setCaptionValue] = useState(
@@ -48,24 +48,6 @@ const PostForm = ({ post, action }: PostFormProps) => {
 
   // Handler
   const handleSubmit = async (value: z.infer<typeof PostValidation>) => {
-    // ACTION = UPDATE
-    if (post && action === "Update") {
-      try {
-        setIsLoading(true);
-        const updatedPost = await updatePost(post.id, value.caption);
-
-        if (updatedPost === "error") {
-          return;
-        }
-      } catch (e) {
-        console.log(e);
-      } finally {
-        setIsLoading(false);
-        return navigate(`/posts/${post.id}`);
-      }
-    }
-
-    console.log(value.isAnonymous);
 
     // ACTION = CREATE
 
@@ -79,24 +61,9 @@ const PostForm = ({ post, action }: PostFormProps) => {
       formData.append("photo", value.file);
     }
 
-    const formDataAnonymous = new FormData();
-    formDataAnonymous.append("text", value.caption);
-    if (Array.isArray(value.file)) {
-      value.file.forEach((file) => {
-        formDataAnonymous.append("photo", file);
-      });
-    } else {
-      formDataAnonymous.append("photo", value.file);
-    }
-
     try {
       setIsLoading(true);
-      let outcome;
-      if (value.isAnonymous) {
-        outcome = await createAnonymousPost(formDataAnonymous);
-      } else {
-        outcome = await createPost(formData);
-      }
+      const outcome = await createPost(formData);
       if (outcome === "error") {
         return;
       }
@@ -106,7 +73,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
       setIsLoading(false);
     }
 
-    navigate("/home");
+    navigate("/posts/:id");
   };
 
   if (isLoading) {
@@ -127,13 +94,14 @@ const PostForm = ({ post, action }: PostFormProps) => {
           name="caption"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="shad-form_label">Заголовок</FormLabel>
+              <FormLabel className="shad-form_label">Comment</FormLabel>
               <FormControl>
                 <Textarea
                   className="shad-textarea custom-scrollbar bg-light-2"
                   {...field}
                   onChange={(event) => {
                     field.onChange(event);
+                    console.log(event);
                     setCaptionValue(event.target.value);
                   }}
                   value={captionValue}
@@ -144,70 +112,17 @@ const PostForm = ({ post, action }: PostFormProps) => {
           )}
         />
 
-        {action === "Create" ? (
-          <FormField
-            control={form.control}
-            name="file"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">
-                  Додати світлину
-                </FormLabel>
-                <FormControl>
-                  <FileUploader
-                    fieldChange={field.onChange}
-                    mediaUrl={post?.photo}
-                  />
-                </FormControl>
-                <FormMessage className="shad-form_message" />
-              </FormItem>
-            )}
-          />
-        ) : (
-          <div className="bg-[#fff] py-10 px-10 rounded-xl">
-            <img
-              className="object-cover rounded-xl max-h-[500px] w-[100%] object-contain"
-              src={post.photo}
-              alt="post photo"
-            />
-          </div>
-        )}
-        {action === "Create" && (
-          <FormField
-            control={form.control}
-            name="isAnonymous"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <div className="flex items-center ">
-                    <Switch
-                      checked={field.value}
-                      onCheckedChange={field.onChange}
-                      className="h-[30px] w-[55px] pl-[5px]"
-                    />
-                    <p className="text-xl ml-[10px] text-[#4C4C4C]">
-                      Створити анонімний пост
-                    </p>
-                  </div>
-                </FormControl>
-              </FormItem>
-            )}
-            defaultValue={false}
-          />
-        )}
-
         <div className="flex gap-4 items-center justify-end">
           <Button
             type="button"
             className="shad-button_dark_4 text-white"
             onClick={() => navigate(-1)}>
-            Скасувати
+            Delete
           </Button>
           <Button
             type="submit"
             className="shad-button_primary whitespace-nowrap py-6">
-            {/* {action} Опублікувати */}
-            Опублікувати
+            {action} Коментувати
           </Button>
         </div>
       </form>
@@ -215,4 +130,4 @@ const PostForm = ({ post, action }: PostFormProps) => {
   );
 };
 
-export default PostForm;
+export default CommentForm;
