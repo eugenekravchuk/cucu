@@ -256,7 +256,7 @@ const Profile = () => {
               width={20}
               height={20}
             />
-            Posts
+            Публікації
           </Link>
           <Link
             to={`/profile/${userdataDecoded.sub}/liked-posts`}
@@ -267,7 +267,7 @@ const Profile = () => {
               width={20}
               height={20}
             />
-            Liked Posts
+            Вподобані пости
           </Link>
         </div>
       )}

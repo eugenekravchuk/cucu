@@ -2,6 +2,7 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useParams } from "react-router-dom";
+import { Dropdown } from "flowbite-react";
 
 import {
   Form,
@@ -25,7 +26,7 @@ import {
 import { ImageContext } from "@/context/ImageContext";
 import { OrganisationValidation } from "@/lib/validation";
 
-const СreateOrganisation = () => {
+const СreateEvent = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +48,11 @@ const СreateOrganisation = () => {
     }
   };
 
+// type ValuePiece = Date | null;
+
+// type Value = ValuePiece | [ValuePiece, ValuePiece];
+// const [value, onChange] = useState<Value>(new Date());
+const [selectedDate, setSelectedDate] = useState('');
   return (
     <div className="flex flex-1">
       <div className="common-container mb-[50px]">
@@ -59,7 +65,7 @@ const СreateOrganisation = () => {
             // className="invert-white"
           />
           <h2 className="h3-bold md:h2-bold text-left w-full">
-            Створити організацію
+            Створити подію
           </h2>
         </div>
 
@@ -93,6 +99,55 @@ const СreateOrganisation = () => {
                   </FormLabel>
                   <FormControl>
                     <Input type="text" className="shad-input" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="date"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">
+                    Дата і час
+                  </FormLabel>
+                  <FormControl>
+                    <Input type="text" className="shad-input" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="cetegory"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">
+                    Категорія
+                  </FormLabel>
+                  {/* <label> */}
+       
+   {/* </label> */}
+                  <FormControl>
+                  <div>
+                  <span className="shad-textarea custom-scrollbar field-bg"><select className="shad-input">
+           <option className="shad-input" value="1">Спорт</option>
+           <option className="shad-input" value="2">Театр</option>
+           <option  className="shad-input"value="3">Поезія</option>
+           <option  className="shad-input"value="3">Музика</option>
+           {/* {...field} */}
+       </select></span></div>
+        {/* <Dropdown className="shad-textarea custom-scrollbar field-bg" label="Dropdown button" dismissOnClick={false}>
+      <Dropdown.Item>Dashboard</Dropdown.Item>
+      <Dropdown.Item>Settings</Dropdown.Item>
+      <Dropdown.Item>Earnings</Dropdown.Item>
+      <Dropdown.Item>Sign out</Dropdown.Item>
+    </Dropdown> */}
+                    {/* <Input type="text" className="shad-input" {...field} /> */}
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -139,4 +194,4 @@ const СreateOrganisation = () => {
   );
 };
 
-export default СreateOrganisation;
+export default СreateEvent;
