@@ -252,6 +252,59 @@ export const followUser = async (username) => {
   }
 };
 
+export const getFollowers = async (username) => {
+  const response = await axios.get(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/profile/${username}/followers`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Post get mehod failed. Please try again." });
+    return "error";
+  }
+
+  return response.data;
+};
+
+export const getFollowings = async (username) => {
+  const response = await axios.get(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/profile/${username}/followings`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Post get mehod failed. Please try again." });
+    return "error";
+  }
+
+  return response.data;
+};
+
+export const updateProfile = async (profileData) => {
+  const response = await axios.put(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/profile/update_info/`,
+    profileData,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Profile update failed. Please try again." });
+    return "error";
+  }
+};
+
 // *************************************
 // ORGANISATION
 // *************************************
@@ -299,6 +352,7 @@ export const getSidebarData = async () => {
 // COMMENTS
 // *************************************
 export const createComment = async (commentData, postId) => {
+  console.log(postId);
   const response = await axios.post(
     `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/post/${postId}/comment`,
     commentData,
@@ -321,6 +375,79 @@ export const likeComment = async (commentId) => {
   const response = await axios.post(
     `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/${commentId}/like`,
     {},
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Post get mehod failed. Please try again." });
+    return "error";
+  }
+
+  return response.data;
+};
+
+export const deleteComment = async (commentId) => {
+  const response = await axios.delete(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/comment/${commentId}/delete`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Post deletion failed. Please try again." });
+    return "error";
+  }
+};
+
+// *************************************
+// ANONYMOUS POSTS
+// *************************************
+
+export const createAnonymousPost = async (post) => {
+  const response = await axios.post(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/anonymous/create`,
+    post,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Post get mehod failed. Please try again." });
+    return "error";
+  }
+};
+
+export const getAllAnonymousPosts = async () => {
+  const response = await axios.get(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/anonymous/all/`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Post get mehod failed. Please try again." });
+    return "error";
+  }
+
+  return response.data;
+};
+
+export const getAnonymousPostById = async (postId) => {
+  const response = await axios.get(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/anonymous/${postId}`,
     {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
