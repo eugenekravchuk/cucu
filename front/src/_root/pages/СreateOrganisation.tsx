@@ -43,7 +43,6 @@ const СreateOrganisation = () => {
   const handleCreateOrganisation = async (
     value: z.infer<typeof OrganisationValidation>
   ) => {
-    console.log(value);
     const organisationForm = new FormData();
     organisationForm.append("organization_name", value.organization_name);
     organisationForm.append("organization_bio", value.organization_bio);

@@ -28,7 +28,6 @@ const LeftSidebar = () => {
 
       try {
         const username = decodeJWT().sub;
-        console.log(username);
         const data = await getProfile(username);
         setUserData(data.data);
       } catch (error) {

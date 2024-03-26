@@ -13,7 +13,6 @@ const EditPost = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        console.log(Number(id));
         setIsLoading(true);
         const data = await getPostById(Number(id));
         console.log(data);

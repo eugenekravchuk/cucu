@@ -99,7 +99,8 @@ const Profile = () => {
           <img
             src={
               userData.avatar ==
-              "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
+                "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/" ||
+              userData.avatar == null
                 ? "/assets/icons/profile-placeholder.svg"
                 : userData.avatar
             }

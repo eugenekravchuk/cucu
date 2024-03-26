@@ -107,7 +107,8 @@ const PostDetails = () => {
               <img
                 src={
                   post.author.avatar ==
-                  "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
+                    "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/" ||
+                  post.author.avatar === null
                     ? "/assets/icons/profile-placeholder.svg"
                     : post.author.avatar
                 }

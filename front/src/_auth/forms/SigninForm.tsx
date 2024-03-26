@@ -27,7 +27,6 @@ const SigninForm = () => {
 
   useEffect(() => {
     if (isAuthenticated()) {
-      console.log("something");
       navigate("/home");
     }
   }, []);

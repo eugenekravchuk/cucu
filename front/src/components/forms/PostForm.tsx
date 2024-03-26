@@ -65,8 +65,6 @@ const PostForm = ({ post, action }: PostFormProps) => {
       }
     }
 
-    console.log(value.isAnonymous);
-
     // ACTION = CREATE
 
     const formData = new FormData();
