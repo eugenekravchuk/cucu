@@ -69,10 +69,7 @@ const SigninForm = () => {
           Вхід до облікового запису
         </h2>
         <p className="text-light-3 small-medium md:base-regular mt-2">
-          Ласкаво просимо
-        </p>
-        <p className="text-light-3 small-medium md:base-regular mt-2">
-          Будь ласка, введіть необхідну інформацію
+          Введіть необхідну інформацію:
         </p>
 
         <form
@@ -83,7 +80,9 @@ const SigninForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="shad-form_label">Ім'я користувача</FormLabel>
+                <FormLabel className="shad-form_label">
+                  Ім'я користувача
+                </FormLabel>
                 <FormControl>
                   <Input type="text" className="shad-input" {...field} />
                 </FormControl>
@@ -111,11 +110,9 @@ const SigninForm = () => {
           </Button>
 
           <p className="text-small-regular text-dark-2 text-center mt-2">
-            Не маєш облікового запису? 
-            <Link
-              to="/sign-up"
-              className="text-primary-500 text-small-semibold ml-1">
-              Зареєструйся
+            Не маєш облікового запису?
+            <Link to="/sign-up" className="font-bold ml-1 underline">
+              Зареєструватися
             </Link>
           </p>
         </form>
