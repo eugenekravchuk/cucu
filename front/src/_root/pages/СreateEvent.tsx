@@ -60,7 +60,6 @@ const СreateEvent = () => {
   });
 
   const handleCreateEvent = async (value: z.infer<typeof EventValidation>) => {
-    console.log(value);
     const eventForm = new FormData();
     eventForm.append("event_text", value.event_text);
     eventForm.append("event_date", value.event_date);

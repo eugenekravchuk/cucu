@@ -373,7 +373,6 @@ export const createEvent = async (eventData) => {
 // COMMENTS
 // *************************************
 export const createComment = async (commentData, postId) => {
-  console.log(postId);
   const response = await axios.post(
     `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/post/${postId}/comment`,
     commentData,
