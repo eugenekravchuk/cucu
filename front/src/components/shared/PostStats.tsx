@@ -18,10 +18,6 @@ const PostStats = ({
   postId = null,
   white = true,
 }: PostStatsProps) => {
-  // const likesList = post.likes.map((user: Models.Document) => user.$id);
-
-  // const [likes, setLikes] = useState<string[]>(post.likes);
-  // const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLiked, setIsLiked] = useState(post.is_liked);
   const [likes, setLikes] = useState(post.likes);
@@ -51,34 +47,8 @@ const PostStats = ({
     } else {
       setLikes(likes + 1);
     }
-
     setIsLoading(false);
-
-    // let likesArray = [...likes];
-
-    // if (likesArray.includes(userId)) {
-    //   likesArray = likesArray.filter((Id) => Id !== userId);
-    // } else {
-    //   likesArray.push(userId);
-    // }
-
-    // setLikes(likesArray);
-    // likePost({ postId: post.$id, likesArray });
   };
-
-  // const handleSavePost = (
-  //   e: React.MouseEvent<HTMLImageElement, MouseEvent>
-  // ) => {
-  //   e.stopPropagation();
-
-  //   if (savedPostRecord) {
-  //     setIsSaved(false);
-  //     return deleteSavePost(savedPostRecord.$id);
-  //   }
-
-  //   savePost({ userId: userId, postId: post.$id });
-  //   setIsSaved(true);
-  // };
 
   const containerStyles = location.pathname.startsWith("/profile")
     ? "w-full"
@@ -118,17 +88,6 @@ const PostStats = ({
           </span>
         </p>
       </div>
-
-      {/*       <div className="flex gap-2">
-        <img
-          src={isSaved ? "/assets/icons/saved.svg" : "/assets/icons/save.svg"}
-          alt="share"
-          width={20}
-          height={20}
-          className="cursor-pointer"
-          onClick={(e) => handleSavePost(e)}
-        />
-      </div> */}
     </div>
   );
 };

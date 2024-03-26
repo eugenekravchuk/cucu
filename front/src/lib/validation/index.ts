@@ -39,7 +39,7 @@ export const SigninValidation = z.object({
     .min(8, { message: "Password must be at least 8 characters." }),
 });
 
-export const ProfileValidation = z.object({
+export const UpdateProfileValidation = z.object({
   file: z
     .custom<FileList>()
     .refine((fileList) => fileList.length === 1, "Expected file")
@@ -61,7 +61,7 @@ export const ProfileValidation = z.object({
     .string()
     .min(2, { message: "Name must be at least 2 characters." }),
   email: z.string().email(),
-  bio: z.string().min(10, { message: "Bio must be at least 10 characters." }),
+  bio: z.string(),
 });
 
 // ============================================================
