@@ -3,31 +3,24 @@ import { Link } from "react-router-dom";
 
 // import { Button } from "../ui/button";
 
-type UserCardProps = {
-  user: Models.Document;
-};
+// type UserCardProps = {
+//   user: Models.Document;
+// };
 
-const UserCard = ({ user }: UserCardProps) => {
+const UserCard = ({ data }) => {
   return (
-    <Link to={`/profile/${user.$id}`} className="user-card">
+    <Link to={`/organisation/${data.id}`} className="user-card">
+     {/* <Link to={`/profile/${user.$id}`} className="user-card"> */}
       <img
-        src={user.imageUrl || "/assets/icons/profile-placeholder.svg"}
-        alt="creator"
+        src={data.organization_image || "/assets/icons/profile-placeholder.svg"}
+        alt="organisation"
         className="rounded-full w-10 h-10"
       />
-
       <div className="flex-center flex-col gap-1">
-        <p className="base-medium text-light-1 text-center line-clamp-1">
-          {user.name}
-        </p>
-        <p className="small-regular text-light-3 text-center line-clamp-1">
-          @{user.username}
+        <p className="base-medium text-dark-1 text-center line-clamp-1">
+          {data.organization_name}
         </p>
       </div>
-
-      {/* <Button type="button" size="sm" className="shad-button_primary px-5">
-        Follow
-      </Button> */}
     </Link>
   );
 };

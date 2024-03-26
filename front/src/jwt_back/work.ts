@@ -259,8 +259,44 @@ export const createOrganisation = async (organisationData) => {
   toast({ title: "Waiting for backend" });
 };
 
+export const getOrganisationbyId = async (organisationId) => {
+  const response = await axios.get(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/organization/${organisationId}/`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+  if (response.status !== 200) {
+    toast({ title: "Organisation get mehod failed. Please try again." });
+    return "error";
+  }
+  return response;
+};
+
 // *************************************
-// ORGANISATION
+// SIDEBAR
+// *************************************
+
+export const getSidebarData = async () => {
+  const response = await axios.get(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/event/create`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+  if (response.status !== 200) {
+    toast({ title: "Sidebar get mehod failed. Please try again." });
+    return "error";
+  }
+  return response.data;
+}
+
+// *************************************
+// COMMENTS
 // *************************************
 export const createComment = async (commentData, postId) => {
   const response = await axios.post(
