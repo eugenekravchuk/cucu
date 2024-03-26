@@ -30,8 +30,9 @@ class UserInformation(BaseModel):
 	avatar:Optional[str]
 
 	@field_validator('avatar')
-	def s3_add(cls, val):
-		return s3_url + val
+	def add_bucket(cls, value):
+		if value is not None:
+			return s3_url + value
 
 class CommentCreate(BaseModel):
 	text:str
@@ -45,11 +46,13 @@ class UserReturn(BaseModel):
 	first_name: str
 	last_name: str
 	email: EmailStr
-	avatar: str
+	avatar: Optional[str]
+	bio:Optional[str]
 
 	@field_validator('avatar')
-	def return_url(cls, v):
-		return s3_url + v
+	def add_bucket(cls, value):
+		if value is not None:
+			return s3_url + value
 
 class CommentReturn(BaseModel):
 	id:int
@@ -148,6 +151,7 @@ class AnonymousPostReturn(BaseModel):
 	date:datetime
 	likes:int
 	photo:Optional[str]
+	is_liked:bool
 
 	@field_validator('likes', mode='before')
 	def amount_of_likes(cls, val):
@@ -225,5 +229,3 @@ class OrganizationWithPosts(BaseModel):
 
 	class Config:
 		arbitrary_types_allowed = True
-
-

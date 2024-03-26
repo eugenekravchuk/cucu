@@ -11,7 +11,7 @@ from images import s3_upload_image
 
 router = APIRouter(
 	prefix='/organization',
-	tags=['organizations']
+	tags=['organizations'],
 )
 
 db_dependency = Annotated[Session, Depends(get_db)]

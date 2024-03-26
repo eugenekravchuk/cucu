@@ -19,7 +19,7 @@ router = APIRouter(
 db_dependency = Annotated[Session, Depends(get_db)]
 user_dependency = Annotated[dict, Depends(get_current_user)]
 
-@router.get('/create', status_code=200, response_model=Org_and_cat_return)
+@router.get('/get_categories_and_orgs', status_code=200, response_model=Org_and_cat_return)
 def return_all_user_organizations(db:db_dependency, user:user_dependency):
 	organizations =     db.query(Organization) \
 						.join(Organization_admins)\

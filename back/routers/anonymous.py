@@ -36,7 +36,10 @@ async def create_anonymous_post(db:db_dependecy, user:user_dependency, text:Anno
 def get_anonymous_post(db:db_dependecy, user:user_dependency, anonymous_id:int = Path()):
 	if not user:
 		raise HTTPException(status_code=401, detail='Not Authorized')
-	anonymous_post = db.query(Post).filter(Post.id == anonymous_id).first()
+	us = db.query(Users).where(Users.id == user.get('id')).first()
+	anonymous_post:Post = db.query(Post).filter(Post.id == anonymous_id).first()
+	anonymous_post.is_liked = us.id in [x.user_id for x in anonymous_post.likes]
+	anonymous_post.comments = sorted(anonymous_post.comments, key=lambda x: x.date, reverse=True)
 	return anonymous_post
 
 
@@ -44,6 +47,9 @@ def get_anonymous_post(db:db_dependecy, user:user_dependency, anonymous_id:int =
 def get_all_anonymous_posts(db:db_dependecy, user:user_dependency):
 	if not user:
 		raise HTTPException(status_code=401, detail='Not Authorized')
-	anonymous_post = db.query(Post).filter(Post.is_anonymous == True).all()
+	us = db.query(Users).where(Users.id == user.get('id')).first()
+	anonymous_post:list[Post] = db.query(Post).filter(Post.is_anonymous == True).all()
+	for i in anonymous_post:
+		i.is_liked = us.id in [x.user_id for x in i.likes]
 	return anonymous_post
 

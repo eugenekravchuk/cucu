@@ -76,8 +76,10 @@ def create_user(db: db_dependecy,  user: CreateUserRequest):
             role='user',
             hashed_password=bcrypt_context.hash(user.password),
             is_active=True,
+            bio = None,
             avatar = None
         )
+        print('created')
         db.add(create_user_model)
         db.commit()
         return login(user, db)
@@ -86,7 +88,7 @@ def create_user(db: db_dependecy,  user: CreateUserRequest):
 
 
 @router.post('/login/', status_code=status.HTTP_200_OK, response_model=Token)
-async def login(form_data:Annotated[OAuth2PasswordRequestForm, Depends()], db: db_dependecy):
+def login(form_data:Annotated[OAuth2PasswordRequestForm, Depends()], db: db_dependecy):
     user: Users | None = authenticate_user(form_data.username, form_data.password, db)
     if not user:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST)

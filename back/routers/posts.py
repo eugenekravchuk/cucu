@@ -67,6 +67,7 @@ async def get_user_posts(db: db_dependecy, user:user_dependency, post_id: int = 
 			i.deletable = True
 		if us.id in [x.user_id for x in i.likes]:
 			i.is_liked = True
+	post.comments = sorted(post.comments, key=lambda x: x.date, reverse=True)
 	return post
 
 @router.get('/posts/all', status_code=200, response_model=list[PostReturn])
