@@ -2,11 +2,11 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useParams } from "react-router-dom";
-import { Dropdown } from "flowbite-react";
 
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,19 +18,35 @@ import { ProfileUploader, Loader } from "@/components/shared";
 
 import { useContext, useEffect, useState } from "react";
 import {
+  createEvent,
   createOrganisation,
   decodeJWT,
   getProfile,
   uploadAvatar,
 } from "@/jwt_back/work";
-import { ImageContext } from "@/context/ImageContext";
-import { EventValidation, OrganisationValidation } from "@/lib/validation";
+import { EventValidation } from "@/lib/validation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const СreateEvent = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
+
+  const categories = [
+    { label: "Спорт", value: 1 },
+    { label: "Театр", value: 2 },
+    { label: "Поезія", value: 3 },
+    { label: "Музика", value: 4 },
+  ];
+
+  const organisations = [{ label: "ОССА", value: 1 }];
 
   const form = useForm<z.infer<typeof EventValidation>>({
     resolver: zodResolver(EventValidation),
@@ -44,12 +60,31 @@ const СreateEvent = () => {
   });
 
   const handleCreateEvent = async (value: z.infer<typeof EventValidation>) => {
+    console.log(value);
+    const eventForm = new FormData();
+    eventForm.append("event_text", value.event_text);
+    eventForm.append("event_date", value.event_date);
+    eventForm.append("category_id", Number(value.category_id));
+    eventForm.append("organization", Number(value.organization));
+    eventForm.append("photo", value.photo);
     try {
-      await createOrganisation("form");
+      setIsLoading(true);
+      await createEvent(eventForm);
     } catch (e) {
       console.log(e);
+    } finally {
+      setIsLoading(false);
+      navigate("/home");
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center mb-[200px]">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-1">
@@ -119,29 +154,47 @@ const СreateEvent = () => {
               control={form.control}
               name="category_id"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="shad-form_label">Категорія</FormLabel>
-                  <FormControl>
-                    <div>
-                      <span className="shad-textarea custom-scrollbar field-bg">
-                        <select className="shad-input">
-                          <option className="shad-input" value="1">
-                            Спорт
-                          </option>
-                          <option className="shad-input" value="2">
-                            Театр
-                          </option>
-                          <option className="shad-input" value="3">
-                            Поезія
-                          </option>
-                          <option className="shad-input" value="3">
-                            Музика
-                          </option>
-                          {/* {...field} */}
-                        </select>
-                      </span>
-                    </div>
-                  </FormControl>
+                <FormItem className="flex flex-col ">
+                  <FormLabel>Категорія</FormLabel>
+                  <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger className="field-bg w-[250px]">
+                        <SelectValue placeholder="Вибери категорію" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {categories.map((category) => (
+                        <SelectItem value={String(category.value)}>
+                          {category.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="organization"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Організація</FormLabel>
+                  <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger className="field-bg w-[250px]">
+                        <SelectValue placeholder="Вибери організацію" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {organisations.map((organisation) => (
+                        <SelectItem value={String(organisation.value)}>
+                          {organisation.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}

@@ -147,8 +147,8 @@ export const EventValidation = z.object({
     .string()
     .min(3, { message: "Minimum 3 characters." })
     .max(50, { message: "Maximum 200 caracters" }),
-  category_id: z.number(),
-  organization: z.number(),
+  category_id: z.string(),
+  organization: z.string(),
   photo: z
     .custom<FileList>()
     .optional()
