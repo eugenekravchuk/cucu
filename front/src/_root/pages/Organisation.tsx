@@ -61,28 +61,40 @@ const Organisation = ({showChannels, setShowChannels}) => {
     
     <div className="flex flex-1">
     <div className="home-container">
-        <div className="home-posts mb-[100px]">
+      <div className="home-posts mb-[100px]">
 
-            <OrganizationDescription organisation={organisations}/>
-            <h2 className="h3-bold md:h2-bold text-left w-full">Події</h2>
-            <ul className="flex flex-col flex-1 gap-9 w-full ">
-                {/* {posts.map((post: Models.Document) => (
-                    <li key={post.id} className="flex justify-center w-full">
-                        <EventCard post={post} />
-                    </li>
-                ))} */}
-            </ul>
-        </div>
+        <OrganizationDescription organisation={organisations}/>
+        <h2 className="h3-bold md:h2-bold text-left w-full">Події</h2>
+        <ul className="flex flex-col flex-1 gap-9 w-full ">
+          {posts.length !== 0 ? 
+          // {posts.map((post: Models.Document) => (
+          //   <li key={post.id} className="flex justify-center w-full">
+          //     <EventCard post={post} />
+          //   </li>
+          // ))}
+          null
+          : 
+          <p className="base-medium text-dark-1 text-center line-clamp-1">
+            На жаль, подій не знайдено
+          </p>}
+        </ul>
+      </div>
     </div>
       <div className="flex-col">
         <div className="home-creators h-1/2 relative">
           <div className="fixed flex w-full bg-light-1 pb-2 pt-2">
             <h3 className="h3-bold text-dark-1">Організації</h3>
           </div>          
+          {sidebar_org.length === 0 ? 
+            <p className="base-medium text-dark-1 text-center line-clamp-1 pt-[60px]">
+              На жаль, у вас ще немає організацій
+            </p> 
+          :          
           <ul className="grid 2xl:grid-cols-2 gap-3 pt-[60px]">
             {sidebar_org?.map((organization) => (
               <li key={organization.id}>
                 <Link to={`/organisation/${organization.id}`} className="user-card" onClick={() => {
+                    // setShowOrganization(showOrganization => !showOrganization);
                 }}>
                   <img
                     src={organization.organization_image || "/assets/icons/profile-placeholder.svg"}
@@ -98,6 +110,7 @@ const Organisation = ({showChannels, setShowChannels}) => {
               </li>
             ))}
           </ul>
+          }
         </div>
 
         <div className="home-creators h-2/5 relative">

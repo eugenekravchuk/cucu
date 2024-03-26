@@ -7,17 +7,21 @@ const Channels = ({  showChannels, setShowChannels, organisations, categories })
           <div className="fixed flex w-full bg-light-1 pb-2 pt-2">
             <p className="text-dark-1 text-s font-bold md:h3-bold">Організації</p>
           </div>          
-          <ul className="grid gap-2 md:pt-[60px] pt-[45px]">
+          {organisations.length === 0 ? 
+            <p className="base-medium text-dark-1 text-center line-clamp-1 pt-[60px]">
+              На жаль, у вас ще немає організацій
+            </p> 
+          :          
+          <ul className="grid 2xl:grid-cols-2 gap-3 pt-[60px]">
             {organisations?.map((organization) => (
               <li key={organization.id}>
                 <Link to={`/organisation/${organization.id}`} className="user-card" onClick={() => {
                     // setShowOrganization(showOrganization => !showOrganization);
-                    setShowChannels(showChannels => !showChannels);
                 }}>
                   <img
                     src={organization.organization_image || "/assets/icons/profile-placeholder.svg"}
                     alt="creator"
-                    className="rounded-full md:w-10 md:h-10 w-7 h-7"
+                    className="rounded-full w-10 h-10"
                   />
                   <div className="flex-center flex-col gap-1">
                     <p className="base-medium text-dark-1 text-center line-clamp-1">
@@ -28,6 +32,7 @@ const Channels = ({  showChannels, setShowChannels, organisations, categories })
               </li>
             ))}
           </ul>
+          }
         </div>
 
         <div className="flex-col w-60 2xl:w-465 px-6 pb-5 gap-10  overflow-scroll custom-scrollbar h-2/5 relative">

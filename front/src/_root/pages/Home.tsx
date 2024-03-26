@@ -75,7 +75,12 @@ const Home = ({showChannels, setShowChannels}) => {
         <div className="home-creators h-1/2 relative">
           <div className="fixed flex w-full bg-light-1 pb-2 pt-2">
             <h3 className="h3-bold text-dark-1">Організації</h3>
-          </div>          
+          </div>
+          {sidebar_organization.length === 0 ? 
+            <p className="base-medium text-dark-1 text-center line-clamp-1 pt-[60px]">
+              На жаль, у вас ще немає організацій
+            </p> 
+          :          
           <ul className="grid 2xl:grid-cols-2 gap-3 pt-[60px]">
             {sidebar_organization?.map((organization) => (
               <li key={organization.id}>
@@ -96,6 +101,7 @@ const Home = ({showChannels, setShowChannels}) => {
               </li>
             ))}
           </ul>
+          }
         </div>
 
         <div className="home-creators h-2/5 relative">
