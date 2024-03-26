@@ -102,10 +102,10 @@ export const PostValidation = z.object({
 // ============================================================
 
 export const OrganisationValidation = z.object({
-  description: z
+  organization_name: z
     .string()
-    .min(5, { message: "Minimum 5 characters." })
-    .max(2200, { message: "Maximum 2,200 caracters" }),
+    .min(2, { message: "Minimum 2 characters." })
+    .max(50, { message: "Maximum 50 caracters" }),
   photo: z
     .custom<FileList>()
     .optional()
@@ -128,9 +128,47 @@ export const OrganisationValidation = z.object({
 
       return ACCEPTED_IMAGE_TYPES.includes(file.type);
     }, "Only these types are allowed .jpg, .jpeg, .png, .webp and mp4"),
-
-  name: z
+  organization_bio: z
     .string()
-    .min(3, { message: "Minimum 5 characters." })
-    .max(50, { message: "Maximum 50 caracters" }),
+    .min(5, { message: "Minimum 5 characters." })
+    .max(400, { message: "Maximum 400 caracters" }),
+});
+
+// ============================================================
+// EVENT
+// ============================================================
+
+export const EventValidation = z.object({
+  event_text: z
+    .string()
+    .min(5, { message: "Minimum 5 characters." })
+    .max(50, { message: "Maximum 200 caracters" }),
+  event_date: z
+    .string()
+    .min(3, { message: "Minimum 3 characters." })
+    .max(50, { message: "Maximum 200 caracters" }),
+  category_id: z.number(),
+  organization: z.number(),
+  photo: z
+    .custom<FileList>()
+    .optional()
+    .refine((fileList) => {
+      if (!fileList) return true;
+
+      return fileList.length === 1;
+    }, "Expected file")
+    .transform((fileList) => {
+      if (!fileList) return undefined;
+      return fileList[0] as File;
+    })
+    .refine((file) => {
+      if (!file) return true;
+
+      return file.size <= MAX_FILE_SIZE;
+    }, `File size should be less than 10MB.`)
+    .refine((file) => {
+      if (!file) return true;
+
+      return ACCEPTED_IMAGE_TYPES.includes(file.type);
+    }, "Only these types are allowed .jpg, .jpeg, .png, .webp and mp4"),
 });

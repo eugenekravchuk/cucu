@@ -309,7 +309,43 @@ export const updateProfile = async (profileData) => {
 // ORGANISATION
 // *************************************
 export const createOrganisation = async (organisationData) => {
-  toast({ title: "Waiting for backend" });
+  const response = await axios.post(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/organization/create`,
+    organisationData,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  console.log(response);
+
+  if (response.status !== 200) {
+    toast({ title: "Profile update failed. Please try again." });
+    return "error";
+  }
+};
+
+// *************************************
+// EVENT
+// *************************************
+
+export const createEvent = async (eventData) => {
+  const response = await axios.post(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/event/create_event`,
+    eventData,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  if (response.status !== 200) {
+    toast({ title: "Profile update failed. Please try again." });
+    return "error";
+  }
 };
 
 // *************************************

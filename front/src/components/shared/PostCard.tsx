@@ -13,7 +13,7 @@ type PostCardProps = {
 
 const PostCard = ({ post }: PostCardProps) => {
   return (
-    <div className="post">
+    <div className="post py-[10px] px-[10px]">
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
@@ -49,9 +49,7 @@ const PostCard = ({ post }: PostCardProps) => {
         </div>
         <Link to={`/posts/${post.id}`}>
           <div className="postCenter">
-            {/* <span className="postText">{post.text}</span> */}
-            <div className="postText">{post.text}</div>
-            {/* <img className="postImg" src="" alt="" /> */}
+            <div className="postText mb-[20px]">{post.text}</div>
             <img
               src={post.photo || "/assets/icons/profile-placeholder.svg"}
               alt="post image"

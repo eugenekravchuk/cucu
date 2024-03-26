@@ -1,7 +1,7 @@
 import { Models } from "appwrite";
 
 // import { useToast } from "@/components/ui/use-toast";
-import { Loader, PostCard, UserCard } from "@/components/shared";
+import { Loader, PostCard } from "@/components/shared";
 import { useToast } from "@/components/ui";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";

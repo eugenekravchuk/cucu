@@ -24,23 +24,26 @@ import {
   uploadAvatar,
 } from "@/jwt_back/work";
 import { ImageContext } from "@/context/ImageContext";
-import { OrganisationValidation } from "@/lib/validation";
+import { EventValidation, OrganisationValidation } from "@/lib/validation";
 
 const СreateEvent = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedDate, setSelectedDate] = useState("");
 
-  const form = useForm<z.infer<typeof OrganisationValidation>>({
-    resolver: zodResolver(OrganisationValidation),
+  const form = useForm<z.infer<typeof EventValidation>>({
+    resolver: zodResolver(EventValidation),
     defaultValues: {
+      event_text: "",
+      event_date: "",
+      category_id: 0,
+      organization: 0,
       photo: [],
-      name: "",
-      description: "",
     },
   });
 
-  const handleCreateOrganisation = async () => {
+  const handleCreateEvent = async (value: z.infer<typeof EventValidation>) => {
     try {
       await createOrganisation("form");
     } catch (e) {
@@ -48,11 +51,6 @@ const СreateEvent = () => {
     }
   };
 
-// type ValuePiece = Date | null;
-
-// type Value = ValuePiece | [ValuePiece, ValuePiece];
-// const [value, onChange] = useState<Value>(new Date());
-const [selectedDate, setSelectedDate] = useState('');
   return (
     <div className="flex flex-1">
       <div className="common-container mb-[50px]">
@@ -71,7 +69,7 @@ const [selectedDate, setSelectedDate] = useState('');
 
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(handleCreateOrganisation)}
+            onSubmit={form.handleSubmit(handleCreateEvent)}
             className="flex flex-col gap-7 w-full mt-4 max-w-5xl mb-[60px]">
             <FormField
               control={form.control}
@@ -91,12 +89,10 @@ const [selectedDate, setSelectedDate] = useState('');
 
             <FormField
               control={form.control}
-              name="name"
+              name="event_text"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="shad-form_label">
-                    Ім'я організації
-                  </FormLabel>
+                  <FormLabel className="shad-form_label">Опис Івенту</FormLabel>
                   <FormControl>
                     <Input type="text" className="shad-input" {...field} />
                   </FormControl>
@@ -107,12 +103,10 @@ const [selectedDate, setSelectedDate] = useState('');
 
             <FormField
               control={form.control}
-              name="date"
+              name="event_date"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="shad-form_label">
-                    Дата і час
-                  </FormLabel>
+                  <FormLabel className="shad-form_label">Дата і час</FormLabel>
                   <FormControl>
                     <Input type="text" className="shad-input" {...field} />
                   </FormControl>
@@ -123,50 +117,32 @@ const [selectedDate, setSelectedDate] = useState('');
 
             <FormField
               control={form.control}
-              name="cetegory"
+              name="category_id"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="shad-form_label">
-                    Категорія
-                  </FormLabel>
-                  {/* <label> */}
-       
-   {/* </label> */}
+                  <FormLabel className="shad-form_label">Категорія</FormLabel>
                   <FormControl>
-                  <div>
-                  <span className="shad-textarea custom-scrollbar field-bg"><select className="shad-input">
-           <option className="shad-input" value="1">Спорт</option>
-           <option className="shad-input" value="2">Театр</option>
-           <option  className="shad-input"value="3">Поезія</option>
-           <option  className="shad-input"value="3">Музика</option>
-           {/* {...field} */}
-       </select></span></div>
-        {/* <Dropdown className="shad-textarea custom-scrollbar field-bg" label="Dropdown button" dismissOnClick={false}>
-      <Dropdown.Item>Dashboard</Dropdown.Item>
-      <Dropdown.Item>Settings</Dropdown.Item>
-      <Dropdown.Item>Earnings</Dropdown.Item>
-      <Dropdown.Item>Sign out</Dropdown.Item>
-    </Dropdown> */}
-                    {/* <Input type="text" className="shad-input" {...field} /> */}
+                    <div>
+                      <span className="shad-textarea custom-scrollbar field-bg">
+                        <select className="shad-input">
+                          <option className="shad-input" value="1">
+                            Спорт
+                          </option>
+                          <option className="shad-input" value="2">
+                            Театр
+                          </option>
+                          <option className="shad-input" value="3">
+                            Поезія
+                          </option>
+                          <option className="shad-input" value="3">
+                            Музика
+                          </option>
+                          {/* {...field} */}
+                        </select>
+                      </span>
+                    </div>
                   </FormControl>
                   <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="shad-form_label">Опис</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      className="shad-textarea custom-scrollbar field-bg"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage className="shad-form_message" />
                 </FormItem>
               )}
             />

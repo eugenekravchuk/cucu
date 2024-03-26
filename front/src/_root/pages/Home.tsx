@@ -1,7 +1,7 @@
 import { Models } from "appwrite";
 
 // import { useToast } from "@/components/ui/use-toast";
-import { Loader, PostCard, UserCard } from "@/components/shared";
+import { Loader, PostCard } from "@/components/shared";
 import { useToast } from "@/components/ui";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +14,7 @@ import {
 import Channels from "@/components/shared/Channels";
 import OrganizationDescription from "@/components/shared/OrganizationDescription";
 
-const Home = ({showChannels, setShowChannels}) => {
+const Home = ({ showChannels, setShowChannels }) => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -66,11 +66,13 @@ const Home = ({showChannels, setShowChannels}) => {
         <div className="home-creators h-1/2 relative">
           <div className="fixed flex w-full bg-light-1 pb-2 pt-2">
             <h3 className="h3-bold text-dark-1">Організації</h3>
-          </div>          
+          </div>
           <ul className="grid 2xl:grid-cols-2 gap-3 pt-[60px]">
             <li>
-              <div className="user-card" onClick={() => {
-                    setShowOrganization(showOrganization => !showOrganization);
+              <div
+                className="user-card"
+                onClick={() => {
+                  setShowOrganization((showOrganization) => !showOrganization);
                 }}>
                 <img
                   src="/assets/icons/profile-placeholder.svg"
@@ -85,11 +87,6 @@ const Home = ({showChannels, setShowChannels}) => {
                 </div>
               </div>
             </li>
-            {/* {creators?.documents.map((creator) => (
-                <li key={creator?.$id}>
-                  <UserCard user={creator} />
-                </li>
-              ))} */}
           </ul>
         </div>
 
@@ -138,19 +135,14 @@ const Home = ({showChannels, setShowChannels}) => {
         </div>
       </div>
 
-      {/* <div className="home-creators">
-        <h3 className="h3-bold text-dark-1">Channels</h3>
-          <ul className="grid 2xl:grid-cols-2 gap-6">
-            {creators?.documents.map((creator) => (
-              <li key={creator?.$id}>
-                <UserCard user={creator} />
-              </li>
-            ))}
-          </ul>
-      </div> */}
-      {showChannels ? 
-       <Channels showOrganization={showOrganization} setShowOrganization={setShowOrganization} showChannels={showChannels} setShowChannels={setShowChannels}/>
-      : null}
+      {showChannels ? (
+        <Channels
+          showOrganization={showOrganization}
+          setShowOrganization={setShowOrganization}
+          showChannels={showChannels}
+          setShowChannels={setShowChannels}
+        />
+      ) : null}
     </div>
   );
 };

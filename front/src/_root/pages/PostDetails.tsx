@@ -96,7 +96,9 @@ const PostDetails = () => {
       </div>
 
       <div className="post_details-card">
-        <img src={post.photo} alt="creator" className="post_details-img" />
+        {post.photo && (
+          <img src={post.photo} alt="creator" className="post_details-img" />
+        )}
 
         <div className="post_details-info">
           <div className="flex-between w-full">
@@ -180,7 +182,6 @@ const PostDetails = () => {
             />
           </div>
         </div>
-        
       </div>
 
       <div className="w-full max-w-5xl mb-[70px]">
@@ -208,7 +209,7 @@ const PostDetails = () => {
             <Comment
               key={com.id}
               username={com.author.username}
-              userImage={com.author.ava}
+              userImage={com.author.avatar}
               text={com.text}
               id={com.id}
             />

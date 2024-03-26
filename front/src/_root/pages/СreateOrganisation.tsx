@@ -24,28 +24,52 @@ import {
 } from "@/jwt_back/work";
 import { ImageContext } from "@/context/ImageContext";
 import { OrganisationValidation } from "@/lib/validation";
+import { Divide } from "lucide-react";
 
 const СreateOrganisation = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<z.infer<typeof OrganisationValidation>>({
     resolver: zodResolver(OrganisationValidation),
     defaultValues: {
       photo: [],
-      name: "",
-      description: "",
+      organization_name: "",
+      organization_bio: "",
     },
   });
 
-  const handleCreateOrganisation = async () => {
+  const handleCreateOrganisation = async (
+    value: z.infer<typeof OrganisationValidation>
+  ) => {
+    console.log(value);
+    const organisationForm = new FormData();
+    organisationForm.append("organization_name", value.organization_name);
+    organisationForm.append("organization_bio", value.organization_bio);
+    organisationForm.append("photo", value.photo);
     try {
-      await createOrganisation("form");
+      setIsLoading(true);
+      const outcome = await createOrganisation(organisationForm);
+
+      if (outcome === "error") {
+        return;
+      }
     } catch (e) {
       console.log(e);
+    } finally {
+      setIsLoading(false);
+      navigate("/home");
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center mb-[200px]">
+        <Loader />
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-1">
@@ -85,7 +109,7 @@ const СreateOrganisation = () => {
 
             <FormField
               control={form.control}
-              name="name"
+              name="organization_name"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="shad-form_label">
@@ -101,7 +125,7 @@ const СreateOrganisation = () => {
 
             <FormField
               control={form.control}
-              name="description"
+              name="organization_bio"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="shad-form_label">Опис</FormLabel>
