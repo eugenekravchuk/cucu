@@ -1,6 +1,6 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-
 import { Button } from "@/components/ui";
+import CommentForm from "@/components/forms/CommentCard";
 import { Loader } from "@/components/shared";
 import { GridPostList, PostStats } from "@/components/shared";
 import { multiFormatDateString } from "@/lib/utils";
@@ -92,7 +92,7 @@ const PostDetails = () => {
           variant="ghost"
           className="shad-button_ghost">
           <img src="/assets/icons/back.svg" alt="back" width={24} height={24} />
-          <p className="small-medium lg:base-medium">Back</p>
+          <p className="small-medium lg:base-medium">Назад</p>
         </Button>
       </div>
 
@@ -181,6 +181,7 @@ const PostDetails = () => {
             />
           </div>
         </div>
+        
       </div>
 
       <div className="w-full max-w-5xl">
@@ -191,7 +192,7 @@ const PostDetails = () => {
         <div className="comment-input flex items-center border border-gray-300 rounded-lg p-3 mb-4">
           <textarea
             name="comment"
-            placeholder="Write a comment..."
+            placeholder="Напиши коментар..."
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             className="flex-1 border-none outline-none resize-none"></textarea>
@@ -199,7 +200,7 @@ const PostDetails = () => {
             onClick={handleCreateComment}
             className="bg-[#DBDBDB] hover:bg-[#C7C7C7] text-[#505050] hover:text-[#2C2C2C] font-bold py-2 px-4 rounded-md ml-3"
             disabled={isLoadingComments}>
-            Post
+            Коментувати
           </button>
         </div>
 
@@ -221,6 +222,7 @@ const PostDetails = () => {
         ) : (
           <GridPostList posts={relatedPosts} />
         )} */}
+        <div className="mb-[80px]"></div>
       </div>
     </div>
   );
