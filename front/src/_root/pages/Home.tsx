@@ -12,6 +12,7 @@ import {
   logout,
   getOrganisationbyId,
   getSidebarData,
+  getAllOrganizatios,
 } from "@/jwt_back/work";
 import Channels from "@/components/shared/Channels";
 import OrganizationDescription from "@/components/shared/OrganizationDescription";
@@ -23,7 +24,7 @@ const Home = ({showChannels, setShowChannels}) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState(null);
-  const [showOrganization, setShowOrganization] = useState(false);
+  // const [showOrganization, setShowOrganization] = useState(false);
   const [organisations, setOrganisations] = useState(null);
   const [sidebar_organization, setSidebarOrganization] = useState(null);
   const [sidebar_categories, setSidebarcategories] = useState(null);
@@ -35,8 +36,9 @@ const Home = ({showChannels, setShowChannels}) => {
         const data = await getAllPosts();
         setPosts(data);
         const datacategories = await getSidebarData();
+        const dataorganisations = await getAllOrganizatios();
         setSidebarcategories(datacategories.categories);
-        setSidebarOrganization(datacategories.organizations);
+        setSidebarOrganization(dataorganisations);
       } catch (error) {
         console.error("Error fetching post data:", error);
         // Handle error, e.g., setPost(null) and display error UI
@@ -77,7 +79,7 @@ const Home = ({showChannels, setShowChannels}) => {
             <h3 className="h3-bold text-dark-1">Організації</h3>
           </div>
           {sidebar_organization.length === 0 ? 
-            <p className="base-medium text-dark-1 text-center line-clamp-1 pt-[60px]">
+            <p className="base-medium text-dark-1 text-center pt-[60px] w-full">
               На жаль, у вас ще немає організацій
             </p> 
           :          

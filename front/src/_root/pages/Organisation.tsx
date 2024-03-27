@@ -13,12 +13,13 @@ import {
   logout,
   getOrganisationbyId,
   getSidebarData,
+  getAllOrganizatios,
 } from "@/jwt_back/work";
 import Channels from "@/components/shared/Channels";
 import OrganizationDescription from "@/components/shared/OrganizationDescription";
 
 const Organisation = ({showChannels, setShowChannels}) => {
-    const { id } = useParams();
+  let { id } = useParams();
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -29,15 +30,17 @@ const Organisation = ({showChannels, setShowChannels}) => {
   const [sidebar_categories, setSidebarCategories] = useState(null);
 
   useEffect(() => {
+    
     const fetchData = async () => {
       setIsLoading(true);
-      try {        
+      try {       
         const data = await getOrganisationbyId(id);
         setOrganisations(data.data);
         setPosts(data.data.events);
         const data2 = await getSidebarData();
+        const data3 = await getAllOrganizatios();
         setSidebarCategories(data2.categories);
-        setSidebarOrg(data2.organizations);
+        setSidebarOrg(data3);
       } catch (error) {
         console.error("Error fetching sidebar data:", error);
         // Handle error, e.g., setPost(null) and display error UI
@@ -86,7 +89,7 @@ const Organisation = ({showChannels, setShowChannels}) => {
             <h3 className="h3-bold text-dark-1">Організації</h3>
           </div>          
           {sidebar_org.length === 0 ? 
-            <p className="base-medium text-dark-1 text-center line-clamp-1 pt-[60px]">
+            <p className="base-medium text-dark-1 text-center pt-[60px]">
               На жаль, у вас ще немає організацій
             </p> 
           :          

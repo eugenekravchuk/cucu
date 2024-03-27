@@ -5,10 +5,10 @@ const Channels = ({  showChannels, setShowChannels, organisations, categories })
         <div className="flex-col absolute xl:hidden bg-light-1 top-[50px] right-0 border border-light-2 z-20 h-full bottom-[50px]">
         <div className="flex-col w-60 px-6 pb-5 gap-10  overflow-scroll custom-scrollbar h-2/5">
           <div className="fixed flex w-full bg-light-1 pb-2 pt-2">
-            <p className="text-dark-1 text-s font-bold md:h3-bold">Організації</p>
+            <p className="text-dark-1 text-s font-bold md:h3-bold mt-1">Організації</p>
           </div>          
           {organisations.length === 0 ? 
-            <p className="base-medium text-dark-1 text-center line-clamp-1 pt-[60px]">
+            <p className="base-medium text-dark-1 text-center pt-[60px]">
               На жаль, у вас ще немає організацій
             </p> 
           :          
