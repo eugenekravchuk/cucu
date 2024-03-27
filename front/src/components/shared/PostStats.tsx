@@ -38,8 +38,6 @@ const PostStats = ({
       outcome = await likePost(postId);
     }
 
-    console.log(outcome);
-
     setIsLiked(!isLiked);
 
     if (isLiked) {

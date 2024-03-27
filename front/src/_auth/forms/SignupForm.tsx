@@ -81,7 +81,7 @@ const SignupForm = () => {
           Створити новий акаунт
         </h2>
         <p className="text-light-3 small-medium md:base-regular mt-2">
-        Щоб користуватися cucu, будь ласка, введіть свої дані
+          Введіть свої дані:
         </p>
 
         <form
@@ -120,7 +120,9 @@ const SignupForm = () => {
             name="username"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="shad-form_label">Ім'я користувача</FormLabel>
+                <FormLabel className="shad-form_label">
+                  Ім'я користувача
+                </FormLabel>
                 <FormControl>
                   <Input type="text" className="shad-input" {...field} />
                 </FormControl>
@@ -162,11 +164,9 @@ const SignupForm = () => {
           </Button>
 
           <p className="text-small-regular text-dark-2 text-center mt-2">
-            Вже маєте акаунт? 
-            <Link
-              to="/sign-in"
-              className="text-primary-500 text-small-semibold ml-1">
-              Вхід
+            Вже маєте акаунт?
+            <Link to="/sign-in" className="font-bold ml-1 underline">
+              Увійти
             </Link>
           </p>
         </form>

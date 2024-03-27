@@ -13,7 +13,7 @@ type PostCardProps = {
 
 const PostCard = ({ post }: PostCardProps) => {
   return (
-    <div className="post">
+    <div className="post py-[10px] px-[10px]">
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
@@ -21,7 +21,8 @@ const PostCard = ({ post }: PostCardProps) => {
               <img
                 src={`${
                   post.author.avatar ===
-                  "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
+                    "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/" ||
+                  post.author.avatar === null
                     ? "/assets/icons/profile-placeholder.svg"
                     : post.author.avatar
                 }`}

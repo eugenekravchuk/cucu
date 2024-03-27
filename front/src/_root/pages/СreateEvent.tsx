@@ -2,11 +2,11 @@ import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate, useParams } from "react-router-dom";
-import { Dropdown } from "flowbite-react";
 
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -18,41 +18,73 @@ import { ProfileUploader, Loader } from "@/components/shared";
 
 import { useContext, useEffect, useState } from "react";
 import {
+  createEvent,
   createOrganisation,
   decodeJWT,
   getProfile,
   uploadAvatar,
 } from "@/jwt_back/work";
-import { ImageContext } from "@/context/ImageContext";
-import { OrganisationValidation } from "@/lib/validation";
+import { EventValidation } from "@/lib/validation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const СreateEvent = () => {
   const { toast } = useToast();
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedDate, setSelectedDate] = useState("");
 
-  const form = useForm<z.infer<typeof OrganisationValidation>>({
-    resolver: zodResolver(OrganisationValidation),
+  const categories = [
+    { label: "Спорт", value: 1 },
+    { label: "Театр", value: 2 },
+    { label: "Поезія", value: 3 },
+    { label: "Музика", value: 4 },
+  ];
+
+  const organisations = [{ label: "ОССА", value: 1 }];
+
+  const form = useForm<z.infer<typeof EventValidation>>({
+    resolver: zodResolver(EventValidation),
     defaultValues: {
+      event_text: "",
+      event_date: "",
+      category_id: 0,
+      organization: 0,
       photo: [],
-      name: "",
-      description: "",
     },
   });
 
-  const handleCreateOrganisation = async () => {
+  const handleCreateEvent = async (value: z.infer<typeof EventValidation>) => {
+    const eventForm = new FormData();
+    eventForm.append("event_text", value.event_text);
+    eventForm.append("event_date", value.event_date);
+    eventForm.append("category_id", Number(value.category_id));
+    eventForm.append("organization", Number(value.organization));
+    eventForm.append("photo", value.photo);
     try {
-      await createOrganisation("form");
+      setIsLoading(true);
+      await createEvent(eventForm);
     } catch (e) {
       console.log(e);
+    } finally {
+      setIsLoading(false);
+      navigate("/home");
     }
   };
 
-// type ValuePiece = Date | null;
+  if (isLoading) {
+    return (
+      <div className="h-screen w-screen flex items-center justify-center mb-[200px]">
+        <Loader />
+      </div>
+    );
+  }
 
-// type Value = ValuePiece | [ValuePiece, ValuePiece];
-// const [value, onChange] = useState<Value>(new Date());
-const [selectedDate, setSelectedDate] = useState('');
   return (
     <div className="flex flex-1">
       <div className="common-container mb-[50px]">
@@ -71,7 +103,7 @@ const [selectedDate, setSelectedDate] = useState('');
 
         <Form {...form}>
           <form
-            onSubmit={form.handleSubmit(handleCreateOrganisation)}
+            onSubmit={form.handleSubmit(handleCreateEvent)}
             className="flex flex-col gap-7 w-full mt-4 max-w-5xl mb-[60px]">
             <FormField
               control={form.control}
@@ -91,12 +123,10 @@ const [selectedDate, setSelectedDate] = useState('');
 
             <FormField
               control={form.control}
-              name="name"
+              name="event_text"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="shad-form_label">
-                    Ім'я організації
-                  </FormLabel>
+                  <FormLabel className="shad-form_label">Опис Івенту</FormLabel>
                   <FormControl>
                     <Input type="text" className="shad-input" {...field} />
                   </FormControl>
@@ -107,12 +137,10 @@ const [selectedDate, setSelectedDate] = useState('');
 
             <FormField
               control={form.control}
-              name="date"
+              name="event_date"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="shad-form_label">
-                    Дата і час
-                  </FormLabel>
+                  <FormLabel className="shad-form_label">Дата і час</FormLabel>
                   <FormControl>
                     <Input type="text" className="shad-input" {...field} />
                   </FormControl>
@@ -123,32 +151,24 @@ const [selectedDate, setSelectedDate] = useState('');
 
             <FormField
               control={form.control}
-              name="cetegory"
+              name="category_id"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="shad-form_label">
-                    Категорія
-                  </FormLabel>
-                  {/* <label> */}
-       
-   {/* </label> */}
-                  <FormControl>
-                  <div>
-                  <span className="shad-textarea custom-scrollbar field-bg"><select className="shad-input">
-           <option className="shad-input" value="1">Спорт</option>
-           <option className="shad-input" value="2">Театр</option>
-           <option  className="shad-input"value="3">Поезія</option>
-           <option  className="shad-input"value="3">Музика</option>
-           {/* {...field} */}
-       </select></span></div>
-        {/* <Dropdown className="shad-textarea custom-scrollbar field-bg" label="Dropdown button" dismissOnClick={false}>
-      <Dropdown.Item>Dashboard</Dropdown.Item>
-      <Dropdown.Item>Settings</Dropdown.Item>
-      <Dropdown.Item>Earnings</Dropdown.Item>
-      <Dropdown.Item>Sign out</Dropdown.Item>
-    </Dropdown> */}
-                    {/* <Input type="text" className="shad-input" {...field} /> */}
-                  </FormControl>
+                <FormItem className="flex flex-col ">
+                  <FormLabel>Категорія</FormLabel>
+                  <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger className="field-bg w-[250px]">
+                        <SelectValue placeholder="Вибери категорію" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {categories.map((category) => (
+                        <SelectItem value={String(category.value)}>
+                          {category.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
@@ -156,17 +176,25 @@ const [selectedDate, setSelectedDate] = useState('');
 
             <FormField
               control={form.control}
-              name="description"
+              name="organization"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="shad-form_label">Опис</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      className="shad-textarea custom-scrollbar field-bg"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage className="shad-form_message" />
+                <FormItem className="flex flex-col">
+                  <FormLabel>Організація</FormLabel>
+                  <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger className="field-bg w-[250px]">
+                        <SelectValue placeholder="Вибери організацію" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {organisations.map((organisation) => (
+                        <SelectItem value={String(organisation.value)}>
+                          {organisation.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
                 </FormItem>
               )}
             />

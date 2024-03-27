@@ -107,7 +107,8 @@ const PostDetails = () => {
               <img
                 src={
                   post.author.avatar ==
-                  "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
+                    "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/" ||
+                  post.author.avatar === null
                     ? "/assets/icons/profile-placeholder.svg"
                     : post.author.avatar
                 }
@@ -180,7 +181,6 @@ const PostDetails = () => {
             />
           </div>
         </div>
-        
       </div>
 
       <div className="w-full max-w-5xl mb-[70px]">
@@ -208,7 +208,11 @@ const PostDetails = () => {
             <Comment
               key={com.id}
               username={com.author.username}
-              userImage={com.author.ava}
+              userImage={
+                com.author.avatar === null
+                  ? "/assets/icons/profile-placeholder.svg"
+                  : com.author.avatar
+              }
               text={com.text}
               id={com.id}
             />

@@ -9,6 +9,7 @@ from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt, JWTError
 from datetime import timedelta, datetime
 from images import s3_upload_image
+from .py_schemas import Token, CreateUserRequest
 
 
 
@@ -22,18 +23,6 @@ ALGHORITHM = 'HS256'
 
 bcrypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl='auth/login')
-
-
-class CreateUserRequest(BaseModel):
-    username: str
-    first_name: str
-    last_name: str
-    email: EmailStr
-    password: str
-
-class Token(BaseModel):
-    access_token: str
-    token_type: str
 
 def get_db():
     db = Sessionlocal()
@@ -61,7 +50,7 @@ def create_access_token(username: str, user_id: int, role: str, avatar:str,  exp
     return jwt.encode(encode, SECRET_KEY, algorithm=ALGHORITHM)
 
 
-async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
+def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGHORITHM])
         username: str = payload.get('sub')
@@ -77,7 +66,7 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
 
 
 @router.post('/registration', status_code=status.HTTP_201_CREATED)
-async def create_user(db: db_dependecy,  user: CreateUserRequest):
+def create_user(db: db_dependecy,  user: CreateUserRequest):
     try:
         create_user_model = Users(
             email=user.email,
@@ -87,9 +76,10 @@ async def create_user(db: db_dependecy,  user: CreateUserRequest):
             role='user',
             hashed_password=bcrypt_context.hash(user.password),
             is_active=True,
-            avatar = ''
+            bio = None,
+            avatar = None
         )
-        print(create_user_model)
+        print('created')
         db.add(create_user_model)
         db.commit()
         return login(user, db)

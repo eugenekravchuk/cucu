@@ -101,7 +101,6 @@ const CommentForm = ({ post, action }: PostFormProps) => {
                   {...field}
                   onChange={(event) => {
                     field.onChange(event);
-                    console.log(event);
                     setCaptionValue(event.target.value);
                   }}
                   value={captionValue}

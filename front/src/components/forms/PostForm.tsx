@@ -65,8 +65,6 @@ const PostForm = ({ post, action }: PostFormProps) => {
       }
     }
 
-    console.log(value.isAnonymous);
-
     // ACTION = CREATE
 
     const formData = new FormData();
@@ -150,7 +148,9 @@ const PostForm = ({ post, action }: PostFormProps) => {
             name="file"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="shad-form_label">Додати світлину</FormLabel>
+                <FormLabel className="shad-form_label">
+                  Додати світлину
+                </FormLabel>
                 <FormControl>
                   <FileUploader
                     fieldChange={field.onChange}
@@ -170,28 +170,29 @@ const PostForm = ({ post, action }: PostFormProps) => {
             />
           </div>
         )}
-
-        <FormField
-          control={form.control}
-          name="isAnonymous"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <div className="flex items-center ">
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                    className="h-[30px] w-[55px] pl-[5px]"
-                  />
-                  <p className="text-xl ml-[10px] text-[#4C4C4C]">
-                    Створити анонімний пост
-                  </p>
-                </div>
-              </FormControl>
-            </FormItem>
-          )}
-          defaultValue={false}
-        />
+        {action === "Create" && (
+          <FormField
+            control={form.control}
+            name="isAnonymous"
+            render={({ field }) => (
+              <FormItem>
+                <FormControl>
+                  <div className="flex items-center ">
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                      className="h-[30px] w-[55px] pl-[5px]"
+                    />
+                    <p className="text-xl ml-[10px] text-[#4C4C4C]">
+                      Створити анонімний пост
+                    </p>
+                  </div>
+                </FormControl>
+              </FormItem>
+            )}
+            defaultValue={false}
+          />
+        )}
 
         <div className="flex gap-4 items-center justify-end">
           <Button
