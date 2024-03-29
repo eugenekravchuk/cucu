@@ -27,6 +27,7 @@ const Topbar = () => {
         const username = decodeJWT().sub;
         const data = await getProfile(username);
         setUserData(data.data);
+        console.log(data.data.avatar);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {

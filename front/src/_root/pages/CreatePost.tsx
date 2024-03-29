@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const CreatePost = () => {
   return (
-    <div className="flex flex-1">
+    <div className="flex flex-1 mb-[50px]">
       <div className="common-container">
         <div className="max-w-5xl flex-start gap-3 justify-start w-full">
           <img
@@ -12,7 +12,9 @@ const CreatePost = () => {
             height={36}
             alt="add"
           />
-          <button className="h3-bold md:h2-bold text-left w-full">Створити пост</button >
+          <button className="h3-bold md:h2-bold text-left w-full">
+            Створити пост
+          </button>
           <img
             src="/assets/icons/event2.png"
             width={36}
@@ -20,12 +22,14 @@ const CreatePost = () => {
             alt="add"
           />
 
-          <Link to={"/create-event"} className="h3-bold md:h2-bold text-left w-full">
-          <button>Створити подію</button >
-        </Link>
+          <Link
+            to={"/create-event"}
+            className="h3-bold md:h2-bold text-left w-full">
+            <button>Створити подію</button>
+          </Link>
         </div>
 
-        <PostForm action="Create"  />
+        <PostForm action="Create" />
       </div>
     </div>
   );

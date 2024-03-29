@@ -17,7 +17,7 @@ import Channels from "@/components/shared/Channels";
 import OrganizationDescription from "@/components/shared/OrganizationDescription";
 import { set } from "react-hook-form";
 
-const Home = ({showChannels, setShowChannels}) => {
+const Home = ({ showChannels, setShowChannels }) => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -25,6 +25,9 @@ const Home = ({showChannels, setShowChannels}) => {
   const [posts, setPosts] = useState(null);
   const [showOrganization, setShowOrganization] = useState(false);
   const [organisations, setOrganisations] = useState(null);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(10);
+  const [hasMore, setHasMore] = useState(true);
   const [sidebar_organization, setSidebarOrganization] = useState(null);
   const [sidebar_categories, setSidebarcategories] = useState(null);
 
@@ -76,32 +79,38 @@ const Home = ({showChannels, setShowChannels}) => {
           <div className="fixed flex w-full bg-light-1 pb-2 pt-2">
             <h3 className="h3-bold text-dark-1">Організації</h3>
           </div>
-          {sidebar_organization.length === 0 ? 
+          {sidebar_organization.length === 0 ? (
             <p className="base-medium text-dark-1 text-center line-clamp-1 pt-[60px]">
               На жаль, у вас ще немає організацій
-            </p> 
-          :          
-          <ul className="grid 2xl:grid-cols-2 gap-3 pt-[60px]">
-            {sidebar_organization?.map((organization) => (
-              <li key={organization.id}>
-                <Link to={`/organisation/${organization.id}`} className="user-card" onClick={() => {
-                    // setShowOrganization(showOrganization => !showOrganization);
-                }}>
-                  <img
-                    src={organization.organization_image || "/assets/icons/profile-placeholder.svg"}
-                    alt="creator"
-                    className="rounded-full w-10 h-10"
-                  />
-                  <div className="flex-center flex-col gap-1">
-                    <p className="base-medium text-dark-1 text-center line-clamp-1">
-                      {organization.organization_name}
-                    </p>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-          }
+            </p>
+          ) : (
+            <ul className="grid 2xl:grid-cols-2 gap-3 pt-[60px]">
+              {sidebar_organization?.map((organization) => (
+                <li key={organization.id}>
+                  <Link
+                    to={`/organisation/${organization.id}`}
+                    className="user-card"
+                    onClick={() => {
+                      // setShowOrganization(showOrganization => !showOrganization);
+                    }}>
+                    <img
+                      src={
+                        organization.organization_image ||
+                        "/assets/icons/profile-placeholder.svg"
+                      }
+                      alt="creator"
+                      className="rounded-full w-10 h-10"
+                    />
+                    <div className="flex-center flex-col gap-1">
+                      <p className="base-medium text-dark-1 text-center line-clamp-1">
+                        {organization.organization_name}
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div className="home-creators h-2/5 relative">
@@ -124,11 +133,15 @@ const Home = ({showChannels, setShowChannels}) => {
         </div>
       </div>
 
-      {showChannels ? 
-      //  <Channels showOrganization={showOrganization} setShowOrganization={setShowOrganization} showChannels={showChannels} setShowChannels={setShowChannels} organisations={sidebar_organization} categories={sidebar_categories}/>
-       <Channels showChannels={showChannels} setShowChannels={setShowChannels} organisations={sidebar_organization} categories={sidebar_categories}/>
-
-      : null}
+      {showChannels ? (
+        //  <Channels showOrganization={showOrganization} setShowOrganization={setShowOrganization} showChannels={showChannels} setShowChannels={setShowChannels} organisations={sidebar_organization} categories={sidebar_categories}/>
+        <Channels
+          showChannels={showChannels}
+          setShowChannels={setShowChannels}
+          organisations={sidebar_organization}
+          categories={sidebar_categories}
+        />
+      ) : null}
     </div>
   );
 };
