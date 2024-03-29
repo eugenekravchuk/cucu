@@ -23,6 +23,7 @@ import {
   decodeJWT,
   getProfile,
   uploadAvatar,
+  getSidebarData,
 } from "@/jwt_back/work";
 import { EventValidation } from "@/lib/validation";
 import {
@@ -38,15 +39,34 @@ const СreateEvent = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
+  const [datacategories, setCategories] = useState([]);
+  const [dataorganisations, setOrganisations] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const datacategories = await getSidebarData();
+        setCategories(datacategories.categories);
+        setOrganisations(datacategories.organizations);
+      } catch (error) {
+        console.error("Error fetching post data:", error);
+        // Handle error, e.g., setPost(null) and display error UI
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
-  const categories = [
-    { label: "Спорт", value: 1 },
-    { label: "Театр", value: 2 },
-    { label: "Поезія", value: 3 },
-    { label: "Музика", value: 4 },
-  ];
+    fetchData();
+  }, []);
 
-  const organisations = [{ label: "ОССА", value: 1 }];
+  // const categories = [
+  //   { label: "Спорт", value: 1 },
+  //   { label: "Театр", value: 2 },
+  //   { label: "Поезія", value: 3 },
+  //   { label: "Музика", value: 4 },
+  // ];
+
+  // const organisations = [{ label: "ОССА", value: 1 }];
 
   const form = useForm<z.infer<typeof EventValidation>>({
     resolver: zodResolver(EventValidation),
@@ -162,9 +182,9 @@ const СreateEvent = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {categories.map((category) => (
-                        <SelectItem value={String(category.value)}>
-                          {category.label}
+                      {datacategories.map((category) => (
+                        <SelectItem value={String(category.id)}>
+                          {category.category_name}
                         </SelectItem>
                       ))}
                     </SelectContent>
@@ -187,9 +207,9 @@ const СreateEvent = () => {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      {organisations.map((organisation) => (
-                        <SelectItem value={String(organisation.value)}>
-                          {organisation.label}
+                      {dataorganisations.map((organisation) => (
+                        <SelectItem value={String(organisation.id)}>
+                          {organisation.organization_name}
                         </SelectItem>
                       ))}
                     </SelectContent>

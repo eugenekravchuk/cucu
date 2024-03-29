@@ -328,6 +328,21 @@ export const getOrganisationbyId = async (organisationId) => {
   return response;
 };
 
+export const getAllOrganizatios = async () => {
+  const response = await axios.get(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/organization/all`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+  if (response.status !== 200) {
+    toast({ title: "All organizations get mehod failed. Please try again." });
+    return "error";
+  }
+  return response.data;
+};
 // *************************************
 // SIDEBAR
 // *************************************
@@ -369,6 +384,21 @@ export const createEvent = async (eventData) => {
   }
 };
 
+export const getEventbyCategoryId = async (categoryId) => {
+  const response = await axios.get(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/event/${categoryId}/`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+  if (response.status !== 200) {
+    toast({ title: "Organisation get mehod failed. Please try again." });
+    return "error";
+  }
+  return response.data;
+};
 // *************************************
 // COMMENTS
 // *************************************

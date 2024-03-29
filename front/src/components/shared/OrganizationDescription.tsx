@@ -29,13 +29,19 @@ const OrganizationDescription = ({organisation}) => {
                 </div>
 
                 <div className="flex gap-8 mt-6 items-center justify-center xl:justify-start flex-wrap">
-                <StatBlock value={organisation.events.length} label="Подій" />
-                {/* <StatBlock value={userData.posts.length} label="Posts" />*/}
+                {organisation.events.length%10 === 1 ? (
+                    <StatBlock value={organisation.events.length} label="Подія" />
+                ) : (
+                    organisation.events.length%10 === 2 || organisation.events.length%10 === 3 || organisation.events.length%10 === 4 ? (
+                    <StatBlock value={organisation.events.length} label="Події" />
+                    ) : (
+                    <StatBlock value={organisation.events.length} label="Подій" />
+                    )
+                )}
                 </div>
 
                 <p className="small-medium md:base-medium text-center xl:text-left mt-7 max-w-screen-sm">
                     {organisation.organization_desc}
-                {/* {currentUser.bio} */}
                 </p>
             </div>
 

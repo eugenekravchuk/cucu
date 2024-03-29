@@ -66,7 +66,7 @@ const Topbar = () => {
 
   return (
     <section className="topbarContainer py-[30px] flex">
-      <Link to="/" className="flex gap-3 items-center">
+      <Link to="/" className="gap-3 items-center pl-3 hidden xs:flex">
         <img
           src="/assets/images/logo.png"
           alt="logo"
@@ -74,10 +74,21 @@ const Topbar = () => {
           height={325}
         />
       </Link>
+      <Link  to="/" className="left-0 flex gap-3 items-center xs:hidden">
+        <img
+          src="/assets/images/logo-mini.png"
+          alt="logo"
+          width={30}
+          height={30}
+          className='left-0 mr-2'
+        />
+      </Link>
       <div className="explore-inner_container md:w-[500px] xl:w-[700px] md:px-10">
         <div className="flex gap-1 px-2 md:px-4 w-[100%] rounded-lg bg-light-2">
           <img
             src="/assets/icons/search.svg"
+            width={24}
+            height={24}
             className="md:w-[24px] w-[14px]"
             alt="search"
           />
@@ -116,7 +127,7 @@ const Topbar = () => {
           onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
             handleSignOut(e)
           }>
-          <img src="/assets/icons/logout.svg" alt="logout" className="block " />
+          <img src="/assets/icons/logout.svg" alt="logout" className="block "/>
         </Button>
         <Link
           to={`/profile/${userData.username}`}
@@ -130,7 +141,7 @@ const Topbar = () => {
                 : userData.avatar
             }
             alt="profile"
-            className="h-8 w-8 rounded-full"
+            className="w-7 h-7 xs:h-8 xs:w-8 rounded-full"
           />
         </Link>
       </div>

@@ -280,6 +280,6 @@
   }
 
   .shad-button_ghost {
-    @apply flex  items-center justify-start hover:bg-transparent hover:text-black !important;
+    @apply flex items-center justify-start hover:bg-transparent hover:text-black !important;
   }
 }
