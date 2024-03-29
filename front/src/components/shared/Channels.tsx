@@ -43,13 +43,16 @@ const Channels = ({  showChannels, setShowChannels, organisations, categories })
           <ul className="grid gap-2 md:pt-[60px] pt-[45px]">
             {categories?.map((category) => (
               <li key={category.id}>
-                <div className="flex-center flex-col gap-4 border border-light-4 rounded-[20px] px-5 py-2 cursor-pointer">
+                <Link to={`/category/${category.id}`} className="flex-center flex-col gap-4 border border-light-4 rounded-[20px] px-5 py-2 cursor-pointer"
+                  onClick={() => {
+                    setShowChannels(showChannels => !showChannels);
+                    }}>
                   <div className="flex-center flex-col gap-1">
                     <p className="md:base-medium font-medium text-[12px] text-dark-1 text-center line-clamp-1">
                       {category.category_name}
                     </p>
                   </div>
-                </div>
+                </Link>
               </li>
             ))}
           </ul>

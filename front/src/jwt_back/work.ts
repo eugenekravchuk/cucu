@@ -384,6 +384,21 @@ export const createEvent = async (eventData) => {
   }
 };
 
+export const getEventbyCategoryId = async (categoryId) => {
+  const response = await axios.get(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/event/${categoryId}/`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+  if (response.status !== 200) {
+    toast({ title: "Organisation get mehod failed. Please try again." });
+    return "error";
+  }
+  return response.data;
+};
 // *************************************
 // COMMENTS
 // *************************************

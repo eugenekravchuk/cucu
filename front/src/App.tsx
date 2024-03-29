@@ -24,6 +24,7 @@ import СreateOrganisation from "./_root/pages/СreateOrganisation";
 import PostDetailsAnonymous from "./_root/pages/PostDetailsAnonymous";
 import СreateEvent from "./_root/pages/СreateEvent";
 import Organisation from "./_root/pages/Organisation";
+import Category from "./_root/pages/Category";
 import { useState } from "react";
 const App = () => {
   const [showChannels, setShowChannels] = useState(false);
@@ -69,6 +70,15 @@ const App = () => {
             path="/organisation/:id"
             element={
               <Organisation
+                showChannels={showChannels}
+                setShowChannels={setShowChannels}
+              />
+            }
+          />
+          <Route
+            path="/category/:id"
+            element={
+              <Category
                 showChannels={showChannels}
                 setShowChannels={setShowChannels}
               />

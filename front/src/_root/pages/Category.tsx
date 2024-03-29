@@ -14,12 +14,12 @@ import {
   getOrganisationbyId,
   getSidebarData,
   getAllOrganizatios,
+  getEventbyCategoryId,
 } from "@/jwt_back/work";
 import Channels from "@/components/shared/Channels";
 import EventCard from "@/components/shared/EventCard";
-import OrganizationDescription from "@/components/shared/OrganizationDescription";
 
-const Organisation = ({showChannels, setShowChannels}) => {
+const Category = ({showChannels, setShowChannels}) => {
   let { id } = useParams();
   console.log(id);
   const { toast } = useToast();
@@ -27,21 +27,16 @@ const Organisation = ({showChannels, setShowChannels}) => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState(null);
-  const [organisations, setOrganisations] = useState(null);
   const [sidebar_org, setSidebarOrg] = useState(null);
   const [sidebar_categories, setSidebarCategories] = useState(null);
-  const [categoryisActive, setCategoryisActive] = useState(false);
-  const [activecategory, setActivecategory] = useState(null);
 
   useEffect(() => {
     
     const fetchData = async () => {
       setIsLoading(true);
       try {       
-        const data = await getOrganisationbyId(id);
-        setOrganisations(data.data);
-        console.log(data.data);
-        setPosts(data.data.events);
+        const data = await getEventbyCategoryId(id);
+        setPosts(data);
         const data2 = await getSidebarData();
         const data3 = await getAllOrganizatios();
         setSidebarCategories(data2.categories);
@@ -70,14 +65,12 @@ const Organisation = ({showChannels, setShowChannels}) => {
     <div className="flex flex-1">
     <div className="home-container">
       <div className="home-posts mb-[100px]">
-
-        <OrganizationDescription organisation={organisations}/>
-        <h2 className="h3-bold md:h2-bold text-left w-full">Події</h2>
+        <h2 className="h3-bold md:h2-bold text-left w-full">Категорія</h2>
         <ul className="flex flex-col flex-1 gap-9 w-full ">
           {posts.length !== 0 ?
             posts.map((post) => (
               <li key={post.id} className="flex justify-center w-full">
-                <EventCard post={post} organisation={organisations} />
+                <EventCard post={post} organisation={post.organization} />
               </li>
             ))
           : 
@@ -150,4 +143,4 @@ const Organisation = ({showChannels, setShowChannels}) => {
   );
 };
 
-export default Organisation;
+export default Category;

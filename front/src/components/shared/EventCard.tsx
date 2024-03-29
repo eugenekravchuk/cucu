@@ -1,5 +1,5 @@
 import { Models } from "appwrite";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { PostStats } from "@/components/shared";
 import { multiFormatDateString } from "@/lib/utils";
@@ -12,6 +12,7 @@ import "./post.css";
 // };
 
 const EventCard = ({ post, organisation }) => {
+  const { pathname } = useLocation();
   return (
     <div className="post py-[10px] px-[10px]">
       <div className="postWrapper">
@@ -33,10 +34,15 @@ const EventCard = ({ post, organisation }) => {
             <span className="postUsername">{organisation.organization_name}</span>
 
             <span className="postDate mr-3">{multiFormatDateString(post.event_time_creation)}</span> 
-            •
-              <span className="postDate ml-3">
-                {post.category.category_name}
-              </span>
+              {pathname.startsWith("/category")? 
+              null
+              : (
+              <div>•
+                <span className="postDate ml-3">
+                  {post.category.category_name}
+                </span>
+              </div>
+              )}
           </div>
           {/* <div className="postTopRight">
             <Link

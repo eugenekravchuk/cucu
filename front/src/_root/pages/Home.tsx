@@ -86,9 +86,10 @@ const Home = ({showChannels, setShowChannels}) => {
           <ul className="grid 2xl:grid-cols-2 gap-3 pt-[60px]">
             {sidebar_organization?.map((organization) => (
               <li key={organization.id}>
-                <Link to={`/organisation/${organization.id}`} className="user-card" onClick={() => {
-                    // setShowOrganization(showOrganization => !showOrganization);
-                }}>
+                <Link to={`/organisation/${organization.id}`} className="user-card" 
+                onClick={() => {
+                  setShowChannels(showChannels => !showChannels);
+                  }}>
                   <img
                     src={organization.organization_image || "/assets/icons/profile-placeholder.svg"}
                     alt="creator"
@@ -113,13 +114,16 @@ const Home = ({showChannels, setShowChannels}) => {
           <ul className="grid 2xl:grid-cols-2 gap-3 pt-[60px]">
             {sidebar_categories?.map((category) => (
               <li key={category.id}>
-                <div className="flex-center flex-col gap-4 border border-light-4 rounded-[20px] px-5 py-2 cursor-pointer">
+                <Link to={`/category/${category.id}`} className="flex-center flex-col gap-4 border border-light-4 rounded-[20px] px-5 py-2 cursor-pointer"
+                  onClick={() => {
+                    setShowChannels(showChannels => !showChannels);
+                    }}>
                   <div className="flex-center flex-col gap-1">
                     <p className="base-medium text-dark-1 text-center line-clamp-1">
                       {category.category_name}
                     </p>
                   </div>
-                </div>
+                </Link>
               </li>
             ))}
           </ul>

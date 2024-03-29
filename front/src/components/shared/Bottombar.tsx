@@ -30,7 +30,7 @@ const Bottombar = ({ showChannels, setShowChannels }) => {
         );
       })}
       {/* home or organization/:id */}
-      {pathname === "/home"  || pathname.startsWith("/organisation")?
+      {pathname === "/home"  || pathname.startsWith("/organisation") || pathname.startsWith("/category")?
           <Button className="flex-center flex-col bg-light-1 hover:bg-[#74747497] p-2 transition text-[#060606]"
             onClick={() => {
               setShowChannels(showChannels => !showChannels);
