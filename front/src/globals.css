@@ -132,7 +132,7 @@
   }
 
   .explore-inner_container {
-    @apply max-w-[800px] flex flex-col items-center w-full gap-6 md:gap-9;
+    @apply flex flex-col items-center gap-6 md:gap-9;
   }
 
   .explore-search {
@@ -280,6 +280,6 @@
   }
 
   .shad-button_ghost {
-    @apply flex gap-4 items-center justify-start hover:bg-transparent hover:text-black !important;
+    @apply flex items-center justify-start hover:bg-transparent hover:text-black !important;
   }
 }
