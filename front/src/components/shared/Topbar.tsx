@@ -27,7 +27,6 @@ const Topbar = () => {
         const username = decodeJWT().sub;
         const data = await getProfile(username);
         setUserData(data.data);
-        console.log(data.data.avatar);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -50,12 +49,23 @@ const Topbar = () => {
     }
   };
 
+  const handleEnterKeyPress = async (event) => {
+    if (event.key === "Enter") {
+      const searchQuery = event.target.value.trim();
+      if (searchQuery) {
+        navigate(`/searchresults/${searchQuery}`);
+      } else {
+        navigate("/home");
+      }
+    }
+  };
+
   if (!userData) {
     return;
   }
 
   return (
-    <section className="topbarContainer py-[30px]">
+    <section className="topbarContainer py-[30px] flex">
       <Link to="/" className="flex gap-3 items-center">
         <img
           src="/assets/images/logo.png"
@@ -64,23 +74,28 @@ const Topbar = () => {
           height={325}
         />
       </Link>
-      <div className="explore-inner_container ">
-        <div className="flex gap-1 px-4 w-full rounded-lg bg-light-2">
+      <div className="explore-inner_container md:w-[500px] xl:w-[700px] md:px-10">
+        <div className="flex gap-1 px-2 md:px-4 w-[100%] rounded-lg bg-light-2">
           <img
             src="/assets/icons/search.svg"
-            width={24}
-            height={24}
+            className="md:w-[24px] w-[14px]"
             alt="search"
           />
           <Input
             type="text"
             placeholder="Пошук"
-            className="explore-search max-w-[400px]"
+            className="explore-search max-w-[700px]"
+            onKeyUp={handleEnterKeyPress}
+            onChange={(event) => {
+              if (!event.target.value) {
+                navigate("/home");
+              }
+            }}
           />
         </div>
       </div>
 
-      <div className="topbarRight">
+      <div className="topbarRight xl:w-[368px]">
         <Link to={"/create-post"} className="topbarIconItem hidden xl:flex">
           <img src="/assets/icons/new_post.png" alt="add-post" />
         </Link>
@@ -97,15 +112,15 @@ const Topbar = () => {
         </Link>
         <Button
           variant="ghost"
-          className="shad-button_ghost"
+          className="shad-button_ghost px-0 py-0 mr-2 ml-2 h-[24px] w-[24px]"
           onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
             handleSignOut(e)
           }>
-          <img src="/assets/icons/logout.svg" alt="logout" />
+          <img src="/assets/icons/logout.svg" alt="logout" className="block " />
         </Button>
         <Link
           to={`/profile/${userData.username}`}
-          className="flex-center gap-3 mr-10">
+          className="flex-center gap-3 mr-2 md:mr-10">
           <img
             src={
               userData.avatar ==

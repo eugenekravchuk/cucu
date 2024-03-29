@@ -58,7 +58,6 @@
 .topbarRight {
   /* flex: 4; */
   display: flex;
-  width: 368px;
   align-items: center;
   justify-content: end;
   color: black;

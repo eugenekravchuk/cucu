@@ -482,3 +482,27 @@ export const getAnonymousPostById = async (postId) => {
 
   return response.data;
 };
+
+// *************************************
+// SEARCH
+// *************************************
+
+export const searchUser = async (searchdata) => {
+  const response = await axios.get(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/profile/search?username=${searchdata}`,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+
+  console.log(response);
+
+  if (response.status !== 200) {
+    toast({ title: "Post get mehod failed. Please try again." });
+    return "error";
+  }
+
+  return response.data;
+};

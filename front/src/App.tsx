@@ -25,6 +25,7 @@ import PostDetailsAnonymous from "./_root/pages/PostDetailsAnonymous";
 import СreateEvent from "./_root/pages/СreateEvent";
 import Organisation from "./_root/pages/Organisation";
 import { useState } from "react";
+import SearchResults from "./_root/pages/SearchResults";
 const App = () => {
   const [showChannels, setShowChannels] = useState(false);
   return (
@@ -75,6 +76,7 @@ const App = () => {
             }
           />
           <Route path="/create-event" element={<СreateEvent />} />
+          <Route path="/searchresults/:username" element={<SearchResults />} />
         </Route>
       </Routes>
 
