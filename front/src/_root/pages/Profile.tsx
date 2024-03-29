@@ -115,7 +115,9 @@ const Profile = () => {
               <p className="small-regular md:body-medium text-dark-3 text-center xl:text-left">
                 @{userData.username}
               </p>
-              <p>{userData.bio}</p>
+              <p className="xl:text-start mt-[10px] text-center">
+                {userData.bio}
+              </p>
             </div>
 
             <div className="flex gap-8 mt-10 items-center justify-center xl:justify-start flex-wrap z-20">
@@ -141,7 +143,8 @@ const Profile = () => {
                           <img
                             src={
                               follower.avatar ==
-                              "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
+                                "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/" ||
+                              follower.avatar == null
                                 ? "/assets/icons/profile-placeholder.svg"
                                 : follower.avatar
                             }
@@ -183,7 +186,8 @@ const Profile = () => {
                           <img
                             src={
                               following.avatar ==
-                              "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/"
+                                "https://ucummunity-storage.s3.eu-north-1.amazonaws.com/" ||
+                              following.avatar == null
                                 ? "/assets/icons/profile-placeholder.svg"
                                 : following.avatar
                             }

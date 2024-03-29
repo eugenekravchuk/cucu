@@ -60,7 +60,6 @@ const Topbar = () => {
     }
   };
 
-
   if (!userData) {
     return;
   }

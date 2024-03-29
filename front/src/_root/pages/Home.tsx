@@ -18,7 +18,7 @@ import Channels from "@/components/shared/Channels";
 import OrganizationDescription from "@/components/shared/OrganizationDescription";
 import { set } from "react-hook-form";
 
-const Home = ({showChannels, setShowChannels}) => {
+const Home = ({ showChannels, setShowChannels }) => {
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -26,6 +26,9 @@ const Home = ({showChannels, setShowChannels}) => {
   const [posts, setPosts] = useState(null);
   // const [showOrganization, setShowOrganization] = useState(false);
   const [organisations, setOrganisations] = useState(null);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(10);
+  const [hasMore, setHasMore] = useState(true);
   const [sidebar_organization, setSidebarOrganization] = useState(null);
   const [sidebar_categories, setSidebarcategories] = useState(null);
 
@@ -130,11 +133,15 @@ const Home = ({showChannels, setShowChannels}) => {
         </div>
       </div>
 
-      {showChannels ? 
-      //  <Channels showOrganization={showOrganization} setShowOrganization={setShowOrganization} showChannels={showChannels} setShowChannels={setShowChannels} organisations={sidebar_organization} categories={sidebar_categories}/>
-       <Channels showChannels={showChannels} setShowChannels={setShowChannels} organisations={sidebar_organization} categories={sidebar_categories}/>
-
-      : null}
+      {showChannels ? (
+        //  <Channels showOrganization={showOrganization} setShowOrganization={setShowOrganization} showChannels={showChannels} setShowChannels={setShowChannels} organisations={sidebar_organization} categories={sidebar_categories}/>
+        <Channels
+          showChannels={showChannels}
+          setShowChannels={setShowChannels}
+          organisations={sidebar_organization}
+          categories={sidebar_categories}
+        />
+      ) : null}
     </div>
   );
 };

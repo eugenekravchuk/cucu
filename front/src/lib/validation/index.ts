@@ -1,6 +1,5 @@
 import * as z from "zod";
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
-const MAX_FILE_SIZE_PROFILE = 2 * 1024 * 1024;
 const ACCEPTED_IMAGE_TYPES = [
   "image/jpeg",
   "image/jpg",
@@ -44,18 +43,14 @@ export const UpdateProfileValidation = z.object({
     .custom<FileList>()
     .optional()
     .transform((file) => file !== null && (file[0] as File))
-    .refine((fileList) => {
-      if (fileList?.length !== 1 && fileList) {
-        return (
-          fileList.length === 1 ||
-          (fileList === null &&
-            fileList[0].size <= MAX_FILE_SIZE_PROFILE &&
-            ACCEPTED_IMAGE_TYPES.includes(fileList[0].type))
-        );
+    .refine((file) => {
+      console.log(file);
+      if (file && file !== "h") {
+        return file.size <= MAX_FILE_SIZE;
       } else {
         return true; // Bypass checks if no file
       }
-    }, "Expected file with size less than 2MB and valid type (.jpg, .jpeg, .png, .webp and mp4)"),
+    }, "Expected file with size less than 10MB"),
   first_name: z
     .string()
     .min(2, { message: "Name must be at least 2 characters." }),

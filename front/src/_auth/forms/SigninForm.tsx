@@ -109,7 +109,16 @@ const SigninForm = () => {
             Вхід
           </Button>
 
-          <p className="text-small-regular text-dark-2 text-center mt-2">
+          {/* <p className="text-small-regular text-dark-2 text-center mb-[-10px]">
+            Забув пароль?
+            <Link
+              to="/sign-up"
+              className="font-bold ml-1 underline text-[#501E97]">
+              Відновити
+            </Link>
+          </p> */}
+
+          <p className="text-small-regular text-dark-2 text-center">
             Не маєш облікового запису?
             <Link to="/sign-up" className="font-bold ml-1 underline">
               Зареєструватися

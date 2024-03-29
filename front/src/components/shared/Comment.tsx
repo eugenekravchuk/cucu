@@ -2,6 +2,7 @@ import { decodeJWT, deleteComment, likeComment } from "@/jwt_back/work";
 
 import { useState } from "react";
 import { toast } from "@/components/ui";
+import { Link } from "react-router-dom";
 
 const Comment = ({
   username = "loh",
@@ -10,12 +11,16 @@ const Comment = ({
   text = "some text",
   initialLikes = 0,
   id,
+  liked,
+  deletable,
 }) => {
   const [likes, setLikes] = useState(initialLikes);
-  const [isLiked, setIsLiked] = useState(false);
-  const showDelete = decodeJWT().sub === username;
+  const [isLiked, setIsLiked] = useState(liked);
+  const showDelete = deletable || decodeJWT.sub == username;
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
+
+  console.log(deletable);
 
   const handleLike = () => {
     try {
@@ -34,7 +39,6 @@ const Comment = ({
     }
   };
 
-  // Placeholder for delete functionality
   const handleDelete = () => {
     try {
       console.log(id);
@@ -53,13 +57,15 @@ const Comment = ({
   return (
     <div className="border border-gray-300 rounded-lg p-4 mb-5">
       <div className="flex items-center mb-3">
-        <div className="mr-[7px]">
+        <Link to={`/profile/${username}`} className="flex-center gap-3 mr-2">
           <img
             src={userImage}
-            alt="User Avatar"
-            className="w-[50px] h-[40px] rounded-full"
+            alt="profile"
+            className={`${
+              showDelete ? "h-10 w-10" : "h-8 w-8"
+            } rounded-full object-fill`}
           />
-        </div>
+        </Link>
         <div>
           <span className="font-semibold">{username}</span>
           <span className="text-gray-500 text-sm ml-2">{time}</span>

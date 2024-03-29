@@ -26,6 +26,8 @@ import СreateEvent from "./_root/pages/СreateEvent";
 import Organisation from "./_root/pages/Organisation";
 import Category from "./_root/pages/Category";
 import { useState } from "react";
+import SearchResults from "./_root/pages/SearchResults";
+import ImageCropper from "./components/shared/ImageCropper";
 const App = () => {
   const [showChannels, setShowChannels] = useState(false);
   return (
@@ -50,8 +52,8 @@ const App = () => {
             path="/home"
             element={
               <Home
-                showChannels={showChannels}
-                setShowChannels={setShowChannels}
+              showChannels={showChannels}
+              setShowChannels={setShowChannels}
               />
             }
           />
@@ -85,6 +87,8 @@ const App = () => {
             }
           />
           <Route path="/create-event" element={<СreateEvent />} />
+          <Route path="/searchresults/:username" element={<SearchResults />} />
+          <Route path="/crop" element={<ImageCropper />} />
         </Route>
       </Routes>
 

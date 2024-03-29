@@ -74,7 +74,7 @@ const PostDetails = () => {
       if (outcome == "error") {
         return;
       }
-      setComments([...comments, outcome]);
+      setComments([outcome, ...comments]);
     } catch (error) {
       console.log(error);
     } finally {
@@ -119,8 +119,8 @@ const PostDetails = () => {
                 <p className="base-medium lg:body-bold text-dark-1">
                   {post.author.username}
                 </p>
-                <div className="flex-center gap-2 text-dark-3">
-                  <p className="subtle-semibold lg:small-regular ">
+                <div className="flex-start gap-2 text-dark-3">
+                  <p className="subtle-semibold lg:small-regular  ">
                     {multiFormatDateString(post.date)}
                   </p>
                 </div>
@@ -161,15 +161,6 @@ const PostDetails = () => {
 
           <div className="flex flex-col flex-1 w-full small-medium lg:base-regular">
             <p>{post.text}</p>
-            {/* <ul className="flex gap-1 mt-2">
-              {post?.tags.map((tag: string, index: string) => (
-                <li
-                  key={`${tag}${index}`}
-                  className="text-dark-3 small-regular">
-                  #{tag}
-                </li>
-              ))}
-            </ul> */}
           </div>
 
           <div className="w-full">
@@ -215,6 +206,9 @@ const PostDetails = () => {
               }
               text={com.text}
               id={com.id}
+              initialLikes={com.likes}
+              liked={com.is_liked}
+              deletable={com.deletable}
             />
           ))
         ) : (

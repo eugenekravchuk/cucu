@@ -87,7 +87,10 @@ const UpdateProfile = () => {
       if (value.file !== "h" && value.file) {
         const avatarForm = new FormData();
         avatarForm.append("ava", value.file);
-        const avaRequest = await uploadAvatar(avatarForm);
+        const avaRequest = await uploadAvatar(avatarForm).then(() => {
+          setImage(value.file);
+          console.log(image);
+        });
       }
       const profileRequest = await updateProfile(profileData);
     } catch (error) {
@@ -95,7 +98,6 @@ const UpdateProfile = () => {
     } finally {
       setIsLoading(false);
       navigate(`/profile/${userData.username}`);
-      setImage("image");
     }
   };
 
