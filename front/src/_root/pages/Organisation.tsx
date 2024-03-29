@@ -29,6 +29,8 @@ const Organisation = ({showChannels, setShowChannels}) => {
   const [organisations, setOrganisations] = useState(null);
   const [sidebar_org, setSidebarOrg] = useState(null);
   const [sidebar_categories, setSidebarCategories] = useState(null);
+  const [categoryisActive, setCategoryisActive] = useState(false);
+  const [activecategory, setActivecategory] = useState(null);
 
   useEffect(() => {
     
@@ -70,7 +72,14 @@ const Organisation = ({showChannels, setShowChannels}) => {
         <OrganizationDescription organisation={organisations}/>
         <h2 className="h3-bold md:h2-bold text-left w-full">Події</h2>
         <ul className="flex flex-col flex-1 gap-9 w-full ">
-          {posts.length !== 0 ? 
+          {posts.length !== 0 ?
+            categoryisActive ? 
+              posts.filter(post => post.category.category_name === activecategory).map((post) => (
+                <li key={post.id} className="flex justify-center w-full">
+                  <EventCard post={post} organisation={organisations} />
+                </li>
+              ))
+            : 
             posts.map((post) => (
               <li key={post.id} className="flex justify-center w-full">
                 <EventCard post={post} organisation={organisations} />
@@ -123,7 +132,22 @@ const Organisation = ({showChannels, setShowChannels}) => {
           <ul className="grid 2xl:grid-cols-2 gap-3 pt-[60px]">
             {sidebar_categories?.map((category) => (
               <li key={category.id}>
-                <div className="flex-center flex-col gap-4 border border-light-4 rounded-[20px] px-5 py-2 cursor-pointer">
+                <div className="flex-center flex-col gap-4 border border-light-4 rounded-[20px] px-5 py-2 cursor-pointer" onClick={() => {
+                    setShowChannels(showChannels => !showChannels);
+                    if (activecategory === category.category_name) {
+                      setCategoryisActive(false);
+                      setActivecategory(null);
+                    }
+                    else {
+                      if (categoryisActive === false) {
+                        setCategoryisActive(true);
+                        setActivecategory(category.category_name);
+                      }
+                      else {
+                        setActivecategory(category.category_name);
+                      }
+                    }
+                }}>
                   <div className="flex-center flex-col gap-1">
                     <p className="base-medium text-dark-1 text-center line-clamp-1">
                       {category.category_name}
