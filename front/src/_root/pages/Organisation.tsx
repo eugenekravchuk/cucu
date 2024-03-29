@@ -16,6 +16,7 @@ import {
   getAllOrganizatios,
 } from "@/jwt_back/work";
 import Channels from "@/components/shared/Channels";
+import EventCard from "@/components/shared/EventCard";
 import OrganizationDescription from "@/components/shared/OrganizationDescription";
 
 const Organisation = ({showChannels, setShowChannels}) => {
@@ -70,12 +71,11 @@ const Organisation = ({showChannels, setShowChannels}) => {
         <h2 className="h3-bold md:h2-bold text-left w-full">Події</h2>
         <ul className="flex flex-col flex-1 gap-9 w-full ">
           {posts.length !== 0 ? 
-          // {posts.map((post: Models.Document) => (
-          //   <li key={post.id} className="flex justify-center w-full">
-          //     <EventCard post={post} />
-          //   </li>
-          // ))}
-          null
+            posts.map((post) => (
+              <li key={post.id} className="flex justify-center w-full">
+                <EventCard post={post} organisation={organisations} />
+              </li>
+            ))
           : 
           <p className="base-medium text-dark-1 text-center line-clamp-1">
             На жаль, подій не знайдено

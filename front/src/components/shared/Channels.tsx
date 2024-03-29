@@ -17,6 +17,7 @@ const Channels = ({  showChannels, setShowChannels, organisations, categories })
               <li key={organization.id}>
                 <Link to={`/organisation/${organization.id}`} className="user-card" onClick={() => {
                     // setShowOrganization(showOrganization => !showOrganization);
+                    setShowChannels(showChannels => !showChannels);
                 }}>
                   <img
                     src={organization.organization_image || "/assets/icons/profile-placeholder.svg"}
