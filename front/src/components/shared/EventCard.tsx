@@ -18,7 +18,7 @@ const EventCard = ({ post, organisation }) => {
       <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <Link to={`/profile/${organisation.organization_name}`}>
+            <Link to={`/organisation/${organisation.id}`}>
               <img
                 src={`${
                   organisation.organization_image ===
