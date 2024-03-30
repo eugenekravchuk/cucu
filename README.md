@@ -1,40 +1,40 @@
-# Cucu Social App
+# Вітаємо в спільноті CUCU!
 
-Welcome to Cucu, a social app built with React and Vite! Cucu aims to provide users with a platform to connect and share experiences with friends and family in a fun and engaging way.
+![image](https://github.com/eugenekravchuk/cucu/assets/81439861/3fa72b9a-22d2-4e65-9f39-70656eeef1d8)
+![image](https://github.com/eugenekravchuk/cucu/assets/81439861/3677e831-2473-4436-80bf-1ff2f9b50d0c)
 
-## Getting Started
 
-### Prerequisites
+## Вимоги (Передумови)
 
-Before running the app, make sure you have the following installed on your machine:
+### Перед тим як запускати застосунок, переконайтесь, що на вашому комп'ютері встановлено:
+- Node.js (версія v14.0.0 або вище)
+- npm (версія v7.0.0 або вище) або yarn (версія v1.22.0 або вище)
 
-- Node.js (v14.0.0 or higher)
-- npm (v7.0.0 or higher) or yarn (v1.22.0 or higher)
+## Встановлення (Інсталяція)
 
-### Installation
-
-1. Clone the repository to your local machine:
-
+1. Склонуйте репозиторій на свій комп'ютер:
 ```
 https://github.com/eugenekravchuk/cucu.git
 ```
 
-2. Navigate into the project directory:
-
+2. Перейдіть в директорію проекту:
 ```
 cd front
 ```
 
-3. Install dependencies using npm:
-
+3. Встановіть залежності за допомогою npm:
 ```
 npm install
 ```
 
-### Running the App
+## Запуск застосунку
 
-Once you've installed the dependencies, you can start the app by running the following command:
-
+Після встановлення залежностей, ви можете запустити застосунок, виконавши таку команду:
 ```
 npm run dev
 ```
+
+Приємного користування)
+
+
+
