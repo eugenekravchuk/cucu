@@ -50,8 +50,12 @@ export const multiFormatDateString = (timestamp: string = ""): string => {
       return `${Math.floor(diffInDays)} день тому`;
     case Math.floor(diffInDays) > 1 && diffInDays < 30:
       return `${Math.floor(diffInDays)} днів тому`;
+    case Math.floor(diffInHours) == 1:
+      return `${Math.floor(diffInHours)} 1 годину тому`;
     case Math.floor(diffInHours) >= 1:
       return `${Math.floor(diffInHours)} годин тому`;
+    case Math.floor(diffInMinutes) == 1:
+      return `${Math.floor(diffInMinutes)} хвилину тому`;
     case Math.floor(diffInMinutes) >= 1:
       return `${Math.floor(diffInMinutes)} хвилин тому`;
     default:

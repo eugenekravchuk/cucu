@@ -284,7 +284,10 @@ const Profile = () => {
           element={<GridPostList posts={userData.posts} showUser={false} />}
         />
         {userdataDecoded.sub === userData.username && (
-          <Route path="/liked-posts" element={<LikedPosts />} />
+          <Route
+            path="/liked-posts"
+            element={<LikedPosts posts={userData.liked_posts} />}
+          />
         )}
       </Routes>
       <Outlet />

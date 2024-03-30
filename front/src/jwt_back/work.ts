@@ -53,8 +53,9 @@ export const login = async (userdata) => {
     const token = response.data.access_token;
     localStorage.setItem("jwtToken", token);
     jwtToken = token;
-  } catch {
-    toast({ title: "Sign in failed. Please try again." });
+  } catch (e) {
+    console.log(e.response.data.detail);
+    toast({ title: "Неправильний пароль або ім'я користувача" });
     return "error";
   }
 };
@@ -70,8 +71,8 @@ export const register = async (userdata) => {
 
     localStorage.setItem("jwtToken", token);
     jwtToken = token;
-  } catch {
-    toast({ title: "Sign up failed. Please try again." });
+  } catch (e) {
+    toast({ title: e.response.data.detail });
     return "error";
   }
 };
