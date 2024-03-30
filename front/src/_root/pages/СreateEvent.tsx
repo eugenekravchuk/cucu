@@ -234,7 +234,7 @@ const СreateEvent = () => {
                   <FileUploader
                     fieldChange={field.onChange}
                     
-                    mediaUrl={"/assets/icons/pulll_image.svg"}
+                    mediaUrl={""}
                   />
                 </FormControl>
                 <FormMessage className="shad-form_message" />
