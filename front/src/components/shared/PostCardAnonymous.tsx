@@ -54,7 +54,7 @@ const PostCardAnonymous = ({ post }: PostCardProps) => {
             />
           </div>
           <div className="postBottomRight">
-            <Link to={`/posts/${post.id}`}>
+            <Link to={`/posts/a/${post.id}`}>
               <span className="postCommentText"> коменти</span>
             </Link>
           </div>

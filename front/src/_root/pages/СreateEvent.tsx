@@ -146,7 +146,7 @@ const СreateEvent = () => {
               name="event_text"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="shad-form_label">Опис Івенту</FormLabel>
+                  <FormLabel>Опис Івенту</FormLabel>
                   <FormControl>
                     <Input type="text" className="shad-input" {...field} />
                   </FormControl>
@@ -160,7 +160,8 @@ const СreateEvent = () => {
               name="event_date"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="shad-form_label">Дата і час</FormLabel>
+                  <FormLabel>Дата і час</FormLabel>
+                  <p className="shad-form_label text-xs">Записати в форматі ДД/ММ/РРРР</p>
                   <FormControl>
                     <Input type="text" className="shad-input" {...field} />
                   </FormControl>
@@ -200,6 +201,7 @@ const СreateEvent = () => {
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Організація</FormLabel>
+                  <p className="shad-form_label text-xs">Ви повинні бути творцем організації, щоб створити подію</p>
                   <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger className="field-bg w-[250px]">
