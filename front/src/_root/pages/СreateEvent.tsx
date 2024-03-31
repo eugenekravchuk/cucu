@@ -15,6 +15,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { Textarea, Input, Button } from "@/components/ui";
 import { ProfileUploader, Loader } from "@/components/shared";
+import { FileUploader} from "@/components/shared";
 
 import { useContext, useEffect, useState } from "react";
 import {
@@ -107,7 +108,7 @@ const СreateEvent = () => {
 
   return (
     <div className="flex flex-1">
-      <div className="common-container mb-[50px]">
+      <div className="common-container mb-[100px]">
         <div className="flex-start gap-3 justify-start w-full max-w-5xl ">
           <img
             src="/assets/icons/people.svg"
@@ -125,7 +126,7 @@ const СreateEvent = () => {
           <form
             onSubmit={form.handleSubmit(handleCreateEvent)}
             className="flex flex-col gap-7 w-full mt-4 max-w-5xl mb-[60px]">
-            <FormField
+            {/* <FormField
               control={form.control}
               name="photo"
               render={({ field }) => (
@@ -139,7 +140,7 @@ const СreateEvent = () => {
                   <FormMessage className="shad-form_message" />
                 </FormItem>
               )}
-            />
+            /> */}
 
             <FormField
               control={form.control}
@@ -220,6 +221,26 @@ const СreateEvent = () => {
                 </FormItem>
               )}
             />
+
+          <FormField
+            control={form.control}
+            name="photo"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="shad-form_label">
+                  Додати світлину
+                </FormLabel>
+                <FormControl>
+                  <FileUploader
+                    fieldChange={field.onChange}
+                    
+                    mediaUrl={""}
+                  />
+                </FormControl>
+                <FormMessage className="shad-form_message" />
+              </FormItem>
+            )}
+          />
 
             <div className="flex gap-4 items-center justify-end">
               <Button

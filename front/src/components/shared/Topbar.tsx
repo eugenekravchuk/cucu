@@ -18,7 +18,13 @@ const Topbar = () => {
   const [userData, setUserData] = useState(null);
   const userdataDecoded = decodeJWT();
   const { image, setImage } = useContext(ImageContext);
-
+  const [isShowncreate, setIsShowncreate] = useState(false);
+  const [isShownanon, setIsShownanon] = useState(false);
+  const [isShowncalendar, setIsShowncalendar] = useState(false);
+  const [isShownorg, setIsShownorg] = useState(false);
+  const [isShownlog, setIsShownlog] = useState(false);
+  // calendar
+  
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -107,28 +113,76 @@ const Topbar = () => {
       </div>
 
       <div className="topbarRight xl:w-[368px]">
-        <Link to={"/create-post"} className="topbarIconItem hidden xl:flex">
+      {/* <Button> */}
+        <div className="topbarIconItem hidden xl:flex">
+        <Link to={"/create-post"} 
+        onMouseEnter={() => setIsShowncreate(true)}
+        onMouseLeave={() => setIsShowncreate(false)}>
           <img src="/assets/icons/new_post.png" alt="add-post" />
         </Link>
-        <Link to={"/anonymous-posts"} className="topbarIconItem hidden xl:flex">
+        {/* </Button> */}
+        {isShowncreate && (
+        <p className="hoverStyle">Створити пост</p>
+          )}
+        </div>
+
+
+        <div className="topbarIconItem hidden xl:flex">
+        <Link to={"/anonymous-posts"}
+        onMouseEnter={() => setIsShownanon(true)}
+        onMouseLeave={() => setIsShownanon(false)}>
           <img src="/assets/icons/anonym.png" alt="anonym-posts" />
         </Link>
+        {isShownanon && (
+        <p className="hoverStyle">Анонімна стрічка</p>
+          )}
+        </div>
+
+        <div className="topbarIconItem hidden xl:flex">
         <Link
           to={"/create-organization"}
-          className="topbarIconItem hidden xl:flex">
+          onMouseEnter={() => setIsShownorg(true)}
+          onMouseLeave={() => setIsShownorg(false)}>
           <img src="/assets/icons/people.svg" alt="create-organisation" />
         </Link>
-        <Link to={"/calendar"} className="topbarIconItem hidden xl:flex">
+        {isShownorg && (
+        <p className="hoverStyle">Створити організацію</p>
+          )}
+        </div>
+
+        <div className="topbarIconItem hidden xl:flex">
+        <Link to={"/calendar"} 
+        onMouseEnter={() => setIsShowncalendar(true)}
+        onMouseLeave={() => setIsShowncalendar(false)}>
           <img src="/assets/icons/calendar.png" alt="calendar" />
         </Link>
+        {isShowncalendar && (
+        <p className="hoverStyle">Календар</p>
+          )}
+        </div>
+        <div className="">
         <Button
+          variant="ghost"
+          className="shad-button_ghost px-0 py-0 mr-2 ml-2 h-[24px] w-[24px]"
+          onMouseEnter={() => setIsShownlog(true)}
+          onMouseLeave={() => setIsShownlog(false)}
+          onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
+            handleSignOut(e)
+          }>
+          <img src="/assets/icons/logout.svg" alt="logout" className="block "/>
+        </Button>
+        {isShownlog && (
+        <p className="hoverStyle">Вийти</p>
+          )}
+        </div>
+        {/* <Button
           variant="ghost"
           className="shad-button_ghost px-0 py-0 mr-2 ml-2 h-[24px] w-[24px]"
           onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
             handleSignOut(e)
           }>
           <img src="/assets/icons/logout.svg" alt="logout" className="block "/>
-        </Button>
+        </Button> */}
         <Link
           to={`/profile/${userData.username}`}
           className="flex-center gap-3 mr-2 md:mr-10">
