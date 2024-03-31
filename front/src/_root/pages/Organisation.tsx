@@ -21,7 +21,6 @@ import OrganizationDescription from "@/components/shared/OrganizationDescription
 
 const Organisation = ({showChannels, setShowChannels}) => {
   let { id } = useParams();
-  console.log(id);
   const { toast } = useToast();
   const navigate = useNavigate();
 
@@ -40,7 +39,6 @@ const Organisation = ({showChannels, setShowChannels}) => {
       try {       
         const data = await getOrganisationbyId(id);
         setOrganisations(data.data);
-        console.log(data.data);
         setPosts(data.data.events);
         const data2 = await getSidebarData();
         const data3 = await getAllOrganizatios();

@@ -21,7 +21,6 @@ import EventCard from "@/components/shared/EventCard";
 
 const Category = ({showChannels, setShowChannels}) => {
   let { id } = useParams();
-  console.log(id);
   const { toast } = useToast();
   const navigate = useNavigate();
 

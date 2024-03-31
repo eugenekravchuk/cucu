@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const CreatePost = () => {
   return (
-    <div className="flex flex-1 mb-[50px]">
+    <div className="flex flex-1 mb-[100px]">
       <div className="common-container">
         <div className="max-w-5xl flex-start gap-3 justify-start w-full">
           <img
