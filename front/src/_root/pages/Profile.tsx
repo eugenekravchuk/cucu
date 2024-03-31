@@ -116,6 +116,7 @@ const Profile = () => {
                   {followers.length > 0 ? (
                     followers.map((follower) => (
                       <div
+                        key={follower.id}
                         className={`flex items-center gap-3 border-b ${
                           follower.id === followers[followers.length - 1].id
                             ? "border-white"
@@ -212,7 +213,7 @@ const Profile = () => {
                   height={20}
                 />
                 <p className="flex whitespace-nowrap small-medium text-dark-1">
-                  Edit Profile
+                  Редагувати профіль
                 </p>
               </Link>
             </div>

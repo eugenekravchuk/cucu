@@ -14,29 +14,29 @@ const ACCEPTED_IMAGE_TYPES = [
 export const SignupValidation = z.object({
   first_name: z
     .string()
-    .min(2, { message: "Name must be at least 2 characters." }),
+    .min(2, { message: "Ім'я повинно складатись принаймні з 2 символів." }),
   last_name: z
     .string()
-    .min(2, { message: "Name must be at least 2 characters." }),
+    .min(2, { message: "Ім'я повинно складатись принаймні з 2 символів." }),
   username: z
     .string()
-    .min(2, { message: "Name must be at least 2 characters." }),
+    .min(2, { message: "Ім'я повинно складатись принаймні з 2 символів." }),
   email: z
     .string()
     .email()
     .refine((email) => email.endsWith("@ucu.edu.ua"), {
-      message: "Email must be from the ucu.edu.ua domain",
+      message: "Електронна пошта повинна бути з домену ucu.edu.ua",
     }),
   password: z
     .string()
-    .min(8, { message: "Password must be at least 8 characters." }),
+    .min(8, { message: "Пароль повинен складатись принаймні з 8 символів." }),
 });
 
 export const SigninValidation = z.object({
   username: z.string(),
   password: z
     .string()
-    .min(8, { message: "Password must be at least 8 characters." }),
+    .min(8, { message: "Пароль повинен складатись принаймні з 8 символів." }),
 });
 
 export const UpdateProfileValidation = z.object({
@@ -45,22 +45,21 @@ export const UpdateProfileValidation = z.object({
     .optional()
     .transform((file) => file !== null && (file[0] as File))
     .refine((file) => {
-      console.log(file);
       if (file && file !== "h") {
         return file.size <= MAX_FILE_SIZE;
       } else {
         return true; // Bypass checks if no file
       }
-    }, "Expected file with size less than 10MB"),
+    }, "Очікується файл розміром менше 10 МБ"),
   first_name: z
     .string()
-    .min(2, { message: "Name must be at least 2 characters." }),
+    .min(2, { message: "Ім'я повинно складатись принаймні з 2 символів." }),
   last_name: z
     .string()
-    .min(2, { message: "Name must be at least 2 characters." }),
+    .min(2, { message: "Ім'я повинно складатись принаймні з 2 символів." }),
   username: z
     .string()
-    .min(2, { message: "Name must be at least 2 characters." }),
+    .min(2, { message: "Ім'я повинно складатись принаймні з 2 символів." }),
   email: z.string().email(),
   bio: z.string().optional(),
 });
@@ -71,8 +70,8 @@ export const UpdateProfileValidation = z.object({
 export const PostValidation = z.object({
   caption: z
     .string()
-    .min(5, { message: "Minimum 5 characters." })
-    .max(2200, { message: "Maximum 2,200 caracters" }),
+    .min(5, { message: "Мінімум 5 символів." })
+    .max(500, { message: "Максимум 500 символів." }),
   file: z
     .custom<FileList>()
     .optional()
@@ -80,21 +79,21 @@ export const PostValidation = z.object({
       if (!fileList) return true;
 
       return fileList.length === 1;
-    }, "Expected file")
+    }, "Очікується файл.")
     .transform((fileList) => {
       if (!fileList) return undefined;
       return fileList[0] as File;
     })
     .refine((file) => {
-      if (!file) return true;
+      if (!file || file === undefined) return true;
 
       return file.size <= MAX_FILE_SIZE;
-    }, `File size should be less than 10MB.`)
+    }, "Розмір файлу повинен бути меншим за 10 MБ.")
     .refine((file) => {
       if (!file) return true;
 
       return ACCEPTED_IMAGE_TYPES.includes(file.type);
-    }, "Only these types are allowed .jpg, .jpeg, .png, .webp and mp4"),
+    }, "Дозволені лише такі типи: .jpg, .jpeg, .png, .webp."),
   isAnonymous: z.boolean().optional(),
 });
 
@@ -105,8 +104,8 @@ export const PostValidation = z.object({
 export const OrganisationValidation = z.object({
   organization_name: z
     .string()
-    .min(2, { message: "Minimum 2 characters." })
-    .max(50, { message: "Maximum 50 caracters" }),
+    .min(2, { message: "Мінімум 2 символи." })
+    .max(50, { message: "Максимум 50 символів." }),
   photo: z
     .custom<FileList>()
     .optional()
@@ -114,7 +113,7 @@ export const OrganisationValidation = z.object({
       if (!fileList) return true;
 
       return fileList.length === 1;
-    }, "Expected file")
+    }, "Очікується файл.")
     .transform((fileList) => {
       if (!fileList) return undefined;
       return fileList[0] as File;
@@ -123,16 +122,16 @@ export const OrganisationValidation = z.object({
       if (!file) return true;
 
       return file.size <= MAX_FILE_SIZE;
-    }, `File size should be less than 10MB.`)
+    }, "Розмір файлу повинен бути меншим за 10 MБ.")
     .refine((file) => {
       if (!file) return true;
 
       return ACCEPTED_IMAGE_TYPES.includes(file.type);
-    }, "Only these types are allowed .jpg, .jpeg, .png, .webp and mp4"),
+    }, "Дозволені лише такі типи: .jpg, .jpeg, .png, .webp ."),
   organization_bio: z
     .string()
-    .min(5, { message: "Minimum 5 characters." })
-    .max(400, { message: "Maximum 400 caracters" }),
+    .min(5, { message: "Мінімум 5 символів." })
+    .max(400, { message: "Максимум 400 символів." }),
 });
 
 // ============================================================
@@ -142,12 +141,12 @@ export const OrganisationValidation = z.object({
 export const EventValidation = z.object({
   event_text: z
     .string()
-    .min(5, { message: "Minimum 5 characters." })
-    .max(50, { message: "Maximum 200 caracters" }),
+    .min(5, { message: "Мінімум 5 символів." })
+    .max(50, { message: "Максимум 200 символів." }),
   event_date: z
     .string()
-    .min(3, { message: "Minimum 3 characters." })
-    .max(50, { message: "Maximum 200 caracters" }),
+    .min(3, { message: "Мінімум 3 символи." })
+    .max(50, { message: "Максимум 50 символів." }),
   category_id: z.string(),
   organization: z.string(),
   photo: z
@@ -157,7 +156,7 @@ export const EventValidation = z.object({
       if (!fileList) return true;
 
       return fileList.length === 1;
-    }, "Expected file")
+    }, "Очікується файл.")
     .transform((fileList) => {
       if (!fileList) return undefined;
       return fileList[0] as File;
@@ -166,10 +165,10 @@ export const EventValidation = z.object({
       if (!file) return true;
 
       return file.size <= MAX_FILE_SIZE;
-    }, `File size should be less than 10MB.`)
+    }, "Розмір файлу повинен бути меншим за 10 MБ.")
     .refine((file) => {
       if (!file) return true;
 
       return ACCEPTED_IMAGE_TYPES.includes(file.type);
-    }, "Only these types are allowed .jpg, .jpeg, .png, .webp and mp4"),
+    }, "Дозволені лише такі типи: .jpg, .jpeg, .png, .webp"),
 });

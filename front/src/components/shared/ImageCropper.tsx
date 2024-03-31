@@ -6,6 +6,7 @@ import ReactCrop, {
   makeAspectCrop,
 } from "react-image-crop";
 import setCanvasPreview from "../setCanvasPreview";
+import saveAs from "file-saver";
 
 const MIN_DIMENSION = 150;
 
@@ -67,8 +68,13 @@ const ImageCropper = ({
                   imageRef.current.height
                 )
               );
-              const dataUrl = previewCanvasRef.current.toDataURL();
-              updateAvatar(dataUrl);
+              previewCanvasRef.current.toBlob(function (blob) {
+                const file = new File([blob], "preview.png", {
+                  type: "image/png",
+                });
+                updateAvatar(file);
+              }, "image/png");
+
               closeModal();
             }}>
             Crop Image

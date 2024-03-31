@@ -52,7 +52,6 @@ export const login = async (userdata) => {
     localStorage.setItem("jwtToken", token);
     jwtToken = token;
   } catch (e) {
-    console.log(e.response.data.detail);
     toast({ title: "Неправильний пароль або ім'я користувача" });
     return "error";
   }
@@ -321,7 +320,7 @@ export const getOrganisationbyId = async (organisationId) => {
     }
   );
   if (response.status !== 200) {
-    toast({ title: "Organisation get mehod failed. Please try again." });
+    toast({ title: "Не вдалося отримати організацію" });
     return "error";
   }
   return response;
@@ -337,7 +336,7 @@ export const getAllOrganizatios = async () => {
     }
   );
   if (response.status !== 200) {
-    toast({ title: "All organizations get mehod failed. Please try again." });
+    toast({ title: "Не вдалося отримати всі організації" });
     return "error";
   }
   return response.data;
@@ -356,7 +355,7 @@ export const getSidebarData = async () => {
     }
   );
   if (response.status !== 200) {
-    toast({ title: "Sidebar get mehod failed. Please try again." });
+    toast({ title: "Не вдалося отримати дані сайдбару" });
     return "error";
   }
   return response.data;
@@ -378,7 +377,7 @@ export const createEvent = async (eventData) => {
   );
 
   if (response.status !== 200) {
-    toast({ title: "Profile update failed. Please try again." });
+    toast({ title: "Не вдалося обновити профайл" });
     return "error";
   }
 };
@@ -393,7 +392,7 @@ export const getEventbyCategoryId = async (categoryId) => {
     }
   );
   if (response.status !== 200) {
-    toast({ title: "Organisation get mehod failed. Please try again." });
+    toast({ title: "Не вдалося знайти event" });
     return "error";
   }
   return response.data;
@@ -413,7 +412,7 @@ export const createComment = async (commentData, postId) => {
   );
 
   if (response.status !== 200) {
-    toast({ title: "Post get mehod failed. Please try again." });
+    toast({ title: "Не вдалося створити комент" });
     return "error";
   }
 
@@ -432,7 +431,7 @@ export const likeComment = async (commentId) => {
   );
 
   if (response.status !== 200) {
-    toast({ title: "Post get mehod failed. Please try again." });
+    toast({ title: "Не вдалося лайкнути комент" });
     return "error";
   }
 
@@ -450,7 +449,7 @@ export const deleteComment = async (commentId) => {
   );
 
   if (response.status !== 200) {
-    toast({ title: "Post deletion failed. Please try again." });
+    toast({ title: "Не вдалося видалити комент" });
     return "error";
   }
 };
@@ -471,7 +470,7 @@ export const createAnonymousPost = async (post) => {
   );
 
   if (response.status !== 200) {
-    toast({ title: "Post get mehod failed. Please try again." });
+    toast({ title: "Не вдалося створити пост" });
     return "error";
   }
 };
@@ -487,7 +486,7 @@ export const getAllAnonymousPosts = async () => {
   );
 
   if (response.status !== 200) {
-    toast({ title: "Post get mehod failed. Please try again." });
+    toast({ title: "Не вдалося дістати всі анонімні пости" });
     return "error";
   }
 
@@ -505,7 +504,7 @@ export const getAnonymousPostById = async (postId) => {
   );
 
   if (response.status !== 200) {
-    toast({ title: "Post get mehod failed. Please try again." });
+    toast({ title: "Не вдалося знайти юзера" });
     return "error";
   }
 
@@ -526,10 +525,8 @@ export const searchUser = async (searchdata) => {
     }
   );
 
-  console.log(response);
-
   if (response.status !== 200) {
-    toast({ title: "Post get mehod failed. Please try again." });
+    toast({ title: "Не вдалося здійснити пошук" });
     return "error";
   }
 

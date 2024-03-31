@@ -14,7 +14,6 @@ const SearchResults = () => {
       try {
         const results = await searchUser(username);
         setUsers(results);
-        console.log(results);
       } catch (error) {
         console.error("Error fetching users:", error);
       } finally {

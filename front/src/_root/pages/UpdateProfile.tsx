@@ -86,7 +86,6 @@ const UpdateProfile = () => {
         avatarForm.append("ava", value.file);
         const avaRequest = await uploadAvatar(avatarForm).then(() => {
           setImage(value.file);
-          console.log(image);
         });
       }
       const profileRequest = await updateProfile(profileData);
@@ -100,7 +99,7 @@ const UpdateProfile = () => {
 
   return (
     <div className="flex flex-1">
-      <div className="common-container ">
+      <div className="common-container mb-[50px]">
         <div className="flex-start gap-3 justify-start w-full max-w-5xl ">
           <img src="/assets/icons/edit.svg" width={36} height={36} alt="edit" />
           <h2 className="h3-bold md:h2-bold text-left w-full">Edit Profile</h2>
@@ -137,7 +136,7 @@ const UpdateProfile = () => {
               name="first_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="shad-form_label">First name</FormLabel>
+                  <FormLabel className="shad-form_label">Ім'я</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
@@ -158,7 +157,7 @@ const UpdateProfile = () => {
               name="last_name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="shad-form_label">Last name</FormLabel>
+                  <FormLabel className="shad-form_label">Прізвище</FormLabel>
                   <FormControl>
                     <Input
                       type="text"
@@ -217,7 +216,7 @@ const UpdateProfile = () => {
               name="bio"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="shad-form_label">Bio</FormLabel>
+                  <FormLabel className="shad-form_label">Біо</FormLabel>
                   <FormControl>
                     <Textarea
                       className="shad-textarea custom-scrollbar field-bg"
@@ -237,13 +236,12 @@ const UpdateProfile = () => {
                 type="button"
                 className="shad-button_dark_4"
                 onClick={() => navigate(-1)}>
-                Cancel
+                Відмінити
               </Button>
               <Button
                 type="submit"
-                className="shad-button_primary whitespace-nowrap py-6"
-              >
-                Update Profile
+                className="shad-button_primary whitespace-nowrap py-6">
+                Обновити
               </Button>
             </div>
           </form>

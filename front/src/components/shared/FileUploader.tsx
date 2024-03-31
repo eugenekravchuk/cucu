@@ -42,17 +42,18 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
   }
 
   useEffect(() => {
-    if (getPhotoBack && isBase64(fileUrl)) {
-      console.log(base64ToFile(fileUrl, "profile.png"));
-      fieldChange([base64ToFile(fileUrl, "profile.png")]);
+    if (file.length > 0) {
+      fieldChange(file);
     } else {
       setFileUrl("");
       fieldChange([]);
     }
-  }, [getPhotoBack]);
+  }, [modalOpen]);
 
   const updateImage = (imgSrc) => {
-    setFileUrl(imgSrc);
+    fieldChange([imgSrc]);
+    setFileUrl(convertFileToUrl(imgSrc));
+    setFile(imgSrc);
   };
 
   const onDrop = useCallback(

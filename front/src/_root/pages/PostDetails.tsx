@@ -67,6 +67,7 @@ const PostDetails = () => {
     try {
       setIsLoading(true);
       const outcome = await createComment(formData, post.id);
+      outcome.deletable = true;
       if (outcome == "error") {
         return;
       }

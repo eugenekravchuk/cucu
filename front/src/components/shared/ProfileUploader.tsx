@@ -15,49 +15,20 @@ const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [getPhotoBack, setGetPhotoBack] = useState(false);
 
-  interface Base64Data {
-    mimeType: string;
-    base64Data: string;
-  }
-
-  const dataURIRegex =
-    /^data:image\/(png|jpg|jpeg|gif|webp);base64,([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/i;
-
-  function isBase64(str) {
-    return dataURIRegex.test(str);
-  }
-
-  function base64ToFile(dataURI: string, filename: string): File {
-    const [mimeType, base64Data] = dataURI.split(",", 2);
-    if (!mimeType || !base64Data) {
-      throw new Error("Invalid data URI format");
-    }
-
-    const byteString = atob(base64Data);
-    const arrayBuffer = new ArrayBuffer(byteString.length);
-    const intArray = new Uint8Array(arrayBuffer);
-
-    for (let i = 0; i < byteString.length; i++) {
-      intArray[i] = byteString.charCodeAt(i);
-    }
-
-    const blob = new Blob([intArray], { type: mimeType });
-    return new File([blob], filename, { type: mimeType });
-  }
-
   const updateImage = (imgSrc) => {
-    setFileUrl(imgSrc);
+    fieldChange([imgSrc]);
+    setFileUrl(convertFileToUrl(imgSrc));
+    setFile(imgSrc);
   };
 
   useEffect(() => {
-    if (getPhotoBack && isBase64(fileUrl)) {
-      console.log(base64ToFile(fileUrl, "profile.png"));
-      fieldChange([base64ToFile(fileUrl, "profile.png")]);
+    if (file.length > 0) {
+      fieldChange(file);
     } else {
       setFileUrl(mediaUrl);
       fieldChange([]);
     }
-  }, [getPhotoBack]);
+  }, [modalOpen]);
 
   const onDrop = useCallback(
     (acceptedFiles: FileWithPath[]) => {

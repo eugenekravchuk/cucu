@@ -11,21 +11,20 @@ const Comment = ({
   initialLikes = 0,
   id,
   liked,
-  deletable,
+  deletable = true,
 }) => {
   const [likes, setLikes] = useState(initialLikes);
   const [isLiked, setIsLiked] = useState(liked);
-  const showDelete = deletable || decodeJWT.sub == username;
+  const showDelete = deletable;
   const [isLoading, setIsLoading] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
-
-  console.log(deletable);
 
   const handleLike = () => {
     try {
       setIsLoading(true);
       likeComment(id);
     } catch (e) {
+      ``;
       console.log(e);
     } finally {
       setIsLiked(!isLiked);

@@ -15,7 +15,6 @@ const EditPost = () => {
       try {
         setIsLoading(true);
         const data = await getPostById(Number(id));
-        console.log(data);
         setPost(data);
       } catch (error) {
         console.error("Error fetching post data:", error);
