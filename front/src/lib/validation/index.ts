@@ -5,6 +5,7 @@ const ACCEPTED_IMAGE_TYPES = [
   "image/jpg",
   "image/png",
   "image/webp",
+  "data:image/png;base64",
 ];
 
 // ============================================================
