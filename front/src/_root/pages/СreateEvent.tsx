@@ -14,12 +14,18 @@ import {
 import { Input, Button } from "@/components/ui";
 import { Loader } from "@/components/shared";
 import { FileUploader } from "@/components/shared";
+import { format } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 import { useEffect, useState } from "react";
-import {
-  createEvent,
-  getSidebarData,
-} from "@/jwt_back/work";
+import { createEvent, getSidebarData } from "@/jwt_back/work";
 import { EventValidation } from "@/lib/validation";
 import {
   Select,
@@ -34,6 +40,17 @@ const СreateEvent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [datacategories, setCategories] = useState([]);
   const [dataorganisations, setOrganisations] = useState([]);
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  function formatDate(date) {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0"); // +1 as months are zero-indexed
+    const day = date.getDate().toString().padStart(2, "0");
+
+    return `${year}/${month}/${day}`;
+  }
+
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -63,9 +80,10 @@ const СreateEvent = () => {
   });
 
   const handleCreateEvent = async (value: z.infer<typeof EventValidation>) => {
+    console.log(value.event_date);
     const eventForm = new FormData();
     eventForm.append("event_text", value.event_text);
-    eventForm.append("event_date", value.event_date);
+    eventForm.append("event_date", formatDate(value.event_date));
     eventForm.append("category_id", Number(value.category_id));
     eventForm.append("organization", Number(value.organization));
     eventForm.append("photo", value.photo);
@@ -125,14 +143,38 @@ const СreateEvent = () => {
               control={form.control}
               name="event_date"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Дата і час</FormLabel>
-                  <p className="shad-form_label text-xs">
-                    Записати в форматі ДД/ММ/РРРР
-                  </p>
-                  <FormControl>
-                    <Input type="text" className="shad-input" {...field} />
-                  </FormControl>
+                <FormItem className="flex flex-col">
+                  <FormLabel>Виберіть дату:</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant={"outline"}
+                          className={cn(
+                            "w-[240px] pl-3 text-left font-normal field-bg",
+                            !field.value && "text-muted-foreground"
+                          )}>
+                          {field.value ? (
+                            format(field.value, "PPP")
+                          ) : (
+                            <span>Виберіть дату</span>
+                          )}
+                          <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="start">
+                      <Calendar
+                        mode="single"
+                        selected={field.value}
+                        onSelect={field.onChange}
+                        disabled={(date) =>
+                          date < yesterday || date > new Date("2025-01-01")
+                        }
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
                   <FormMessage />
                 </FormItem>
               )}

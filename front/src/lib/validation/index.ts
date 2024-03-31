@@ -143,10 +143,7 @@ export const EventValidation = z.object({
     .string()
     .min(5, { message: "Мінімум 5 символів." })
     .max(50, { message: "Максимум 200 символів." }),
-  event_date: z
-    .string()
-    .min(3, { message: "Мінімум 3 символи." })
-    .max(50, { message: "Максимум 50 символів." }),
+  event_date: z.date(),
   category_id: z.string(),
   organization: z.string(),
   photo: z

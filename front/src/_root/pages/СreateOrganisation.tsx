@@ -11,7 +11,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Textarea, Input, Button } from "@/components/ui";
+import { Textarea, Input, Button, toast } from "@/components/ui";
 import { ProfileUploader, Loader } from "@/components/shared";
 
 import { useState } from "react";
@@ -38,6 +38,7 @@ const СreateOrganisation = () => {
     organisationForm.append("organization_name", value.organization_name);
     organisationForm.append("organization_bio", value.organization_bio);
     organisationForm.append("photo", value.photo);
+    console.log(value);
     try {
       setIsLoading(true);
       const outcome = await createOrganisation(organisationForm);
@@ -49,6 +50,10 @@ const СreateOrganisation = () => {
       console.log(e);
     } finally {
       setIsLoading(false);
+      toast({
+        title:
+          "Запит відправлено! \n Очікуйте підтвердження організації адміном",
+      });
       navigate("/home");
     }
   };

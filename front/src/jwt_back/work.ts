@@ -245,7 +245,7 @@ export const followUser = async (username) => {
   );
 
   if (response.status !== 200) {
-    toast({ title: "Post get mehod failed. Please try again." });
+    toast({ title: "Не " });
     return "error";
   }
 };
@@ -261,7 +261,7 @@ export const getFollowers = async (username) => {
   );
 
   if (response.status !== 200) {
-    toast({ title: "Post get mehod failed. Please try again." });
+    toast({ title: "Не вдалося отримати фоловерів" });
     return "error";
   }
 
@@ -279,7 +279,7 @@ export const getFollowings = async (username) => {
   );
 
   if (response.status !== 200) {
-    toast({ title: "Post get mehod failed. Please try again." });
+    toast({ title: "Не вдалося отримати фоловінги" });
     return "error";
   }
 
@@ -298,7 +298,7 @@ export const updateProfile = async (profileData) => {
   );
 
   if (response.status !== 200) {
-    toast({ title: "Profile update failed. Please try again." });
+    toast({ title: "Не вдалося обновити профайл" });
     return "error";
   }
 };
@@ -307,7 +307,20 @@ export const updateProfile = async (profileData) => {
 // ORGANISATION
 // *************************************
 export const createOrganisation = async (organisationData) => {
-  toast({ title: "Waiting for backend" });
+  console.log(organisationData);
+  const response = await axios.post(
+    `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/organization/create`,
+    organisationData,
+    {
+      headers: {
+        Authorization: `Bearer ${jwtToken}`,
+      },
+    }
+  );
+  if (response.status !== 200) {
+    toast({ title: "Не вдалося створити організацію" });
+    return "error";
+  }
 };
 
 export const getOrganisationbyId = async (organisationId) => {
@@ -366,6 +379,7 @@ export const getSidebarData = async () => {
 // *************************************
 
 export const createEvent = async (eventData) => {
+  console.log(1);
   const response = await axios.post(
     `http://cucu-1257864284.eu-north-1.elb.amazonaws.com/event/create_event`,
     eventData,
