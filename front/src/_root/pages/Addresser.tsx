@@ -1,5 +1,5 @@
-import { isAuthenticated, logout } from "@/jwt_back/work";
-import React, { useEffect } from "react";
+import { isAuthenticated } from "@/jwt_back/work";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Addresser = () => {

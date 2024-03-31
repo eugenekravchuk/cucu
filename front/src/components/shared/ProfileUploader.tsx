@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import { FileWithPath, useDropzone } from "react-dropzone";
 
 import { convertFileToUrl } from "@/lib/utils";
-import { useImage } from "@/context/ImageContext";
 import Modal from "./Modal";
 
 type ProfileUploaderProps = {
@@ -29,13 +28,11 @@ const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
   }
 
   function base64ToFile(dataURI: string, filename: string): File {
-    // Split the data URI
-    const [mimeType, base64Data] = dataURI.split(",", 2); // Split into maximum of 2 parts
+    const [mimeType, base64Data] = dataURI.split(",", 2);
     if (!mimeType || !base64Data) {
       throw new Error("Invalid data URI format");
     }
 
-    // Decode base64 data
     const byteString = atob(base64Data);
     const arrayBuffer = new ArrayBuffer(byteString.length);
     const intArray = new Uint8Array(arrayBuffer);
@@ -44,7 +41,6 @@ const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
       intArray[i] = byteString.charCodeAt(i);
     }
 
-    // Create Blob and File object
     const blob = new Blob([intArray], { type: mimeType });
     return new File([blob], filename, { type: mimeType });
   }
@@ -68,15 +64,13 @@ const ProfileUploader = ({ fieldChange, mediaUrl }: ProfileUploaderProps) => {
       setGetPhotoBack(false);
       setFileUrl(convertFileToUrl(acceptedFiles[0]));
       setModalOpen(true);
-      // setFile(acceptedFiles);
-      // fieldChange(acceptedFiles);
     },
     [file]
   );
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
-      if (modalOpen) return; // Stop the drop if the modal is open
+      if (modalOpen) return;
 
       setFileUrl(convertFileToUrl(acceptedFiles[0]));
       setModalOpen(true);

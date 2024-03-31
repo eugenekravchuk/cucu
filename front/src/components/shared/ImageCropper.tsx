@@ -2,7 +2,6 @@ import { useRef, useState } from "react";
 import ReactCrop, {
   Crop,
   centerCrop,
-  convertToPercentCrop,
   convertToPixelCrop,
   makeAspectCrop,
 } from "react-image-crop";

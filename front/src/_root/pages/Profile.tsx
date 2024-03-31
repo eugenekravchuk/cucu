@@ -1,11 +1,4 @@
-import {
-  Route,
-  Routes,
-  Link,
-  Outlet,
-  useParams,
-  useLocation,
-} from "react-router-dom";
+import { Route, Routes, Link, Outlet, useParams } from "react-router-dom";
 
 import { Button } from "@/components/ui";
 import { LikedPosts } from "@/_root/pages";
@@ -19,14 +12,7 @@ import {
 } from "@/jwt_back/work";
 import { useEffect, useState } from "react";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 interface StabBlockProps {
   value: string | number;
@@ -48,7 +34,6 @@ const Profile = () => {
   const [isFollowing, setIsFollowing] = useState(false);
   const [followers, setFollowers] = useState([]);
   const [followings, setFollowing] = useState([]);
-  // const [followers, setFollowers] = useState([])
   const userdataDecoded = decodeJWT();
 
   useEffect(() => {
@@ -203,8 +188,6 @@ const Profile = () => {
                   )}
                 </DialogContent>
               </Dialog>
-              {/* <StatBlock value={userData.followers} label="Followers" />
-              <StatBlock value={userData.following} label="Following" /> */}
             </div>
 
             <p className="small-medium md:base-medium text-center xl:text-left mt-7 max-w-screen-sm">

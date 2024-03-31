@@ -4,10 +4,8 @@ import { INavLink } from "@/types";
 import { sidebarLinks } from "@/constants";
 import { Loader } from "@/components/shared";
 import { Button } from "@/components/ui/button";
-import { jwtDecode } from "jwt-decode";
 import { decodeJWT, getProfile, logout } from "@/jwt_back/work";
-import { useContext, useEffect, useState } from "react";
-import ProfileContext from "@/context/ImageContext";
+import { useEffect, useState } from "react";
 
 const LeftSidebar = () => {
   const navigate = useNavigate();
@@ -20,8 +18,6 @@ const LeftSidebar = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState(null);
-  const userdataDecoded = decodeJWT();
-
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);

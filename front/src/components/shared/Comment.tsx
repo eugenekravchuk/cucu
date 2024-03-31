@@ -1,7 +1,6 @@
 import { decodeJWT, deleteComment, likeComment } from "@/jwt_back/work";
 
 import { useState } from "react";
-import { toast } from "@/components/ui";
 import { Link } from "react-router-dom";
 
 const Comment = ({

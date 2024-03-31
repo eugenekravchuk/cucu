@@ -1,5 +1,5 @@
 import { searchUser } from "@/jwt_back/work";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
 const SearchResults = () => {
@@ -65,7 +65,9 @@ const SearchResults = () => {
               </li>
             ))
           ) : (
-            <p className="text-center font-bold">😭😭😭😭😭Таких юзерів немає😭😭😭😭😭</p>
+            <p className="text-center font-bold">
+              😭😭😭😭😭Таких юзерів немає😭😭😭😭😭
+            </p>
           )}
         </ul>
       )}

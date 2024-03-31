@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 const Channels = ({  showChannels, setShowChannels, organisations, categories }) => {
     return (
@@ -16,7 +15,6 @@ const Channels = ({  showChannels, setShowChannels, organisations, categories })
             {organisations?.map((organization) => (
               <li key={organization.id}>
                 <Link to={`/organisation/${organization.id}`} className="user-card" onClick={() => {
-                    // setShowOrganization(showOrganization => !showOrganization);
                     setShowChannels(showChannels => !showChannels);
                 }}>
                   <img

@@ -16,11 +16,6 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [getPhotoBack, setGetPhotoBack] = useState(false);
 
-  interface Base64Data {
-    mimeType: string;
-    base64Data: string;
-  }
-
   const dataURIRegex =
     /^data:image\/(png|jpg|jpeg|gif|webp);base64,([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/i;
 
@@ -29,13 +24,11 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
   }
 
   function base64ToFile(dataURI: string, filename: string): File {
-    // Split the data URI
-    const [mimeType, base64Data] = dataURI.split(",", 2); // Split into maximum of 2 parts
+    const [mimeType, base64Data] = dataURI.split(",", 2);
     if (!mimeType || !base64Data) {
       throw new Error("Invalid data URI format");
     }
 
-    // Decode base64 data
     const byteString = atob(base64Data);
     const arrayBuffer = new ArrayBuffer(byteString.length);
     const intArray = new Uint8Array(arrayBuffer);
@@ -44,7 +37,6 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
       intArray[i] = byteString.charCodeAt(i);
     }
 
-    // Create Blob and File object
     const blob = new Blob([intArray], { type: mimeType });
     return new File([blob], filename, { type: mimeType });
   }
@@ -68,15 +60,13 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
       setGetPhotoBack(false);
       setFileUrl(convertFileToUrl(acceptedFiles[0]));
       setModalOpen(true);
-      // setFile(acceptedFiles);
-      // fieldChange(acceptedFiles);
     },
     [file]
   );
 
   const { getRootProps, getInputProps } = useDropzone({
     onDrop: (acceptedFiles) => {
-      if (modalOpen) return; // Stop the drop if the modal is open
+      if (modalOpen) return;
 
       setFileUrl(convertFileToUrl(acceptedFiles[0]));
       setModalOpen(true);
@@ -88,7 +78,6 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
 
   return (
     <>
-      {/* <button onClick={() => setModalOpen(true)}>Відкрити вікно</button> */}
       <div
         {...getRootProps({ disabled: modalOpen })}
         className="flex flex-center flex-col bg-light-2 rounded-xl cursor-pointer">

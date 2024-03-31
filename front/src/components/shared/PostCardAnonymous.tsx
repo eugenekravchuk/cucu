@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 
 import { PostStats } from "@/components/shared";
 import { multiFormatDateString } from "@/lib/utils";
-import { decodeJWT } from "@/jwt_back/work";
 import { jwtDecode } from "jwt-decode";
-import "./post.css";
+import "@/styles/post.css";
 
 type PostCardProps = {
   post: Models.Document;

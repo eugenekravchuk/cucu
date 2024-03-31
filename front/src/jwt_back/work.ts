@@ -1,8 +1,6 @@
 import axios from "axios";
-import { useState } from "react";
 import * as qs from "qs";
 import { toast } from "@/components/ui";
-import { clear } from "console";
 import { jwtDecode } from "jwt-decode";
 
 let jwtToken = localStorage.getItem("jwtToken") || "";

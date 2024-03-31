@@ -1,8 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { bottombarLinks } from "@/constants";
 import { Button } from "../ui";
-import { useState } from "react";
-import Channels from "./Channels";
 
 const Bottombar = ({ showChannels, setShowChannels }) => {
   const { pathname } = useLocation();
@@ -29,7 +27,6 @@ const Bottombar = ({ showChannels, setShowChannels }) => {
           </Link>
         );
       })}
-      {/* home or organization/:id */}
       {pathname === "/home"  || pathname.startsWith("/organisation") || pathname.startsWith("/category")?
           <Button className="flex-center flex-col bg-light-1 hover:bg-[#74747497] p-2 transition text-[#060606]"
             onClick={() => {

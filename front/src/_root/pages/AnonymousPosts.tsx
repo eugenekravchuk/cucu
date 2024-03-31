@@ -1,22 +1,10 @@
 import { Models } from "appwrite";
-
-// import { useToast } from "@/components/ui/use-toast";
-import { Loader, PostCard } from "@/components/shared";
-import { useToast } from "@/components/ui";
+import { Loader } from "@/components/shared";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  decodeJWT,
-  getAllAnonymousPosts,
-  getAllPosts,
-  isAuthenticated,
-} from "@/jwt_back/work";
+import { getAllAnonymousPosts } from "@/jwt_back/work";
 import PostCardAnonymous from "@/components/shared/PostCardAnonymous";
 
 const AnonymousPosts = () => {
-  const { toast } = useToast();
-  const navigate = useNavigate();
-
   const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState(null);
 
@@ -28,7 +16,6 @@ const AnonymousPosts = () => {
         setPosts(data);
       } catch (error) {
         console.error("Error fetching post data:", error);
-        // Handle error, e.g., setPost(null) and display error UI
       } finally {
         setIsLoading(false);
       }

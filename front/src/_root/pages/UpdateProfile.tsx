@@ -1,7 +1,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   Form,
@@ -26,7 +26,6 @@ import {
 import { ImageContext } from "@/context/ImageContext";
 
 const UpdateProfile = () => {
-  const { toast } = useToast();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState(null);
@@ -34,7 +33,7 @@ const UpdateProfile = () => {
 
   const form = useForm<z.infer<typeof UpdateProfileValidation>>({
     resolver: zodResolver(UpdateProfileValidation),
-    defaultValues: {}, // Updated - will fill this dynamically
+    defaultValues: {},
   });
 
   useEffect(() => {
@@ -56,7 +55,6 @@ const UpdateProfile = () => {
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
-        // setBio(userData.bio);
         setIsLoading(false);
       }
     };
@@ -71,7 +69,6 @@ const UpdateProfile = () => {
       </div>
     );
 
-  // Handler
   const handleUpdate = async (
     value: z.infer<typeof UpdateProfileValidation>
   ) => {
@@ -105,13 +102,7 @@ const UpdateProfile = () => {
     <div className="flex flex-1">
       <div className="common-container ">
         <div className="flex-start gap-3 justify-start w-full max-w-5xl ">
-          <img
-            src="/assets/icons/edit.svg"
-            width={36}
-            height={36}
-            alt="edit"
-            // className="invert-white"
-          />
+          <img src="/assets/icons/edit.svg" width={36} height={36} alt="edit" />
           <h2 className="h3-bold md:h2-bold text-left w-full">Edit Profile</h2>
         </div>
 
@@ -251,8 +242,6 @@ const UpdateProfile = () => {
               <Button
                 type="submit"
                 className="shad-button_primary whitespace-nowrap py-6"
-                // disabled={isLoadingUpdate}>
-                // {isLoadingUpdate && <Loader />}
               >
                 Update Profile
               </Button>

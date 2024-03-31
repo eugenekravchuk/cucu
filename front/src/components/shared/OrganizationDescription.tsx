@@ -46,39 +46,6 @@ const OrganizationDescription = ({organisation}) => {
             </div>
 
             <div className="flex-col justify-center gap-4">
-                {/* <div
-                className={`${
-                    userdataDecoded.sub !== userData.username && "hidden"
-                }`}>
-                <Link
-                    to={`/update-profile/${userdataDecoded.sub}`}
-                    className={`h-12 bg-light-2 px-5 text-dark-4 flex-center gap-2 rounded-lg ${
-                    userdataDecoded.sub !== userData.username && "hidden"
-                    }`}>
-                    <img
-                    src={"/assets/icons/edit.svg"}
-                    alt="edit"
-                    width={20}
-                    height={20}
-                    />
-                    <p className="flex whitespace-nowrap small-medium text-dark-1">
-                    Edit Profile
-                    </p>
-                </Link>
-                </div> */}
-                {/* <div className={`${username === userdataDecoded.sub && "hidden"}`}>
-                {isButtonLoading ? (
-                    <div className="flex items-center justify-center">
-                    <Loader />
-                    </div>
-                ) : (
-                    <Button
-                    onClick={followUserFunc}
-                    type="button"
-                    className={`shad-button_primary px-8 hover:bg-[#8E8E8E]`}>
-                    {isFollowing ? "Unfollow" : "Follow"}
-                    </Button>
-                )} */}
                 </div>
             </div>
         </div>

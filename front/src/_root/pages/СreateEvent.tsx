@@ -1,29 +1,23 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useToast } from "@/components/ui/use-toast";
-import { Textarea, Input, Button } from "@/components/ui";
-import { ProfileUploader, Loader } from "@/components/shared";
-import { FileUploader} from "@/components/shared";
+import { Input, Button } from "@/components/ui";
+import { Loader } from "@/components/shared";
+import { FileUploader } from "@/components/shared";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   createEvent,
-  createOrganisation,
-  decodeJWT,
-  getProfile,
-  uploadAvatar,
   getSidebarData,
 } from "@/jwt_back/work";
 import { EventValidation } from "@/lib/validation";
@@ -36,10 +30,8 @@ import {
 } from "@/components/ui/select";
 
 const СreateEvent = () => {
-  const { toast } = useToast();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedDate, setSelectedDate] = useState("");
   const [datacategories, setCategories] = useState([]);
   const [dataorganisations, setOrganisations] = useState([]);
   useEffect(() => {
@@ -51,7 +43,6 @@ const СreateEvent = () => {
         setOrganisations(datacategories.organizations);
       } catch (error) {
         console.error("Error fetching post data:", error);
-        // Handle error, e.g., setPost(null) and display error UI
       } finally {
         setIsLoading(false);
       }
@@ -59,15 +50,6 @@ const СreateEvent = () => {
 
     fetchData();
   }, []);
-
-  // const categories = [
-  //   { label: "Спорт", value: 1 },
-  //   { label: "Театр", value: 2 },
-  //   { label: "Поезія", value: 3 },
-  //   { label: "Музика", value: 4 },
-  // ];
-
-  // const organisations = [{ label: "ОССА", value: 1 }];
 
   const form = useForm<z.infer<typeof EventValidation>>({
     resolver: zodResolver(EventValidation),
@@ -115,7 +97,6 @@ const СreateEvent = () => {
             width={36}
             height={36}
             alt="edit"
-            // className="invert-white"
           />
           <h2 className="h3-bold md:h2-bold text-left w-full">
             Створити подію
@@ -126,22 +107,6 @@ const СreateEvent = () => {
           <form
             onSubmit={form.handleSubmit(handleCreateEvent)}
             className="flex flex-col gap-7 w-full mt-4 max-w-5xl mb-[60px]">
-            {/* <FormField
-              control={form.control}
-              name="photo"
-              render={({ field }) => (
-                <FormItem className="flex">
-                  <FormControl>
-                    <ProfileUploader
-                      fieldChange={field.onChange}
-                      mediaUrl={"/assets/icons/profile-placeholder.svg"}
-                    />
-                  </FormControl>
-                  <FormMessage className="shad-form_message" />
-                </FormItem>
-              )}
-            /> */}
-
             <FormField
               control={form.control}
               name="event_text"
@@ -162,7 +127,9 @@ const СreateEvent = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Дата і час</FormLabel>
-                  <p className="shad-form_label text-xs">Записати в форматі ДД/ММ/РРРР</p>
+                  <p className="shad-form_label text-xs">
+                    Записати в форматі ДД/ММ/РРРР
+                  </p>
                   <FormControl>
                     <Input type="text" className="shad-input" {...field} />
                   </FormControl>
@@ -202,7 +169,9 @@ const СreateEvent = () => {
               render={({ field }) => (
                 <FormItem className="flex flex-col">
                   <FormLabel>Організація</FormLabel>
-                  <p className="shad-form_label text-xs">Ви повинні бути творцем організації, щоб створити подію</p>
+                  <p className="shad-form_label text-xs">
+                    Ви повинні бути творцем організації, щоб створити подію
+                  </p>
                   <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger className="field-bg w-[250px]">
@@ -222,25 +191,21 @@ const СreateEvent = () => {
               )}
             />
 
-          <FormField
-            control={form.control}
-            name="photo"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="shad-form_label">
-                  Додати світлину
-                </FormLabel>
-                <FormControl>
-                  <FileUploader
-                    fieldChange={field.onChange}
-                    
-                    mediaUrl={""}
-                  />
-                </FormControl>
-                <FormMessage className="shad-form_message" />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="photo"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="shad-form_label">
+                    Додати світлину
+                  </FormLabel>
+                  <FormControl>
+                    <FileUploader fieldChange={field.onChange} mediaUrl={""} />
+                  </FormControl>
+                  <FormMessage className="shad-form_message" />
+                </FormItem>
+              )}
+            />
 
             <div className="flex gap-4 items-center justify-end">
               <Button
@@ -251,10 +216,7 @@ const СreateEvent = () => {
               </Button>
               <Button
                 type="submit"
-                className="shad-button_primary whitespace-nowrap py-6"
-                // disabled={isLoadingUpdate}>
-                // {isLoadingUpdate && <Loader />}
-              >
+                className="shad-button_primary whitespace-nowrap py-6">
                 Створити
               </Button>
             </div>

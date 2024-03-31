@@ -1,7 +1,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import {
   Form,
@@ -11,23 +11,14 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { useToast } from "@/components/ui/use-toast";
 import { Textarea, Input, Button } from "@/components/ui";
 import { ProfileUploader, Loader } from "@/components/shared";
 
-import { useContext, useEffect, useState } from "react";
-import {
-  createOrganisation,
-  decodeJWT,
-  getProfile,
-  uploadAvatar,
-} from "@/jwt_back/work";
-import { ImageContext } from "@/context/ImageContext";
+import { useState } from "react";
+import { createOrganisation } from "@/jwt_back/work";
 import { OrganisationValidation } from "@/lib/validation";
-import { Divide } from "lucide-react";
 
 const СreateOrganisation = () => {
-  const { toast } = useToast();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -79,7 +70,6 @@ const СreateOrganisation = () => {
             width={36}
             height={36}
             alt="edit"
-            // className="invert-white"
           />
           <h2 className="h3-bold md:h2-bold text-left w-full">
             Створити організацію
@@ -148,10 +138,7 @@ const СreateOrganisation = () => {
               </Button>
               <Button
                 type="submit"
-                className="shad-button_primary whitespace-nowrap py-6"
-                // disabled={isLoadingUpdate}>
-                // {isLoadingUpdate && <Loader />}
-              >
+                className="shad-button_primary whitespace-nowrap py-6">
                 Створити
               </Button>
             </div>

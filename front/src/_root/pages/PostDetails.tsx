@@ -1,17 +1,13 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui";
-import CommentForm from "@/components/forms/CommentCard";
 import { Loader } from "@/components/shared";
-import { GridPostList, PostStats } from "@/components/shared";
+import { PostStats } from "@/components/shared";
 import { multiFormatDateString } from "@/lib/utils";
-import { CommentSection } from "replyke";
 import {
   createComment,
   decodeJWT,
-  deleteComment,
   deletePost,
   getPostById,
-  getProfile,
 } from "@/jwt_back/work";
 import { useEffect, useState } from "react";
 import Comment from "@/components/shared/Comment";

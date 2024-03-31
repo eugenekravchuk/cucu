@@ -1,8 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-import { zonedTimeToUtc } from "date-fns-tz";
-
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
@@ -27,7 +25,6 @@ export function formatDateString(dateString: string) {
   return `${formattedDate} at ${time}`;
 }
 
-//
 export const multiFormatDateString = (timestamp: string = ""): string => {
   // const dateUTC2 = zonedTimeToUtc(timestamp, "Europe/Kiev");
 
