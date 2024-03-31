@@ -32,7 +32,7 @@ export const multiFormatDateString = (timestamp: string = ""): string => {
   const date: Date = new Date(timestampNum * 1000);
   const now: Date = new Date();
 
-  now.setHours(now.getHours() - 2);
+  now.setHours(now.getHours() - 3);
 
   const diff: number = now.getTime() - date.getTime();
   const diffInSeconds: number = diff / 1000;

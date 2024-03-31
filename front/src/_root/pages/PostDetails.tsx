@@ -206,6 +206,7 @@ const PostDetails = () => {
               initialLikes={com.likes}
               liked={com.is_liked}
               deletable={com.deletable}
+              time={multiFormatDateString(com.date)}
             />
           ))
         ) : (
