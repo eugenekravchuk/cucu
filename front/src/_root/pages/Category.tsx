@@ -17,13 +17,15 @@ const Category = ({ showChannels, setShowChannels }) => {
   const [posts, setPosts] = useState(null);
   const [sidebar_org, setSidebarOrg] = useState(null);
   const [sidebar_categories, setSidebarCategories] = useState(null);
+  const [categoryName, setCategoryName] = useState("Категорія");
 
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
         const data = await getEventbyCategoryId(id);
-        setPosts(data);
+        setCategoryName(data.category);
+        setPosts(data.events);
         const data2 = await getSidebarData();
         const data3 = await getAllOrganizatios();
         setSidebarCategories(data2.categories);
@@ -50,7 +52,9 @@ const Category = ({ showChannels, setShowChannels }) => {
     <div className="flex flex-1">
       <div className="home-container">
         <div className="home-posts mb-[100px]">
-          <h2 className="h3-bold md:h2-bold text-left w-full">Категорія</h2>
+          <h2 className="h3-bold md:h2-bold text-left w-full">
+            {categoryName}
+          </h2>
           <ul className="flex flex-col flex-1 gap-9 w-full ">
             {posts.length !== 0 ? (
               posts.map((post) => (
