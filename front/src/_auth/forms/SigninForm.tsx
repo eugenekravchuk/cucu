@@ -39,7 +39,7 @@ const SigninForm = () => {
     },
   });
 
-  // Handler
+
   const handleSignup = async (user: z.infer<typeof SigninValidation>) => {
     try {
       const userdata = {
@@ -108,15 +108,6 @@ const SigninForm = () => {
           <Button type="submit" className="shad-button_primary">
             Вхід
           </Button>
-
-          {/* <p className="text-small-regular text-dark-2 text-center mb-[-10px]">
-            Забув пароль?
-            <Link
-              to="/sign-up"
-              className="font-bold ml-1 underline text-[#501E97]">
-              Відновити
-            </Link>
-          </p> */}
 
           <p className="text-small-regular text-dark-2 text-center">
             Не маєш облікового запису?

@@ -48,7 +48,7 @@ export const UpdateProfileValidation = z.object({
       if (file && file !== "h") {
         return file.size <= MAX_FILE_SIZE;
       } else {
-        return true; // Bypass checks if no file
+        return true;
       }
     }, "Очікується файл розміром менше 10 МБ"),
   first_name: z

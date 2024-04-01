@@ -126,7 +126,3 @@ class Organization(Base):
     is_active = Column(Boolean, default=False, nullable=False)
 
     events = relationship('Event')
-
-
-
-

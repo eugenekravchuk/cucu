@@ -46,9 +46,9 @@ const PostForm = ({ post, action }: PostFormProps) => {
     localStorage.getItem("jwtToken") || ""
   );
 
-  // Handler
+
   const handleSubmit = async (value: z.infer<typeof PostValidation>) => {
-    // ACTION = UPDATE
+
     if (post && action === "Update") {
       try {
         setIsLoading(true);
@@ -65,7 +65,6 @@ const PostForm = ({ post, action }: PostFormProps) => {
       }
     }
 
-    // ACTION = CREATE
 
     const formData = new FormData();
     formData.append("data", JSON.stringify({ text: value.caption }));
@@ -204,7 +203,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
           <Button
             type="submit"
             className="shad-button_primary whitespace-nowrap py-6">
-            {/* {action} Опублікувати */}
+            
             Опублікувати
           </Button>
         </div>

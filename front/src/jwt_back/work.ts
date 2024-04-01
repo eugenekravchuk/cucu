@@ -19,7 +19,6 @@ export const isTokenValid = (token) => {
 };
 
 export const isAuthenticated = () => {
-  // Check if JWT token exists and is not expired
   return jwtToken !== "" && isTokenValid(jwtToken);
 };
 

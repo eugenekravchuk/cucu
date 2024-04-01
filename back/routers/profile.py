@@ -92,5 +92,3 @@ def return_followers(user:user_dependency, db:db_dependecy, username:str = Path(
 	us:Users = db.query(Users).filter(Users.username == username).first()
 	if us:
 		return us.following
-
-

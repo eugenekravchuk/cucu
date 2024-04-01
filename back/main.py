@@ -33,14 +33,3 @@ async def upload_image(file: UploadFile = File(...)):
         raise HTTPException(status_code=404, detail='No file found')
     resp = await s3_upload_image(file)
     return {'img_url': f'{resp}'}
-
-
-
-
-
-
-
-
-
-
-
